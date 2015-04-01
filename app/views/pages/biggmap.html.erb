@@ -1,0 +1,21 @@
+<style>
+#header {
+    background-color:gray;
+    color:white;
+    padding:4px;
+    text-align:right;
+}
+</style>
+<body>
+	
+<div id="header">
+	<%= link_to "Home", {:controller => 'say', :action => 'hello'} %> ||
+	<%= link_to "About", {:controller => 'pages', :action => 'about'} %> ||
+	<%= link_to "View Hazard Maps", {:controller => 'pages', :action => 'hazard'} %> ||
+	<%= link_to "Contact Us", {:controller => 'pages', :action => 'contacts'} %> ||
+	<%= link_to "Check Best Route", {:controller => 'pages', :action => 'bestroute'} %> ||
+	<%= link_to "LOG IN", {:controller => 'pages', :action => 'login'} %> ||
+</div>
+<center><li><%= link_to image_tag('bigmap.gif'), '#' %></li></center>
+     </div>
+</body>

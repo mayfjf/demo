@@ -1,0 +1,86 @@
+<style>
+#header {
+    background-color:gray;
+    color:white;
+    padding:4px;
+    text-align:right;
+}
+
+#section {
+    width:100%;
+    float:left;
+    padding:10px; 
+    text-align:left;
+}
+
+#aside {
+    
+    width:100%;
+    height:950px;
+    float:center;
+    padding:20px; 
+
+}
+#footer {
+    background-color:gray;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}
+/* unvisited link */
+a:link {
+    color: "white";
+}
+
+/* visited link */
+a:visited {
+    color: blue;
+}
+
+/* mouse over link */
+a:hover {
+    color: blue;
+}
+
+/* selected link */
+a:active {
+    color: #0000FF;
+}
+</style>
+
+<body bgcolor="white" link= "white">
+
+<div id="header">
+	<%= link_to "Home", {:controller => 'say', :action => 'hello'} %> ||
+	<%= link_to "About", {:controller => 'pages', :action => 'about'} %> ||
+	<%= link_to "View Hazard Maps", {:controller => 'pages', :action => 'hazard'} %> ||
+	<%= link_to "Contact Us", {:controller => 'pages', :action => 'contacts'} %> ||
+	<%= link_to "Check Best Route", {:controller => 'pages', :action => 'bestroute'} %> ||
+	<%= link_to "LOG IN", {:controller => 'pages', :action => 'login'} %> ||
+</div>
+<hr>
+
+<div id="section">
+	<center><li><%= link_to image_tag('g.jpg'), '#' %></li></center>
+	<font color = "blue">About Guimaras PDRRMC <br></font>
+	<p>
+	Guimaras PDRRMC 
+	<p>
+	<font color = "blue">About the Software <br></font>
+	<p>
+	Guimaras PDRRMC 
+	
+	
+</div>
+
+<div id = "aside">
+	<center><li><%=link_to image_tag("gmap.gif"), {:controller => 'pages', :action => 'biggmap'} %> </li></center>
+</div>	
+
+<div id="footer">
+Copyright © Guimaras PDRRMC 2014
+</div>
+
+</body>
+
