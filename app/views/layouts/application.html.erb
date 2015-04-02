@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Demo</title>
+  <title>Guimaras PDRRMC</title>
   	<link rel="stylesheet" href="//railsgirls.com/assets/bootstrap.css">
 	<link rel="stylesheet" href="//railsgirls.com/assets/bootstrap-theme.css">
   	<%= stylesheet_link_tag    'default', media: 'all', 'data-turbolinks-track' => true %>
@@ -17,12 +17,22 @@
   <p class="alert alert-danger"><%= alert %></p>
 <% end %>
 
-  <div class="container">
-  <%= yield %>
-	</div>
 
-  
+<div class="container">
+<ul class = "nav nav-tabs">
+  <li><%= link_to "Home", root_path %> </li>
+  <li><%= link_to "About", {:controller => 'pages', :action => 'about'} %> </li>
+  <li><%= link_to "View Hazard Maps", {:controller => 'pages', :action => 'hazard'} %> </li>
+  <li><%= link_to "Contact Us", {:controller => 'pages', :action => 'contact'} %> </li>
+  <li><%= link_to "Check Best Route", {:controller => 'pages', :action => 'bestroute'} %> </li>
+  <li><%= link_to "Admin", {:controller => 'admin', :action => 'controlpanel'} %> </li>
+  </ul>
 
+<%= yield %>
+
+Copyright © Guimaras PDRRMC 2014
+
+</div>
 
 </body>
 </html>

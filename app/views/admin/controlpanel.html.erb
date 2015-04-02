@@ -1,12 +1,12 @@
-<h1>Administrative ControlPanel</h1>
+<h1>Administrator ControlPanel</h1>
 
 
 <p id ="myP">       
 <div class="center jumbotron" >
 <h3>User Controls</h3>
 <%= link_to "Create User", '/users/new', class: "btn btn-lg btn-primary" %>
-<%= link_to "View Users", '#', class: "btn btn-lg btn-primary" %>
-<%= link_to "Edit User", '#', class: "btn btn-lg btn-primary" %>
+<%= link_to "View Users", '/users/show', class: "btn btn-lg btn-primary" %>
+<%= link_to "Edit User", 'edit_user_path', class: "btn btn-lg btn-primary" %>
 <%= link_to "Delete User", '#', class: "btn btn-lg btn-primary" %><br><br>
 </div> 
 <div class="center jumbotron">
