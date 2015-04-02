@@ -1,23 +1,25 @@
 Rails.application.routes.draw do
   
-  root 'say#hello'
 
-  get 'admin' => 'control_panel#index', :as => :admin
-  #resource :control_panel, only: [:index, :new, :create, :destroy]
+  root to: 'home#index'
 
+  get 'pages/about'
 
-  get 'pages/:action', :controller => "pages"
-  #get 'control_panel#index'
+  get 'pages/bestroute'
 
-  get 'admin/:action'  => 'users#new'
-  get 'users/:action'  => 'users#create'
+  get 'pages/biggmap'
 
-resources :users do
-  put :create, :on => :collection
-end
-  #match ':controller(/:action(/:id))(.:format)', via: [:get, :post]
-  #match '/admin/show',to: 'admin#adminControls',  via: 'get'
+  get 'pages/contact'
+
+  get 'pages/hazard'
+
   
+  get 'admin' => 'admin#controlpanel', :as => :admin
+resource :admin, only: [:controlpanel]
+
+devise_for :users
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
