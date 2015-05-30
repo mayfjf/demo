@@ -1,0 +1,2 @@
+module DisasterHelper
+end

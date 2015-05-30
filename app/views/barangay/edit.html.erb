@@ -1,0 +1,40 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Edit Barangay Record</h1>
+</div>
+
+<div id="section">
+
+
+<%= form_for(:barangay, :url => {:controller => 'barangay', :action => 'savetable', :method=>:get, :id => params[:id], :people_id => params[:people_id], :main_livelihood=> params[:main_livelihood], :area=> params[:area], :rescue_resources=> params[:rescue_resources], :hazard_id=> params[:hazard_id], :municipality_id=> params[:municipality_id], :population=> params[:population], :livestock=> params[:livestock], :agri=> params[:agri], :commercial=> params[:commercial]}) do |f| %>
+
+<table class="tableContainer" cellspacing="80px"> 
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0" >  
+  	<td height="100" width="15%" colspan="4"> <b>Barangay ID:</b><br><%= f.text_field :id,:value => @bar.id, :readonly => true %> </td></tr>
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0" >  
+    <td height="100" width="15%"> <b>Barangay Name:</b><br><%=f.text_field :name,:value => @bar.name%> </td>
+    <td height="100" width="15%"> <b>Municipality:</b><br><%= f.select :municipality_id, Municipality.all.collect {|p| [ p.name, p.id ] },{:prompt => "Please Select", :selected =>@bar.municipality_id}%></td>
+    <td height="100" width="15%"> <b>Chairman:</b><br><%= f.select :people_id, People.all.map { |u|[[u.firstname,u.familyname],u.id]}, {:prompt => "Please Select ",  :selected =>@bar.people_id}%></td>
+    <td height="100" width="15%"> <b>Hazard Threat:</b><br><%= f.select :hazard_id, Hazard.all.collect {|p| [ p.description, p.id ] },{:prompt => "Please Select", :selected =>@bar.hazard_id}%></td>
+  </tr>
+  <tr  style="outline: thin solid"  bgcolor="#C0C0C0"> 
+    <td height="100" width="15%"> <b>Main Livelihood:</b><br><%=f.text_field :main_livelihood,:value => @bar.main_livelihood%> </td>
+    <td height="100" width="15%"> <b>Rescue Resources:</b><br><%=f.text_area :rescue_resources,:value => @bar.rescue_resources%> </td>
+    <td height="100" width="15%"> <b>Area in km:</b><br><%=f.number_field :area, :class => 'text_field', :step => '0.01',:value => @bar.area, :readonly => true%></td>
+    <td height="100" width="15%"> <b>Infrastructure:</b><br><%=f.number_field :infra, :class => 'text_field', :step => '0.01',:value => @bar.infra, :readonly => true%></td></tr>
+  <tr  style="outline: thin solid"  bgcolor="#C0C0C0"> 
+    <td height="100" width="15%"> <b>Population:</b><br><%=f.number_field :population,:value => @bar.population, :readonly => true%> </td>
+    <td height="100" width="15%"> <b>Amount Value in Livestock:</b><br><%=f.number_field :livestock,:value => @bar.livestock, :class => 'text_field', :step => '0.01', :readonly => true%> </td>
+    <td height="100" width="15%"> <b>Amount Value in Agriculture:</b><br><%=f.number_field :agri,:value => @bar.agri, :class => 'text_field', :step => '0.01', :readonly => true%> </td>
+    <td height="100" width="15%"> <b>Amount Value in Commerce/Trade:</b><br><%=f.number_field :commercial,:value => @bar.commercial, :class => 'text_field', :step => '0.01', :readonly => true%> </td></tr>
+
+
+  </table><hr>
+  
+    <center>
+    <%= f.submit "Submit", class: "btn btn-default" %> <% end %>                 
+    </center>
+</div>
+</body>

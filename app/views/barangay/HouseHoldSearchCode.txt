@@ -1,0 +1,8 @@
+<td height="50" width = "25%">
+  <%= form_tag(household_index_path, :method => "get", id: "search-form") do %>
+  Search for Households within the Zone: <%= number_field_tag :search, params[:search], placeholder: "Enter Zone ID here" %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %></td>
+
+</tr></table><br><br>
+

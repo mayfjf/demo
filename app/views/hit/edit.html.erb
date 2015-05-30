@@ -1,0 +1,74 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Edit Hit Zone Record</h1>
+</div>
+
+<div id="section"><center>
+ 
+  <%= form_for(:hit, :url => {:controller => 'hit', :action => 'savetable', :method=>:get, :id => params[:id], :disaster_id => params[:disaster_id],:zone_id => params[:zone_id],:effect1 => params[:effect1], :effect2 => params[:effect2], :effect2 => params[:effect2], :dlifeline1 => params[:dlifeline1], :dlifeline2 => params[:dlifeline2], :dlifeline3 => params[:dlifeline3],:livestock => params[:livestock], :agri => params[:agri], :commerce => params[:commerce], :infra => params[:infra], :dead => params[:dead], :missing => params[:missing], :injured => params[:injured], :displaced => params[:displaced], :relocated => params[:relocated], :good => params[:good]}) do |f| %>
+  
+<table class="tableContainer" cellspacing="80px">   
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b>Hit ID:</b><br><%= f.text_field :id,:value => @hit.id, :readonly => true %> </td>
+	    <td height="100" width="15%"><b>Disaster ID:</b><br><%= f.text_field :disaster_id, :value => @hit.disaster_id, :readonly => true %> </td>
+		<td height="100" width="15%"><b>Zone ID:</b><br><%=f.number_field :zone_id, :value => @hit.zone_id, :readonly => true %><%=link_to "Verify ID", zone_show_path%> </td></tr>
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b> Major Catastrophy:</b><br><%= f.select :effect1, options_for_select(%w[Please_Select Flood Landslide Storm_surge Damaged_Property Electrocution],@hit.effect1),:include_blank => true%></td>
+	    <td height="100" width="15%"><b> Secondary Catastrophy:</b><br><%= f.select :effect2, options_for_select(%w[Please_Select Flood Landslide Storm_surge Damaged_Property Electrocution],@hit.effect2),:include_blank => true%></td>
+	    <td height="100" width="15%"><b> Minor Catastrophy:</b><br><%= f.select :effect3, options_for_select(%w[Please_Select Flood Landslide Storm_surge Damaged_Property Electrocution],@hit.effect3),:include_blank => true%></td></tr>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b> Major Lifeline Damaged:</b><br><%= f.select :dlifeline1, options_for_select(%w[Please_Select Water Electricity Communication Transportation],@hit.dlifeline1),:include_blank => true%></td>
+	    <td height="100" width="15%"><b> Secondary Lifeline Damaged:</b><br><%= f.select :dlifeline2, options_for_select(%w[Please_Select Water Electricity Communication Transportation],@hit.dlifeline2),:include_blank => true%></td>
+	    <td height="100" width="15%"><b> Minor Lifeline Damaged:</b><br><%= f.select :dlifeline3, options_for_select(%w[Please_Select Water Electricity Communication Transportation],@hit.dlifeline3),:include_blank => true%></td></tr></table><br>
+
+<table class="tableContainer" cellspacing="80px"> 
+<center><h3><b>Estimated Loss<b></h3></center> 
+	 <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+	    <td height="100" width="15%"> <b>Livestock(%):</b><br><%= f.number_field :livestock, :value => @hit.livestock, :class => 'text_field', :step => '0.01'%><br>
+		<%@zo =Zone.joins(:hit).where(['hits.zone_id LIKE ?',@hit.zone_id])%>
+		<%@lvalue = @zo[0].livestock*(@hit.livestock/100)%>
+		<font color="blue"><%=@lvalue%> Pesos</font></td>
+	     
+	    <td height="100" width="15%"> <b>Agriculture(%):</b><br><%= f.number_field :agri, :value => @hit.agri, :class => 'text_field', :step => '0.01'%> <br>
+	    <%@lvalue = @zo[0].agri*(@hit.agri/100)%>
+		<font color="blue"><%=@lvalue%> Pesos</font></td>
+	    <td height="100" width="15%"> <b>Commerce/Trade(%):</b><br><%= f.number_field :commerce, :value => @hit.commerce, :class => 'text_field', :step => '0.01'%><br> 
+	    <%@lvalue = @zo[0].commercial*(@hit.commerce/100)%>
+		<font color="blue"><%=@lvalue%> Pesos</font></td>
+	    <td height="100" width="15%"> <b>Infrastructure(%):</b><br><%= f.number_field :infra, :value => @hit.infra, :class => 'text_field', :step => '0.01'%><br> 
+	    <%@lvalue = @zo[0].infra*(@hit.infra/100)%>
+		<font color="blue"><%=@lvalue%> Pesos</font></td></tr></table><br>
+
+
+<table class="tableContainer" cellspacing="80px">  
+
+    
+    <center><h3><b>Affected People<b></h3></center>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    	<td height="100" width="15%"> <b>Number of Dead:</b><br><%= f.number_field :dead, :value => @hit.dead%></td>
+	    <td height="100" width="15%"> <b>Number of Missing:</b><br><%= f.number_field :missing, :value => @hit.missing%> </td>
+	    <td height="100" width="15%"> <b>Number of Injured:</b><br><%= f.number_field :injured, :value => @hit.injured%> </td></tr>
+	<tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"> <b>Number of Displaced:</b><br><%= f.number_field :displaced, :value => @hit.displaced%> </td>
+		<td height="100" width="15%"> <b>Number of Relocated:</b><br><%= f.number_field :relocated, :value => @hit.relocated%> </td>
+		<td height="100" width="15%"> <b>Number of Well/Unaffected:</b><br><%= f.number_field :good, :value => @hit.good%> </td></tr>
+		    <%@hit.dead=@hit.dead || 0%>
+    	    <%@hit.missing=@hit.missing || 0%>
+  			<%@hit.injured=@hit.injured || 0%>
+  			<%@hit.displaced=@hit.displaced || 0%>
+  			<%@hit.relocated=@hit.relocated || 0%>
+  			<%@hit.good=@hit.good || 0%>
+		<%sum=@hit.dead+@hit.missing+@hit.injured+@hit.displaced+@hit.relocated+@hit.good%>
+	    
+    </table><hr>
+    <b>TOTAL PEOPLE:</b>  <%= sum%>
+
+    <center><%= f.submit "Submit", class: "btn btn-default" %></center><% end %><br>
+    <%= button_to "View Affected People", {:controller => "household", :action => "search", :id => @hit.zone_id}, {:method=>:post} %>
+     
+  </div>
+</body>

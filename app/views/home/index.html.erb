@@ -1,19 +1,40 @@
+<%= stylesheet_link_tag "home" %>
 
-<div id="section">
-	<center><h1><font color = "blue">Guimaras PDRRMC <br>Post Disaster Assessment and Decision Support Response System</h1></font>
-	<p></center>
-	hello Guimaras PDRRMC PDADSRS is a computer software that automatically computes the impact of disaster in Guimaras. This system is integrated with decision support that aids in the computations and identifications of relief aids needed by victims for a fair, precise and time distribution.
+<div class="container">
+
+<%=image_tag("banner1.png", height: '30%', width: '100%')%>
+
+<ul class = "nav nav-tabs">
+  <li><%= link_to "Home", root_path %> </li>
+  <li><%= link_to "About", pages_about_path %> </li>
+  <li><%= link_to "View Hazard Maps", pages_hazard_path %> </li>
+  <li><%= link_to "Contact Us", pages_contact_path %> </li>
+  <li><%= link_to "Check Routes in Google Map", pages_bestroute_path %> </li>
+  <li><%= link_to "Check Passable Routes",bestpath_new_path%> </li>
+  <li><%= link_to "Admin", admin_controlpanel_path %> </li>
+  <li><%= link_to "Stat Charts", pages_map_path %> </li>
+  
+
+  <% if current_user %>
+      <li><%= link_to "Manage User Data", pages_passcode_path %></li>
+      <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+  <% else %>
+      <li><%= link_to "Sign In", new_user_session_path %> </li>
+  <%end%>
+  </ul>
+
+<div id="section"><br><br><br><br>
+  
+	<center><h1><font color = "blue">Post Disaster Assessment <br>and Decision Support Response System</h1></font>
+	<br><br>
+    Click the map to enlarge >>
 	</p>
-	<p>
-	below is the map of Guimaras. Please feel free to enter your source location and target location to check for the current best route.
-	ddfdsfdsfskmggdfgdfmgmfdgmfdmgdfg;df;gm;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;dlsmsfslfLLFD
-    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo 
-    </p>
 </div>
 
 <div id = "aside">
 	<center><li><%=link_to image_tag("gmap.gif"), {:controller => 'pages', :action => 'biggmap'} %> </li></center>
-</div>	
+</div></div>
+	
 
 </body>
 

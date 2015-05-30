@@ -1,0 +1,102 @@
+<%= stylesheet_link_tag "zone" %>
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+
+<body>
+
+<div id="header">
+<h1>Disaster Listings</h1>
+</div>
+
+<div id="section"><center>
+ 
+<Table>  
+<tr>
+<td height="50" width = "1%"><%= link_to "Create New Record", disaster_new_path, class: "btn btn-default" %></td>
+<td height="50" width = "25%">
+  <%= form_tag(disaster_index_path, :method => "get", id: "search-form") do %>
+  Search by Hazard ID: <%= number_field_tag :search, params[:search], placeholder: "Enter Hazard ID here" %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %></td>
+
+</tr></table><br><br>
+
+
+ <table class="tableContainer" cellspacing="80px">                     
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0" >
+
+    <th height="50" align="center">DISASTER<br>ID</th>
+    <th height="50" align="center">HAZARD<br>ID</th>
+    <th height="50" align="center">HAZARD<br>TYPE</th>
+    <th height="50" align="center" colspan="7">DATE/TIME </th>
+  </tr>
+
+<% @d.all.each do |dis| %>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE" >
+  <td height="50" width="15%" ><%= dis.id %></td>
+  <td height="50" width="15%" ><%= dis.hazard_id %></td>
+    
+  <%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',dis.hazard_id])%>
+  <td height="50" width="10%"><%=@disaster[0].description%></td>
+
+  <td height="50" width="30%"><%= dis.date %></td>
+  
+  <td><%= button_to "Edit", {:controller => "disaster", :action => "edit", :id => dis.id}, {:method=>:post} %></td>
+  <td><%= button_to "View Hit Zones", {:controller => "hit", :action => "search", :id =>dis.id}, {:method=>:post} %></td>
+  <td><%= button_to "Add Hit Zones", {:controller => "hit", :action => "new", :id =>dis.id}, {:method=>:post} %></td>
+  <td><%= button_to "Open Report", {:controller => "disaster", :action => "disaster_report", :id =>dis.id}, {:method=>:post} %></td>
+  
+  
+  <td height="50" width="25%"></td>
+  <td><%= link_to "Delete", disaster_delete_path(:disaster=>dis.id), method: :delete, class:'btn btn-mini btn-danger', :onclick => "makingSure(event)"%></td>
+  
+
+</tr>
+<% end %></table><br><br><br>
+<%x=@d.group("hazard_id").count%>
+
+  <h3>SUMMARY:</h3><center>
+  <table class="tableContainer" cellspacing="80px"> 
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+  <th height="50" width="25%"><b>TOTAL NUMBER OF DISASTERS:</b></th> 
+  <td height="50" width="25%"><%=@d.count%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <th height="50" width="25%"><b>TOTAL NUMBER OF TYPHOON :</b></th>
+  <td height="50" width="25%"> <%=x[1]%></td></tr>
+
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <th height="50" width="25%"><b>TOTAL NUMBER OF STORM SURGE:</b></th>
+  <td height="50" width="25%"> <%=x[2]%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <th height="50" width="25%"><b>TOTAL NUMBER OF LANDSLIDE :</b></th> 
+  <td height="50" width="25%"><%=x[3]%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <th height="50" width="25%"><b>TOTAL NUMBER OF TSUNAMI :</b></th> 
+  <td height="50" width="25%"><%=x[4]%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <th height="50" width="25%"><b>TOTAL NUMBER OF FLOOD :</b></th>
+  <td height="50" width="25%"><%=x[5]%></td></tr>
+
+</table><br><br></center>
+
+
+
+
+
+</div>

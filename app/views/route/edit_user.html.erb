@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Edit Route Record</h1>
+</div>
+
+
+
+<div id="section">
+   <%= form_for(:route, :url => {:controller => 'route', :action => 'savetable', :method=>:get, :id => params[:id], :name => params[:name],:weight => params[:weight],:passable => params[:passable], :description => params[:description]} ) do |f| %>
+
+   <table class="tableContainer" cellspacing="80px">   
+  	     <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+  		      <td height="100" width="15%"><b>Route ID:</b><br><%= f.text_field :id,:value => @r.id, :readonly => true %></td> 
+          	<td height="100" width="15%" colspan="2"><b>Name:</b><br><%=f.text_field :name, :value => @r.name,:readonly => true%> </td> 
+          	<tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+          	<td height="100" width="15%"><b>Passable[1-true / 0-false] ?</b><br><%= f.text_field :passable,:value => @r.passable, :class => 'text_field'%></td>
+            <td height="100" width="15%"><b>travel time (min):</b><br><%= f.number_field :weight,:value => @r.weight, :class => 'text_field',:readonly => true%>
+            <td height="100" width="15%"><b>Description:</b><br><%= f.text_field :description,:value => @r.description, :readonly => true%></td> 
+           	</tr>
+      </table>
+      <hr> 
+    
+    <center><br><br><%= f.submit "Submit", class: "btn btn-default" %></center>
+    <% end %>
+

@@ -53,3 +53,14 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'bootstrap-sass', '~>2.3.1.0'
 gem 'devise'
+gem 'twitter-bootstrap-rails-confirm'
+gem 'prawn'
+gem 'prawn-table' 
+gem "prawnto_2", :require => "prawnto"
+gem 'actionmailer'
+gem 'pony'
+gem 'sms_fu'
+gem 'rest-client'
+gem "chartkick"
+gem 'PriorityQueue'
+gem 'gmail'

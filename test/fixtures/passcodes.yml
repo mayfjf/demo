@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  municipal_id: 1
+  barangay_id: 1
+  pass: MyString
+
+two:
+  municipal_id: 1
+  barangay_id: 1
+  pass: MyString

@@ -1,0 +1,326 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Zone <%=@hit.zone_id%> Status Report</h1>
+</div>
+
+<div id="section"><center>
+<%@hit_id = @hit.zone_id%>
+<%@date=Disaster.joins(:hit).where('hits.disaster_id LIKE ?', @hit.disaster_id)%>
+<%@hh = Household.where('zone_id LIKE ?', @hit.zone_id)%> 
+<%@zo =Zone.joins(:hit).where(['hits.zone_id LIKE ?',@hit.zone_id])%>
+<%@barangay= Barangay.joins(:zone).where(['zones.barangay_id LIKE ?',@zo[0].barangay_id])%>
+<%@mun= Municipality.joins(:barangay).where(['barangays.municipality_id LIKE ?',@barangay[0].municipality_id])%>
+
+<%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',@date[0].hazard_id])%>
+
+<table>
+  <tr>
+  <th width="10%"><b>Zone Name: <%=@zo[0].name%></b></th></tr>
+  <tr>
+  <th  width="10%"><b>Barangay: <%=@barangay[0].name%></b></th></tr>
+  <tr>
+  <th  width="10%"><b>Municipality: <%=@mun[0].name%></b></th></tr>
+  <tr>
+  <th  width="10%"><b>Land Area: <%=@zo[0].area%> square km</b></th></tr>
+	<tr>
+	<th  width="10%"><b>Date of Disaster: <%=@date[0].date%></b></th></tr>
+  <tr>
+  <th  width="10%"><b>Type of Disaster: <%=@date[0].hazard_id%> -  <%=@disaster[0].description%></b></th>
+</tr></table><br>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+<tr>
+  <th height="50" width="10%"><b>Major Effect: <%=@hit.effect1%></b></th>
+  <th height="50" width="10%"><b>Secondary Effect: <%=@hit.effect2%></th>
+  <th height="50" width="10%"><b>Minor Effect: <%=@hit.effect3%></th></tr>
+<tr>
+  <th height="50" width="10%"><b>Major Lifeline Damaged: <%=@hit.dlifeline1%></b></th>
+  <th height="50" width="10%"><b>Secondary Lifeline Damaged: <%=@hit.dlifeline2%></th>
+  <th height="50" width="10%"><b>Minor Lifeline Damaged: <%=@hit.dlifeline3%></th></tr>
+
+</table><br>
+
+<h3>PEOPLE AFFECTED</h3>
+
+
+<table class="tableContainer" style="outline: thin solid" BORDER=4 cellspacing="80px"> 
+   <tr bgcolor="#C0C0C0">   	
+    <th height="50" width="10%" rowspan="2">HOUSEHOLD<br>ID</th>
+    <th height="50" width="10%" rowspan="2">HOUSEHOLD<br>NAME</th>
+    <th height="50" width="10%" rowspan="2">HOUSEHOLD<br>CONDITION</th>
+    <th height="50" width="10%" colspan="6" align="center">MEMBERS</th></tr>
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+    <th height="50" width="5%">FIRST<br>NAME</th>
+    <th height="50" width="10%">LAST<br>NAME</th>
+    <th height="50" width="10%">AGE</th>
+    <th height="50" width="10%">GENDER</th>
+    <th height="50" width="10%">DISABILITY</th>
+    <th height="50" width="10%">CONDITION</th>
+  </tr> 
+       	    
+<%@dead_age1=0%><%@dead_age2=0%><%@dead_age3=0%><%@dead_age4=0%><%@dead_age5=0%> 
+<%@miss_age1=0%><%@miss_age2=0%><%@miss_age3=0%><%@miss_age4=0%><%@miss_age5=0%>
+<%@inj_age1=0%><%@inj_age2=0%><%@inj_age3=0%><%@inj_age4=0%><%@inj_age5=0%>
+<%@dis_age1=0%><%@dis_age2=0%><%@dis_age3=0%><%@dis_age4=0%><%@dis_age5=0%>
+<%@rel_age1=0%><%@rel_age2=0%><%@rel_age3=0%><%@rel_age4=0%><%@rel_age5=0%> 
+<%@well_age1=0%><%@well_age2=0%><%@well_age3=0%><%@well_age4=0%><%@well_age5=0%>
+<%@total_packs = 0%><%@total_bpacks = 0%>          	
+<%count = 0%>
+
+<% @hh.all.each do |y| %>
+  
+
+    <%@pips = People.where('household_id LIKE ?', y.id)%>
+    <%@age=@pips.group(:age,:condition).count%>
+    <%@b1=@age[[0, "Relocated"]]||0%>
+    <%@b2=@age[[1, "Relocated"]]||0%>
+    <%@b3=@age[[2, "Relocated"]]||0%>
+	
+		<% @pips.all.each do |people| %>
+    <tr  style="outline: thin solid" bgcolor="#B0C4DE">
+		  <td height="50" width="10%"><%= y.id %></td>
+      <td height="50" width="10%"><%= y.name %></td>
+      <td height="50" width="10%"><%= y.condition %></td>
+
+		  <td height="50" width="10%"><%= people.firstname %></td>
+		  <td height="50" width="10%"><%= people.familyname%></td>
+		  <td height="50" width="10%"><%= people.age%></td>
+		  <td height="50" width="10%"><%= people.gender%></td>
+      <td height="50" width="10%"><%= people.disabilityinfo%></td>
+		  <td height="50" width="10%"><%= people.condition%></td>
+     
+  </tr>
+  
+	  <%end%>
+  <tr  style="outline: thin solid" bgcolor="#FFF8DC">
+
+    <%if y.condition ==("Relocated")%>
+          <%@relief_packs=(y.count/5)%>
+          <%if @relief_packs < 1%>
+            <%@relief_packs = 1%>
+          <%end%>
+      <%else%>
+        <%@relief_packs = 0%>
+      <%end%>
+
+     <%@baby_packs=@b1+@b2+@b3%>
+
+      <td height="50" width="10%" colspan="2">Members Count: <%=y.count%></td>
+      <td height="50" width="10%" colspan="4">Standard Relief Packs: <%=@relief_packs%></td>
+      <td height="50" width="10%" colspan="3">Baby Relief Packs: <%=@baby_packs%></td>
+
+      <%@total_packs = @total_packs+@relief_packs%>
+      <%@total_bpacks= @total_bpacks+@baby_packs%>
+
+      <%for @i in 0..2 %>
+        <%@dead_age1=@dead_age1+(@age[[@i,"Dead"]] || 0)%>
+        <%@miss_age1=@miss_age1+(@age[[@i,"Missing"]] || 0)%>
+        <%@inj_age1=@inj_age1+(@age[[@i,"Injured"]] || 0)%>
+        <%@dis_age1=@dis_age1+(@age[[@i,"Displaced"]] || 0)%>
+        <%@rel_age1=@rel_age1+(@age[[@i,"Relocated"]] || 0)%>
+        <%@well_age1=@well_age1+(@age[[@i,"Good"]] || 0)%>
+      <%end%>
+
+      <%for @i in 3..10 %>
+        <%@dead_age2=@dead_age2+(@age[[@i, "Dead"]] || 0)%>
+        <%@miss_age2=@miss_age2+(@age[[@i,"Missing"]] || 0)%>
+        <%@inj_age2=@inj_age2+(@age[[@i,"Injured"]] || 0)%>
+        <%@dis_age2=@dis_age2+(@age[[@i,"Displaced"]] || 0)%>
+        <%@rel_age2=@rel_age2+(@age[[@i,"Relocated"]] || 0)%>
+        <%@well_age2=@well_age2+(@age[[@i,"Good"]] || 0)%>
+      <%end%>
+
+      <%for @i in 11..20 %>
+        <%@dead_age3=@dead_age3+(@age[[@i, "Dead"]] || 0)%>
+        <%@miss_age3=@miss_age3+(@age[[@i,"Missing"]] || 0)%>
+        <%@inj_age3=@inj_age3+(@age[[@i,"Injured"]] || 0)%>
+        <%@dis_age3=@dis_age3+(@age[[@i,"Displaced"]] || 0)%>
+        <%@rel_age3=@rel_age3+(@age[[@i,"Relocated"]] || 0)%>
+        <%@well_age3=@well_age3+(@age[[@i,"Good"]] || 0)%>
+      <%end%>
+
+      
+      <%for @i in 21..59 %>
+        <%@dead_age4=@dead_age4+(@age[[@i, "Dead"]] || 0)%>
+        <%@miss_age4=@miss_age4+(@age[[@i,"Missing"]] || 0)%>
+        <%@inj_age4=@inj_age4+(@age[[@i,"Injured"]] || 0)%>
+        <%@dis_age4=@dis_age4+(@age[[@i,"Displaced"]]|| 0)%>
+        <%@rel_age4=@rel_age4+(@age[[@i,"Relocated"]] || 0)%>
+        <%@well_age4=@well_age4+(@age[[@i,"Good"]] || 0)%>
+      <%end%>
+
+      <%for @i in 60..109 %>
+        <%@dead_age5=@dead_age5+(@age[[@i, "Dead"]] || 0)%>
+        <%@miss_age5=@miss_age5+(@age[[@i,"Missing"]] || 0)%>
+        <%@inj_age5=@inj_age5+(@age[[@i,"Injured"]] || 0)%>
+        <%@dis_age5=@dis_age5+(@age[[@i,"Displaced"]] || 0)%>
+        <%@rel_age5=@rel_age5+(@age[[@i,"Relocated"]] || 0)%>
+        <%@well_age5=@well_age5+(@age[[@i,"Good"]] || 0)%>
+      <%end%>
+
+</tr>
+<%end%>
+    <%@hcond=@hh.group(:condition).count%>
+</table>
+
+<table class="tableContainer" cellspacing="80px" BORDER=4 text-align="center">
+<h3>TOTAL RELIEF PACKS NEEDED TO BE DISTRIBUTED</h3> 
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+    <th height="50"  width="5%" align="center">STANDARD RELIEF:</th>
+    <th height="50"  width="5%" align="center"><%=@total_packs%></th>
+  </tr>
+
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+    <th height="50"  width="5%" align="center">BABY RELIEF PACKS:</th>
+    <th height="50"  width="5%" align="center"><%=@total_bpacks%></th>
+  </tr>
+</table>  
+
+
+<table class="tableContainer" cellspacing="80px" BORDER=4 text-align="center"> 
+  <h3>HOUSEHOLD AFFECTED</h3>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+    <th height="50"  width="5%" align="center">TOTAL<br>HOUSEHOLDS:</th>
+    <th height="50"  width="5%">RELOCATED:</th>
+    <th height="50"  width="5%">DISPLACED:</th>
+    <th height="50"  width="5%">DEAD:</th>
+    <th height="50"  width="5%">INJURED:</th>
+    <th height="50"  width="5%">MISSING:</th>
+    <th height="50"  width="5%">UNAFFECTED:</th>
+  </tr>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+    <td height="50"  width="5%"><%=@hh.count%></td>
+    <td height="50"  width="5%"><%=@hcond["Relocated"] || 0 %></td>
+    <td height="50"  width="5%"><%=@hcond["Displaced"] || 0 %></td>
+    <td height="50"  width="5%"><%=@hcond["Dead"] || 0 %></td>
+    <td height="50"  width="5%"><%=@hcond["Injured"] || 0 %></td>
+    <td height="50"  width="5%"><%=@hcond["Missing"] || 0 %></td>
+    <td height="50"  width="5%"><%=@hcond["Good"] || 0 %></td>
+  </tr>
+</table>
+
+<table class="tableContainer" cellspacing="80px" BORDER=4> 
+ <h3>INDIVIDUAL AGE BRACKET COUNT </h3>
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="100" width="20%"> Age </th>
+  <th height="100" width="20%"> Dead </th>
+  <th height="100" width="20%"> Missing </th>
+  <th height="100" width="20%"> Injured </th>
+  <th height="100" width="20%"> Displaced </th>
+  <th height="100" width="20%"> Relocated </th>
+  
+ </tr>
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"  width="20%"> BABIES<br>(0-2):</th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dead_age1%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@miss_age1%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@inj_age1%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dis_age1%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@rel_age1%></th>
+ </tr> 
+
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"  width="20%"> CHILDREN<br>(3-10):</th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dead_age2%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@miss_age2%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@inj_age2%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dis_age2%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@rel_age2%></th>
+ </tr> 
+
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"  width="20%">TEENS<br>(11-20):</th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dead_age3%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@miss_age3%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@inj_age3%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dis_age3%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@rel_age3%></th>
+ </tr> 
+
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"  width="20%">ADULT<br>(21-59):</th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dead_age4%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@miss_age4%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@inj_age4%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dis_age4%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@rel_age4%></th>
+ </tr> 
+
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"   width="20%">SENIOR<br>(60 - above): </th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dead_age5%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@miss_age5%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@inj_age5%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@dis_age5%></th>
+  <th height="50" width="10%" bgcolor="#B0C4DE"> <%=@rel_age5%></th>
+ </tr> 
+
+</table>
+<table class="tableContainer" cellspacing="80px" BORDER=4> 
+<h3>EFFECTS ON PEOPLE</h3>
+<tr  style="outline: thin solid" bgcolor="#B0C4DE">   
+  <th height="35" width="10000" bgcolor="#B0C4DE"><b>Human loss /affected due to disaster caused by vulnerability to natural hazards:</b></th> 
+  <th height="35" width="10000" bgcolor="#B0C4DE"><%=(@hit.dead || 0 )+(@hit.missing || 0)+(@hit.injured || 0)+(@hit.displaced || 0)+(@hit.relocated || 0)+(@hit.good || 0)%></th></tr> 
+
+<tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="35" width="10%" bgcolor="#B0C4DE"><b>UNAFFECTED:</b></th>
+  <th height="35" width="10%" bgcolor="#B0C4DE"> <%=(@hit.good || 0)%></th></tr>
+
+<tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="35" width="10%"><b>DEAD:</b></th>
+  <th height="35" width="10%" bgcolor="#B0C4DE"> <%=(@hit.dead || 0)%></th></tr>
+
+<tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="35" width="10%"><b>INJURED :</b></th>
+  <th height="35" width="10%" bgcolor="#B0C4DE"> <%=(@hit.injured || 0)%></th></tr>
+
+<tr  style="outline: thin solid" bgcolor="#B0C4DE" > 
+  <th height="35" width="10%"><b>MISSING:</b></th> 
+  <th height="35" width="10%" bgcolor="#B0C4DE"><%=(@hit.missing || 0)%></th></tr>
+
+<tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="35" width="10%"><b>DISPLACED:</b></th> 
+  <th height="35" width="10%" bgcolor="#B0C4DE"><%=(@hit.displaced || 0)%></th></tr>
+
+<tr  style="outline: thin solid" bgcolor="#B0C4DE" > 
+  <th height="35" width="10%"><b>RELOCATED:</b></th>
+  <th height="35" width="10%" bgcolor="#B0C4DE"><%=(@hit.relocated || 0)%></th></tr>
+
+</table>
+
+<table class="tableContainer" cellspacing="80px" BORDER=4> 
+ <h3>EFFECTS ON ECONOMY</h3> 
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">     
+    <th height="50" width="10%"><b>LIVESTOCK :</b></th>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@hit.livestock %> Percent</td>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue1=@zo[0].livestock*(@hit.livestock/100)%> Pesos</td></tr>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">  
+    <th height="50" width="10%" ><b>AGRICULTURE:</b></th>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@hit.agri %> Percent</td>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue2=@zo[0].agri*(@hit.agri/100)%> Pesos</td></tr>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">  
+    <th height="50" width="10%" ><b>COMMERCE/TRADE:</b></th>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@hit.commerce %> Percent</td>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue3=@zo[0].commercial*(@hit.commerce/100)%> Pesos</td></tr>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">  
+    <th height="50" width="10%" ><b>INFRASTRUCTURE:</b></th>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@hit.infra %> Percent</td>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue4=@zo[0].infra*(@hit.infra/100)%> Pesos</td></tr> 
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">  
+    <th height="50" width="10%" colspan="2"><b>TOTAL:</b></th>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@tot = @lvalue1+@lvalue2+@lvalue3+@lvalue4 %> Pesos</td>
+  </tr>        
+
+</table>
+
+
+<br><center>
+
+<p><%=link_to "Generate Format to Print", hit_reportview_path(:id=>@hit.id), class:'btn btn-mini btn-success', :target => "_blank"%>
+
+<%= link_to "Generate System Support (DSS)", hit_support_path(:id=>@hit.id), class:'btn btn-mini btn-success'%>
+</center>
+
+  </div>

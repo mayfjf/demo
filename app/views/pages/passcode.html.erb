@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag "zone"%>
+
+<div class="container">
+
+<%=image_tag("banner1.png", height: '30%', width: '100%')%>
+
+<body>
+  <ul class = "nav nav-tabs">
+  <li><%= link_to "Home", root_path %> </li>
+  <li><%= link_to "About", pages_about_path %> </li>
+  <li><%= link_to "View Hazard Maps", pages_hazard_path %> </li>
+  <li><%= link_to "Contact Us", pages_contact_path %> </li>
+  <li><%= link_to "Check Best Route", pages_bestroute_path %> </li>
+  
+
+  <% if current_user %>
+      <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+  <% else %>
+      <li><%= link_to "Sign In", new_user_session_path %> </li>
+  <%end%>
+</ul>
+<div id="header">
+  <h1>Enter Your Pass Code</h1>
+  <%= form_for(:passcode, :url => {:controller => 'pages', :action => 'authenticate', :method => 'get'}) do |f|%>
+	<p> Municipal_id:<br><%=number_field_tag :municipal_id %></p>
+    <p> Barangay_id:<br><%=number_field_tag :barangay_id %></p>
+    <p> User PassCode:<br><%=password_field_tag :pass %></p>
+    
+    <%= f.submit "Submit", class: "btn btn-default" %>
+  <% end %>
+  </div></center></div>

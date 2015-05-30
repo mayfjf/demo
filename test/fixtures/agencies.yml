@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  contactnum: MyString
+  prioritynum: 1
+  reponsibilities: MyString
+  head: MyString
+
+two:
+  name: MyString
+  contactnum: MyString
+  prioritynum: 1
+  reponsibilities: MyString
+  head: MyString

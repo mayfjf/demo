@@ -1,0 +1,8 @@
+<table class="tableContainer" cellspacing="80px">     
+<tr>
+<td height="50" width="15%">
+  <%= form_tag(people_index_path, :method => "get", id: "search-form") do %>
+  <b> Search for:</b><%=select_tag :key, options_for_select(%w[Please_Select Gender Family_name Condition Household_ID Age Occupation Civil_status]) %>
+  <%= text_field_tag :value, params[:value], placeholder: "Enter your query here" %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %></td></table>

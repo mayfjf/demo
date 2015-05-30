@@ -1,0 +1,52 @@
+<%= stylesheet_link_tag "zone" %>
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+<body>
+
+<div id="header">
+<h1>Needs List</h1>
+</div>
+
+<div id="section"><center>
+ 
+
+<table class="tableContainer" cellspacing="80px">                 
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0" >                           
+    <th height="50">ID</th>
+    <th height="50">PRIORITY NUMBER</th>
+    <th height="50">CODE</th>
+    <th height="50">AGENCY</th>
+    <th height="50" colspan="4">DESCRIPTION</th>
+   </tr>
+
+<% @n.all.each do |need| %>
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE" >
+  <td height="50" width="15%"><%= need.id %></td>
+  <td height="50" width="15%"><%= need.priority %></td>
+  <td height="50" width="15%"><%= need.code%></td>
+  <td height="50" width="15%"><%= need.agency_id%></td>
+  <td height="50" width="15%"><%= need.description%></td>
+  
+  
+  <td><%= button_to "Edit", {:controller => "need", :action => "edit", :id => need.id}, {:method=>:post} %></td>
+  
+  <td height="50" width="25%"></td>
+  <td><%= link_to "Delete", need_delete_path(:need=>need.id), method: :delete, class:'btn btn-mini btn-danger', :onclick => "makingSure(event)"%></td>
+  </tr>
+
+  
+<% end %>
+</table>
+</div>
+

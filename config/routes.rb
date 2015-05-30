@@ -1,77 +1,313 @@
 Rails.application.routes.draw do
   
 
+  get 'sender/new'
+  get 'sender/edit'
+  post 'sender/edit'
+  get 'sender/delete'
+  post 'sender/delete'
+  get 'sender/show'
+  post 'sender/show'
+  get 'sender/create'
+  post 'sender/create'
+  get 'sender/savetable'
+  post 'sender/savetable'
+
+  get 'impact/create'
+  post 'impact/create'
+  get 'impact/show'
+  get 'impact/new'
+
+  get 'route/new'
+  get 'route/show'
+  get 'route/show_user'
+  get 'route/delete'
+  get 'route/edit'
+  post 'route/edit'
+  get 'route/edit_user'
+  post 'route/edit_user'
+  get 'route/index'
+  post 'route/index'
+  get 'route/create'
+  post 'route/create'
+  get 'route/savetable'
+  post 'route/savetable'
+  get 'route/check_mail'
+  post 'route/check_mail'
+  get 'route/update'
+  post 'route/update'
+
+  get 'bestpath/new'
+  get 'bestpath/avnewbr'
+  get 'bestpath/assess'
+  post 'bestpath/assess'
+  get 'bestpath/assess2'
+  post 'bestpath/assess2'
+  get 'bestpath/show'
+  post 'bestpath/show'
+  get 'bestpath/pass'
+  post 'bestpath/pass'
+  get 'bestpath/avshowbr'
+  post 'bestpath/avshowbr'
+
+  get 'sms/new'
+  get 'sms/edit'
+  get 'sms/show'
+  get 'sms/alert'
+  post 'sms/alert'
+
+  get 'need/new'
+  get 'need/create'
+  post 'need/create'
+  get 'need/show'
+  post 'need/show'
+  get 'need/edit'
+  post 'need/edit'
+  get 'need/delete'
+  post 'need/delete'
+  get 'need/savetable'
+  post 'need/savetable'
+
+  get 'hit/new'
+  post 'hit/new'
+  get 'hit/create'
+  post 'hit/create'
+  get 'hit/show'
+  post 'hit/show'
+  get 'hit/edit'
+  post 'hit/edit'
+  get 'hit/delete'
+  post 'hit/delete'
+  get 'hit/savetable'
+  post 'hit/savetable'
+  get 'hit/index'
+  post 'hit/index'
+  get 'hit/search'
+  post 'hit/search'
+  get 'hit/report'
+  post 'hit/report'
+  get 'hit/reportview'
+  post 'hit/reportview'
+  get 'hit/show_only'
+  post 'hit/show_only'
+  get 'hit/show_user_view'
+  post 'hit/show_user_view'
+   get 'hit/support'
+  post 'hit/support'
+  
+
+
+  get 'disaster/new'
+  post 'disaster/new'
+  get 'disaster/create'
+  post 'disaster/create'
+  get 'disaster/show'
+  post 'disaster/show'
+  get 'disaster/edit'
+  post 'disaster/edit'
+  get 'disaster/delete'
+  post 'disaster/delete'
+  get 'disaster/savetable'
+  post 'disaster/savetable'
+  get 'disaster/index'
+  post 'disaster/index'
+  get 'disaster/disaster_report'
+  post 'disaster/disaster_report'
+  get 'disaster/user_view'
+  post 'disaster/user_view'
+  get 'disaster/reportview'
+  post 'disaster/reportview'
+  
+
+ get 'hazard/new'
+  get 'hazard/create'
+  post 'hazard/create'
+  get 'hazard/show'
+  post 'hazard/show'
+  get 'hazard/edit'
+  post 'hazard/edit'
+  get 'hazard/delete'
+  post 'hazard/delete'
+  get 'hazard/savetable'
+  post 'hazard/savetable'
+
+ get 'personcondition/new'
+  get 'personcondition/create'
+  post 'personcondition/create'
+  get 'personcondition/show'
+  post 'personcondition/show'
+  get 'personcondition/edit'
+  post 'personcondition/edit'
+  get 'personcondition/delete'
+  post 'personcondition/delete'
+  get 'personcondition/savetable'
+  post 'personcondition/savetable'
+
+  get 'household/new'
+  post 'household/new'
+  get 'household/create'
+  post 'household/create'
+  get 'household/show'
+  post 'household/show'
+  get 'household/edit'
+  post 'household/edit'
+  get 'household/delete'
+  post 'household/delete'
+  get 'household/savetable'
+  post 'household/savetable'
+  get 'household/index'
+  post 'household/index'
+  get 'household/search'
+  post 'household/search'
+
+  get 'agency/new'
+  get 'agency/create'
+  post 'agency/create'
+  get 'agency/show'
+  post 'agency/show'
+  get 'agency/edit'
+  post 'agency/edit'
+  get 'agency/delete'
+  post 'agency/delete'
+  get 'agency/savetable'
+  post 'agency/savetable'
+
+
+  get 'zone/new'
+  post 'zone/new'
+  get 'zone/create'
+  post 'zone/create'
+  get 'zone/show'
+  post 'zone/show'
+  get 'zone/show_user'
+  post 'zone/show_user'
+  get 'zone/edit'
+  post 'zone/edit'
+  get 'zone/delete'
+  post 'zone/delete'
+   get 'zone/savetable'
+  post 'zone/savetable'
+  get 'zone/index'
+  post 'zone/index'
+  get 'zone/search'
+  post 'zone/search'
+  get 'zone/showdetails'
+  post 'zone/showdetails'
+  
+  
+
+
+  get 'users/show'
+  post 'users/show'
+  get 'users/delete'
+  post 'users/delete'
+  get 'users/showdetails'
+  post 'users/showdetails'
+  
+  get 'people/add'
+  get 'people/edit'
+  post 'people/edit'
+  get 'people/delete'
+  post 'people/delete'
+  get 'people/new'
+  post 'people/new'
+  get 'people/create'
+  post 'people/create'
+  get 'people/show'
+  post 'people/show'
+  get 'people/showdetails'
+  post 'people/showdetails'
+  get 'people/viewlist'
+  post 'people/viewlist'
+  get 'people/savetable'
+  post 'people/savetable'
+  get 'people/index'
+  post 'people/index'
+  get 'people/search'
+  post 'people/search'
+  
+
+  get 'barangay/edit'
+  post 'barangay/edit'
+  get 'barangay/show'
+  post 'barangay/show'
+  get 'barangay/delete'
+  post 'barangay/delete'
+  get 'barangay/create'
+  get 'barangay/savetable'
+  post 'barangay/savetable'
+  get 'barangay/new'
+  post 'barangay/new'
+  get 'barangay/showdetails'
+  post 'barangay/showdetails'
+  post 'barangay/create'
+  get 'barangay/viewlist'
+  post 'barangay/viewlist'
+  get 'barangay/index'
+  post 'barangay/index'
+  get 'barangay/search'
+  post 'barangay/search'
+  get 'barangay/updateRec'
+  post 'barangay/updateRec'
+  get 'barangay/user_view'
+
+  
+
+
+  get 'municipal/new'
+  get 'municipal/edit'
+  post 'municipal/edit'
+  get 'municipal/delete'
+  post 'municipal/delete'
+  get 'municipal/show'
+  post 'municipal/show'
+  get 'municipal/create'
+  get 'municipal/user_view'
+  post 'municipal/create'
+  post 'municipal/viewbarangays'
+  get 'municipal/savetable'
+  post 'municipal/savetable'
+  get 'municipal/name'
+  post 'municipal/name'
+  get 'municipal/showdetails'
+  post 'municipal/showdetails'
+
+
+
   root to: 'home#index'
 
   get 'pages/about'
-
   get 'pages/bestroute'
-
   get 'pages/biggmap'
-
+  get 'pages/map'
+  get 'pages/viewroutes'
   get 'pages/contact'
-
   get 'pages/hazard'
+  get 'pages/passcode'
+  get 'pages/new'
+  get 'pages/authenticate'
+  get 'pages/barangayform'
+  get 'admin/controlpanel'
+  post 'admin/controlpanel'
+  post 'pages/authenticate'
+  get 'pages/show'
+  post 'pages/show'
+  get 'pages/delete'
+  post 'pages/delete'
+  get 'pages/user_control'
+  post 'pages/user_control'
 
-  
   get 'admin' => 'admin#controlpanel', :as => :admin
-resource :admin, only: [:controlpanel]
+  get 'admin/header'
+  #resource :admin, only: [:create, :new, :show]
 
-devise_for :users
+  devise_for :users
+
+  resources :pages do
+  put :create, :on => :collection
+end
+
+#get 'users/:id' => 'users#show'
 
 
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

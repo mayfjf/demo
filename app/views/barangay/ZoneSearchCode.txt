@@ -1,0 +1,9 @@
+<Table>  
+<tr>
+<td height="50" width = "5%">
+  <%= form_tag(zone_index_path, :method => "get", id: "search-form") do %>
+  <%= number_field_tag :search, params[:search], placeholder: "Enter Barangay ID here" %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %></td><br><br>
+
+</tr></table>

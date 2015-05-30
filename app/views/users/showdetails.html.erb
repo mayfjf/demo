@@ -1,0 +1,21 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>USERS Details</h1>
+</div><br><br>
+
+<div id="section">  
+  <b>User ID:</b>  <%=@u.id%><br><br>
+  <b>User Email:</b> <%=@u.email%><br><br>
+  <b>Sign in Count : </b> <%=@u.sign_in_count%><br><br>
+  <b>Currently signed in at:</b><%= @u.current_sign_in_at%> <br><br>
+  <b>Last signed in at:</b><%= @u.last_sign_in_at%> <br><br>
+  <b>Current sign in IP:</b><%=@u.current_sign_in_ip%> <br><br>
+  <b>Last sign in IP:</b><%= @u.last_sign_in_ip%> <br><br>
+  <b>Date/Time Created:</b><%= @u.created_at%> <br><br>
+  <b>Date/Time Updated:</b><%= @u.updated_at%> <br><br>
+ </div><hr>
+  
+ 
+</body>

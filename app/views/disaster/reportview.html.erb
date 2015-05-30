@@ -1,0 +1,171 @@
+<%= stylesheet_link_tag "zone" %>
+<script>
+  function myFunction() {
+   window.alert("Instruction to print: Click Google Chrome Control Button (upper right corner). Click Print. At the Destination Setting, Change to either Save as PDF or select a printer setting." );
+   }
+
+</script>
+<body onload="myFunction()">
+
+<div id="header">
+<h1>Disaster Report</h1>
+</div>
+
+<div id="section"><center>
+ 
+<%@hazard = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',@d.hazard_id])%>
+
+<table>
+	<tr>
+	<th height="50" width="10%"><b>Date of Disaster: <%=@d.date%></b></th></tr>
+  <tr>
+  <th height="50" width="10%"><b>Type of Disaster: <%=@d.hazard_id%>-<%=@hazard[0].description%></b></th>
+  <tr>
+  <th height="50" width="10%"><b>Details of Disaster: <%=@d.details%> </b></th>
+</tr></table><br>
+
+<%@hit= Hit.where(['hits.disaster_id LIKE ?',@d.id])%>
+<%c= Hit.where(['hits.disaster_id LIKE ?',@d.id]).count%>
+
+<h3>ZONES AFFECTED: <%=c%></h3>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+   <tr  style="outline: thin solid" bgcolor="#C0C0C0">    
+    <th height="50" width="10%">Zone<br>ID</th>
+    <th height="50" width="10%">NAME</th>
+    <th height="50" width="10%">BARANGAY</th>
+    <th height="50" width="10%">MUNICIPALITY</th>
+    <th height="50" width="10%">MAJOR<br>EFFECT</th>
+    <th height="50" width="10%">MAJOR<br>LIFELINE DAMAGED</th>
+    <th height="50" width="10%">HOUSEHOLDS</th>
+  </tr>
+<%@total_hh=0%><%@total_area=0%>
+<% @hit.all.each do |y| %>
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+      <td height="50" width="10%"><%= y.zone_id %></td>
+      <%@zone= Zone.joins(:hit).where(['hits.zone_id LIKE ?',y.zone_id])%>
+      <%@barangay= Barangay.joins(:zone).where(['zones.barangay_id LIKE ?',@zone[0].barangay_id])%>
+      <%@mun= Municipality.joins(:barangay).where(['barangays.municipality_id LIKE ?',@barangay[0].municipality_id])%>
+      <%@hh= Household.where('zone_id LIKE ?', y.zone_id)%>
+
+
+
+      <td height="50" width="20%"><%= @zone[0].name %></td>
+      <td height="50" width="20%"><%= @barangay[0].name %></td>
+      <td height="50" width="20%"><%= @mun[0].name%></td>
+      <td height="50" width="20%"><%= y.effect1 %></td>
+      <td height="50" width="20%"><%= y.dlifeline1%></td>
+      <td height="50" width="20%"><%= @hh.count%></td>
+      <%@total_hh = @total_hh + @hh.count%>
+      <%@total_area = @total_area+@zone[0].area%>
+
+  </tr><%end%> 
+
+</table>
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+  <th height="50" width="20%" colspan="6">TOTAL NUMBER OF HOUSEHOLD:</th>  
+  <th height="50" width="20%"><%=@total_hh%></th>
+  <th height="50" width="20%" colspan="3">TOTAL AREA AFFECTED:</th>  
+  <th height="50" width="20%"><%=@total_area%></th>
+</tr>
+</table>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+  <h3>TOTAL EFFECT ON PEOPLE</h3>
+   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <th height="50" width="10%">ZONE ID</th>  
+    <th height="50" width="10%">DEAD</th>
+    <th height="50" width="10%">MISSING</th>
+    <th height="50" width="10%">INJURED</th>
+     <th height="50" width="10%">DISPLACED</th>
+    <th height="50" width="10%">RELOCATED</th>
+  </tr>
+
+<%@dx=0%><%@m=0%><%@i=0%><%@dis=0%><%@r=0%><%@go=0%>
+
+<% @hit.all.each do |y| %>
+  
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+      <td height="50" width="10%"><%= y.zone_id %></td>
+      <td height="50" width="10%"><%= y.dead%></td>
+      <td height="50" width="10%"><%= y.missing%></td>
+      <td height="50" width="10%"><%= y.injured%></td>
+      <td height="50" width="10%"><%= y.displaced%></td>
+      <td height="50" width="10%"><%= y.relocated%></td>
+      <%@dx=@dx+(y.dead||0)%>
+      <%@m=@m+(y.missing||0)%>
+      <%@i=@i+(y.injured||0)%>
+      <%@dis=@dis+(y.displaced||0)%>
+      <%@r=@r+(y.relocated||0)%>
+      <%@go=@go+(y.good||0)%>
+  </tr><%end%> 
+</table>
+      
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <th height="50" width="5.5%">Human loss /affected due to disaster caused by vulnerability to natural hazards</th>
+    <th height="50" width="5.5%"><%=@dx%></th>
+    <th height="50" width="5.5%"><%=@m%></th>
+    <th height="50" width="5.5%"><%=@i%></th>
+    <th height="50" width="5.5%"><%=@dis%></th>
+    <th height="50" width="5.5%"><%=@r%></th>
+  </tr>
+</table>
+
+
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+  <h3>TOTAL ECONOMIC LOSS</h3>
+   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <th height="50" width="10%">ZONE ID</th>  
+    <th height="50" width="10%">LIVESTOCK</th>
+    <th height="50" width="10%">value</th>
+    <th height="50" width="10%">AGRICULTURE</th>
+     <th height="50" width="10%">value</th>
+    <th height="50" width="10%">COMMERCE/TRADE</th>
+     <th height="50" width="10%">value</th>
+    <th height="50" width="10%">INFRASTRUCTURE</th>
+     <th height="50" width="10%">value</th>
+   </tr>
+<%@l=0%><%@a=0%><%@c=0%><%@ix=0%>
+
+<% @hit.all.each do |y| %>
+  <%@zone= Zone.joins(:hit).where(['hits.zone_id LIKE ?',y.zone_id])%>
+  <%@lvalue1=@zone[0].livestock*(y.livestock/100)%>
+  <%@lvalue2=@zone[0].agri*(y.agri/100)%>
+  <%@lvalue3=@zone[0].commercial*(y.commerce/100)%>
+  <%@lvalue4=@zone[0].infra*(y.infra/100)%>
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+      <td height="50" width="10%"><%= y.zone_id %></td>
+      <td height="50" width="10%"><%= y.livestock%>%</td>
+      <td height="50" width="10%"><%=@lvalue1%></td>
+      <td height="50" width="10%"><%= y.agri %>%</td>
+      <td height="50" width="10%"><%=@lvalue2%></td>
+      <td height="50" width="10%"><%= y.commerce%>%</td>
+      <td height="50" width="10%"><%=@lvalue3%></td>
+      <td height="50" width="10%"><%= y.infra%>%</td>
+      <td height="50" width="10%"><%=@lvalue4%></td>
+      <%@l=@l+(@lvalue1||0)%>
+      <%@a=@a+(@lvalue2||0)%>
+      <%@c=@c+(@lvalue3||0)%>
+      <%@ix=@ix+(@lvalue4||0)%>
+  </tr><%end%> 
+</table>
+      
+<table class="tableContainer" style="outline: thin solid" cellspacing="80px"> 
+   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <th height="50" width="3%">TOTAL</th>
+    <th height="50" width="5%"><%=@l%> Pesos</th>
+    <th height="50" width="5%"><%=@a%> Pesos</th>
+    <th height="50" width="5%"><%=@c%> Pesos</th>
+    <th height="50" width="5%"><%=@ix%> Pesos</th>
+  </tr>
+</table></center>
+
+<font size="2">Ready for Dissemination:<br><br><br><br><br>
+
+<b>MRS. TERESITA SIASON</b><br>
+HEAD - Guimaras PDRRMC<br>
+San Miguel, Jordan, Guimaras<br>
+

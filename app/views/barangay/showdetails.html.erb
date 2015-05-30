@@ -1,0 +1,53 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Barangay Record</h1>
+</div>
+
+<div id="section">
+
+<table class="tableContainer" cellspacing="80px"> 
+<tr style="outline: thin solid" bgcolor="#C0C0C0">  
+  <td height="100" width="15%"><b>Barangay ID :</b><br><%=@bar.id%></td>
+  <td height="100" width="15%"> <b>Barangay Name  :</b><br> <%=@bar.name%></td>
+  <td height="100" width="15%"> <b>Belongs to Municipality of : </b><br> <%=@bar.municipality_id%>
+  
+  <%@m=Municipality.joins(:barangay).where(['barangays.municipality_id LIKE ?',@bar.municipality_id])%>
+  <%if @m.exists?%>
+    <%=@m[0].name%></td>
+  <%else%>
+     <font size="2" color='red'>The value of this field may not have been set, or has been deleted. Please Edit.</font></td>
+  <%end%>
+  
+  <td height="100" width="25%"> <b>Chairman:</b><br><%= @bar.people_id%> 
+  
+  <%@b=People.joins(:barangay).where(['barangays.people_id LIKE ?', @bar.people_id])%>
+  <%if @b.exists?%>
+    <%=@b[0].firstname%> <%= @b[0].middlename%> <%= @b[0].familyname%> </td></tr>
+  <%else%>
+     <font size="2" color='red'>The value of this field may not have been set, or has been deleted. Please Edit.</font></td></tr>
+  <%end%>
+
+<tr style="outline: thin solid" bgcolor="#C0C0C0">  
+  <td height="100" width="15%"> <b>Main Livelihood:</b><br><%= @bar.main_livelihood%> </td>
+  <td height="100" width="15%"> <b>Rescue Resources:</b><br><%= @bar.rescue_resources%> </td>  
+  <td height="100" width="15%"> <b>Hazard Threat:</b><br><%= @bar.hazard_id%> 
+  
+  <%@h=Hazard.joins(:barangay).where(['barangays.hazard_id LIKE ?',@bar.hazard_id])%>
+  <%if @h.exists?%>
+    <%=@h[0].description%> </td>
+  <%else%>
+     <font size="2" color='red'>The value of this field may not have been set, or has been deleted. Please Edit.</font></td>
+  <%end%>
+
+  <td height="100" width="15%"> <b>Area in km:</b><br><%= @bar.area%></td></tr>
+<tr style="outline: thin solid" bgcolor="#C0C0C0">  
+  <td height="100" width="15%"> <b>Population:</b><br><%= @bar.population%> </td>
+  <td height="100" width="15%"> <b>Amount Value in Livestock:</b><br><%= @bar.livestock%> </td>  
+  <td height="100" width="15%"> <b>Amount Value in Agriculture:</b><br><%= @bar.agri%> </td>
+  <td height="100" width="15%"> <b>Amount Value in Commerce/Trade:</b><br><%= @bar.commercial%> </td></tr>  
+</table><hr>
+ 
+ 
+</body>

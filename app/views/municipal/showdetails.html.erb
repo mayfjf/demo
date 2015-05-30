@@ -1,0 +1,33 @@
+<%= stylesheet_link_tag "zone" %>
+<body> 
+<div id="header">
+<h1>Municipality Details </h1>
+</div><br><br><center>
+
+<div id="section">
+<table class="tableContainer" cellspacing="80px"> 
+<tr style="outline: thin solid" bgcolor="#C0C0C0">  
+  <td height="100" width="15%" colspan="2"><b>Municipality ID :</b><br><%=@municipality.id%></td></tr>
+<tr style="outline: thin solid" bgcolor="#C0C0C0">
+  <td height="100" width="15%"> <b>Name  :</b><br> <%=@municipality.name%></td>
+  <td height="100" width="15%"> <b>Mayor: </b><br> <%=@municipality.people_id%>
+  <%@m=People.joins(:municipality).where(['municipalities.people_id LIKE ?',@municipality.people_id])%>
+  <%if @m.exists?%>
+    <%=@m[0].firstname%>  <%=@m[0].familyname%></td></tr>
+  <%else%>
+     <font size="2" color='red'>The value of this field may not have been set, or has been deleted. Please Edit.</font></td></tr>
+  <%end%>
+<tr style="outline: thin solid" bgcolor="#C0C0C0"> 
+  <td height="100" width="15%"> <b>Area:</b><br><%= @municipality.area%> </td>
+  <td height="100" width="15%"> <b>Population:</b><br><%= @municipality.population%> </td></tr>
+<tr style="outline: thin solid" bgcolor="#C0C0C0">  
+  <td height="100" width="15%"> <b>Amount Value in Livestock:</b><br><%= @municipality.livestock%> </td>
+  <td height="100" width="15%"> <b>Amount Value in Agriculture:</b><br><%= @municipality.agri%> </td></tr> 
+<tr style="outline: thin solid" bgcolor="#C0C0C0">   
+  <td height="100" width="15%"> <b>Amount Value in Commerce/Trade:</b><br><%= @municipality.commercial%> </td>
+<td height="100" width="15%"> <b>Amount Value in Commerce/Trade:</b><br><%= @municipality.commercial%> </td></tr>  
+</table><hr>
+</div>
+<center>
+  
+</body>

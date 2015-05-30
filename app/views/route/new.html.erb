@@ -1,0 +1,34 @@
+<%= stylesheet_link_tag "zone" %>
+
+<body>
+<div id="header">
+<h1>Create New Route Record</h1>
+</div><br><br>
+
+
+
+<div id="section">
+
+    
+    <%= form_for(:route, :url => {:controller => 'route', :action => 'create'}) do |f| %>
+  
+ 
+     <table class="tableContainer" cellspacing="80px">   
+  	     <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+  		      <td height="100" width="15%"><b>Route ID:</b><br><%= f.text_field :id,:value => "Auto-generated", :readonly => true %></td> 
+          	<td height="100" width="15%" colspan="2"><b>Name:</b><br><%=f.text_field :name%> </td> 
+          	<tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+          	<td height="100" width="15%"><b>Passable[1-true / 0-false] ?</b><br><%= f.number_field :passable, :class => 'text_field'%></td>
+            <td height="100" width="15%"><b>travel time (min):</b><br><%= f.number_field :weight, :class => 'text_field'%>
+            <td height="100" width="15%"><b>Description:</b><br><%= f.text_area :description, :cols => 40, :rows => 8%></td> 
+           	</tr>
+      </table>
+      <hr> 
+    
+    <center><br><br><%= f.submit "Submit", class: "btn btn-default" %></center>
+    <% end %>
+
+
+  
+</body>
+</div>

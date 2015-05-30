@@ -1,0 +1,37 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Disaster Listings</h1>
+</div>
+
+<div id="section"><center>
+ 
+<%= link_to "Create New Record", disaster_new_path, class: "btn btn-default" %><br><br>
+ <table class="tableContainer" cellspacing="80px">                     
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0" >
+
+    <th height="50" align="center" width="20%">DISASTER<br>ID</th>
+    <th height="50" align="center" width="20%">HAZARD<br>ID</th>
+    <th height="50" align="center" width="20%">HAZARD<br>TYPE</th>
+    <th height="50" align="center" width="20%" colspan="3">DATE/TIME </th>
+  </tr>
+<% @d.all.each do |dis| %>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE" >
+  <td height="50" width="20%" ><%= dis.id %></td>
+  <td height="50" width="20%" ><%= dis.hazard_id %></td>
+    
+  <%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',dis.hazard_id])%>
+  <td height="50" width="20%"><%=@disaster[0].description%></td>
+
+  <td height="50" width="20%"><%= dis.date %></td>
+  
+  
+  <td><%= button_to "Add Hit Zones", {:controller => "hit", :action => "new", :id =>dis.id}, {:method=>:post} %></td>
+  <td><%= button_to "View Hit Zones", {:controller => "hit", :action => "show_only", :id =>dis.id}, {:method=>:post} %></td>
+<%end%>  
+  
+
+</tr>
+
+</table><br><br><br>

@@ -1,0 +1,88 @@
+<%= stylesheet_link_tag "zone" %>
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+
+
+<body> 
+<div id="header">
+<h1>Zone Listings </h1>
+</div>
+
+<div id="section">
+
+ <table class="tableContainer" cellspacing="80px">                     
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0" >                          
+    <th height="50">ZONE ID</th>
+    <th height="50">NAME</th>
+    <th height="50">BRGY. ID</th>
+    <th height="50" colspan="7">BRGY. NAME </th>
+  </tr>
+
+<% @z.all.each do |zone| %>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE" >
+  <td height="50" width="5%"><%= zone.id %></td>
+  <td height="50" width="15%"><%= zone.name %></td>
+  <td height="50" width="5%"><%= zone.barangay_id %></td>
+  
+  <%@zones = Barangay.joins(:zone).where(['zones.barangay_id LIKE ?',zone.barangay_id])%>
+  <td height="50" width="15%"><%=@zones[0].name%></td>
+
+  <td><%= button_to "Edit", {:controller => "zone", :action => "edit", :id => zone.id}, {:method=>:post} %></td>
+  <td><%= button_to "Details", {:controller => "zone", :action => "showdetails", :id => zone.id}, {:method=>:post} %></td>
+  <td><%= button_to "View Households", {:controller => "household", :action => "search", :id => zone.id}, {:method=>:post} %></td>
+  <td><%= button_to "Add Households", {:controller => "household", :action => "new", :id => zone.id}, {:method=>:post} %></td>
+  <td height="50" width="25%"></td>
+  <td><%= link_to "Delete", zone_delete_path(:zone=>zone.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
+  
+
+</tr>
+<% end %></table><br><br><br>
+
+<h3>Summary: </h3><center>
+
+
+<table class="tableContainer" cellspacing="80px"> 
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+  <td height="50" width="25%"><b>TOTAL NUMBER OF ZONES:</b></td> 
+  <td height="50" width="25%"><%=@z.count%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL AREA :</b></td>
+  <td height="50" width="25%"> <%=@z.sum(:area)%></td></tr>
+
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL NUMBER OF POPULATIONS:</b></td>
+  <td height="50" width="25%"> <%=@z.sum(:population)%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL VALUE OF LIVESTOCK IN PESO:</b></td> 
+  <td height="50" width="25%"><%=@z.sum(:livestock)%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL VALUE OF AGRICULTURE IN PESO:</b></td> 
+  <td height="50" width="25%"><%=@z.sum(:agri)%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL VALUE OF COMMERCE/TRADE IN PESO:</b></td>
+  <td height="50" width="25%"><%=@z.sum(:commercial)%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL VALUE OF INFRASTRUCTURE IN PESO:</b></td>
+  <td height="50" width="25%"><%=@z.sum(:infra)%></td></tr>
+
+
+</table><br><br></center>
+</div>
+

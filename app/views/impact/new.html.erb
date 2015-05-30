@@ -1,0 +1,49 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>CREATE New Impact Record</h1>
+</div>
+
+
+
+<div id="section">
+
+  <%= form_for(:impact, :url => {:controller => 'impact', :action => 'create'}) do |f| %>
+  
+<table class="tableContainer" cellspacing="80px">   
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%" span="3"><b>Impact ID:</b><br><%= f.text_field :id,:value => "Auto-generated", :readonly => true %> </td>
+    <td height="100" width="15%"><b>Total Area:</b><br><%= f.text_field :atotal,:value => @atotal, :readonly => true %></td><td height="70" width="15%"></td></td></tr>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"><b>Disaster ID:</b><br><%=f.text_field :disaster_id, :value=>@disaster_id, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Zone Count:</b><br><%=f.text_field :zone_count, :value=>@zone_count, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Household Count:</b><br><%=f.text_field :household_count, :value=>@household_count, :readonly => true%> </td></tr>
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"><b>Total Dead:</b><br><%=f.text_field :dead, :value=>@dead, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Total Injured:</b><br><%=f.text_field :injured, :value=>@injured, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Total Missing:</b><br><%=f.text_field :missing, :value=>@missing, :readonly => true%> </td></tr>
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"><b>Total Displaced:</b><br><%=f.text_field :displaced, :value=>@displaced, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Total Relocated:</b><br><%=f.text_field :relocated, :value=>@relocated, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Total Unaffected:</b><br><%=f.text_field :good, :value=>@good, :readonly => true%> </td></tr>
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"><b>Total People Affected:</b><br><%=f.text_field :ptotal, :value=>@ptotal, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Total Livestock Affected:</b><br><%=f.text_field :livestock, :value=>@livestock, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Total Agri Affected:</b><br><%=f.text_field :agri, :value=>@agri, :readonly => true%> </td></tr>
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"><b>Total Infrastructure Affected:</b><br><%=f.text_field :infra, :value=>@infra, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Total Commerce Affected:</b><br><%=f.text_field :commerce, :value=>@commerce, :readonly => true%> </td>
+    <td height="100" width="15%"><b>Total Economy Lost:</b><br><%=f.text_field :ctotal, :value=>@ctotal, :readonly => true%> </td></tr>
+    
+</table>  <br><br>      
+    <center><%= f.submit "Submit", class: "btn btn-default" %></center><% end %>
+  
+ 
+  </div>
+</body>

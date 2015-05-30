@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  zone_id: 1
+  disaster_id: 1
+  effect1: MyString
+  effect2: MyString
+  effect3: MyString
+  dlifeline1: MyString
+  dlifeline2: MyString
+  dlifeline3: MyString
+  livestock: 9.99
+  agri: 9.99
+  commerce: 9.99
+  infra: 9.99
+  dead: 1
+  missing: 1
+  injured: 1
+  displaced: 1
+  relocated: 1
+  good: 1
+
+two:
+  zone_id: 1
+  disaster_id: 1
+  effect1: MyString
+  effect2: MyString
+  effect3: MyString
+  dlifeline1: MyString
+  dlifeline2: MyString
+  dlifeline3: MyString
+  livestock: 9.99
+  agri: 9.99
+  commerce: 9.99
+  infra: 9.99
+  dead: 1
+  missing: 1
+  injured: 1
+  displaced: 1
+  relocated: 1
+  good: 1

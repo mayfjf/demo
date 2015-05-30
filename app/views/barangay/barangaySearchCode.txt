@@ -1,0 +1,6 @@
+<td height="50" width = "25%">
+  <%= form_tag(barangay_index_path, :method => "get", id: "search-form") do %>
+  Search for Barangays: <%= number_field_tag :search, params[:search], placeholder: "Enter Municipal ID here" %>
+  <%= submit_tag "Search" %>
+<% end %></td>
+</tr></table><br><br>

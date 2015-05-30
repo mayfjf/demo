@@ -1,5 +1,22 @@
-<h2>Log in</h2>
+<%= stylesheet_link_tag "zone"%>
 
+<div class="container">
+
+<%=image_tag("banner1.png", height: '30%', width: '100%')%>
+
+<body>
+  <ul class = "nav nav-tabs">
+  <li><%= link_to "Home", root_path %> </li>
+  <li><%= link_to "About", pages_about_path %> </li>
+  <li><%= link_to "View Hazard Maps", pages_hazard_path %> </li>
+  <li><%= link_to "Contact Us", pages_contact_path %> </li>
+  <li><%= link_to "Check Best Route", pages_bestroute_path %> </li>
+  <li><%= link_to "Admin", admin_controlpanel_path%> </li>
+</ul>
+<div id="header">
+    <h1>Log in</h1>
+
+<center>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />
@@ -23,4 +40,5 @@
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%= render "devise/shared/links" %></center>
+</div></div></div>

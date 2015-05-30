@@ -1,2 +1,57 @@
-<h1>Pages#about</h1>
-<p>Find me in app/views/pages/about.html.erb</p>
+<%= stylesheet_link_tag "zone" %>
+
+<div class="container">
+<%=image_tag("banner1.png", height: '30%', width: '100%')%>
+
+<body>
+  <ul class = "nav nav-tabs">
+	<li><%= link_to "Home", root_path %> </li>
+  <li><%= link_to "View Hazard Maps", pages_hazard_path %> </li>
+  <li><%= link_to "Contact Us", pages_contact_path %> </li>
+  <li><%= link_to "Check Routes in Google Map", pages_bestroute_path %> </li>
+  <li><%= link_to "Check Passable Routes",bestpath_new_path%> </li>
+  <li><%= link_to "Admin", admin_controlpanel_path %> </li>
+
+  <% if current_user %>
+      <li><%= link_to "Manage Barangay Data", pages_passcode_path %></li>
+      <li><%= link_to "Manage Municipal Data", pages_passcode_path %></li>
+      <li><%= link_to "Messages", pages_contact_path %></li>
+      <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+  <% else %>
+      <li><%= link_to "Sign In", new_user_session_path %> </li>
+  <%end%>
+  </ul>
+
+
+<div id="header">
+	<h1>About This System</h1>
+</div>
+<div id="section">
+  <div class="container">
+  <p></center><font size='2' color="maroon">
+   Welcome! This is a computer software that automatically computes the impact of disaster in Guimaras. This system is integrated with decision support that aids in the computations and identifications of needs of the victims of natural disasters, for a fair, precise and timely distribution of services.
+  </p><br>
+  You must be logged in to use the full sytem features.
+  <p><br><br>
+
+  <b>WEB DEVELOPER:</b><br>
+    This system was created and maintained by May Florence Javellana-Franco. She is currently connected with Iloilo Science and Technology University or ISAT-U (formerly known as Western Visayas College of Science and Technology.
+    or WVCST).<br><br>
+
+  <b>OBJECTIVES:</b><br>
+
+  Generally, this system was developed as an Online Post Disaster Impact Assessment and Decision Support Response System for the Island of Guimaras.<br><br>
+
+Specifically, this system was developed with the following features:<br>
+1.  Expedite the response of responsible agencies after disaster strikes by <br>
+a.  automatically assessing the impact of a disaster to provide fast analysis of needs of the affected populations <br>
+b.  being able to send alert messages through SMS to responsible agencies for fast notification<br>
+c.  being able to provide suggestions on the best possible route from the source area to the affected areas for fast delivery of needed services.<br><br>
+
+2.  To be able to generate a list of the kinds and volume of relief aids needed per family affected for a fair, precise and timely allocation and distribution.<br><br>
+
+3.  To be able to implement community-based ICT by remotely gathering from each barangay the validated data for pre-storing, the type of hazard or calamity that has hit, the list of affected populations, and road status. <br><br>
+
+</div>
+
+</div>

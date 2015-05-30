@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>New Hit Zone Record</h1>
+</div>
+
+<div id="section"><center>
+ 
+  <%= form_for(:hit, :url => {:controller => 'hit', :action => 'create'}) do |f| %>
+  
+<table class="tableContainer" cellspacing="80px">   
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b>Hit ID:</b><br><%= f.text_field :id,:value => "Auto-generated", :readonly => true %> </td>
+	    <td height="100" width="15%"><b>Disaster ID:</b><br><%= f.number_field :disaster_id, :value =>@h, :readonly => true %></td>
+		<td height="100" width="15%"><b>Zone ID:</b><br><%=f.number_field :zone_id%><%=link_to "Verify ID", zone_show_user_path%> </td></tr>
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b> Major Catastrophy:</b><br><%= f.select :effect1, options_for_select(%w[Flood Landslide Storm_surge Damaged_Property Electrocution]),:include_blank => true%></td>
+	    <td height="100" width="15%"><b> Secondary Catastrophy:</b><br><%= f.select :effect2, options_for_select(%w[Flood Landslide Storm_surge Damaged_Property Electrocution]),:include_blank => true%></td>
+	    <td height="100" width="15%"><b> Minor Catastrophy:</b><br><%= f.select :effect3, options_for_select(%w[Flood Landslide Storm_surge Damaged_Property Electrocution]),:include_blank => true%></td></tr>
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b> Major Lifeline Damaged:</b><br><%= f.select :dlifeline1, options_for_select(%w[Water Electricity Communication Transportation]),:include_blank => true%></td>
+	    <td height="100" width="15%"><b> Secondary Lifeline Damaged:</b><br><%= f.select :dlifeline2, options_for_select(%w[Water Electricity Communication Transportation]),:include_blank => true%></td>
+	    <td height="100" width="15%"><b> Minor Lifeline Damaged:</b><br><%= f.select :dlifeline3, options_for_select(%w[Water Electricity Communication Transportation]),:include_blank => true%></td></tr></table><br>
+
+<table class="tableContainer" cellspacing="80px">  
+	 <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+	    <td height="100" width="15%"> <b>Estimated Loss in Livestock  (%):</b><br><%= f.number_field :livestock, :class => 'text_field', :step => '0.01'%> </td>
+	    <td height="100" width="15%"> <b>Estimated Loss in Agriculture (%):</b><br><%= f.number_field :agri, :class => 'text_field', :step => '0.01'%> </td>
+	    <td height="100" width="15%"> <b>Estimated Loss in Commerce/Trade (%):</b><br><%= f.number_field :commerce, :class => 'text_field', :step => '0.01'%> </td>
+	    <td height="100" width="15%"> <b>Estimated Loss in Infrastructure (%):</b><br><%= f.number_field :infra, :class => 'text_field', :step => '0.01'%> </td></tr></table><br>
+
+
+    </table><hr>
+    
+    <center><%= f.submit "Submit", class: "btn btn-default" %></center><% end %>
+  
+     
+  </div>
+</body>

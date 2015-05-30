@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  zone_count: 1
+  dead: 1
+  missing: 1
+  injured: 1
+  displaced: 1
+  relocated: 1
+  good: 1
+  ptotal: 1
+  livestock: 9.99
+  agri: 9.99
+  infra: 9.99
+  commerce: 9.99
+  ctotal: 9.99
+
+two:
+  zone_count: 1
+  dead: 1
+  missing: 1
+  injured: 1
+  displaced: 1
+  relocated: 1
+  good: 1
+  ptotal: 1
+  livestock: 9.99
+  agri: 9.99
+  infra: 9.99
+  commerce: 9.99
+  ctotal: 9.99

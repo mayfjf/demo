@@ -1,0 +1,25 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>CREATE New Passcode</h1>
+</div>
+
+<div id="section"><center>
+  
+  
+  <%= form_for(:passcode, :url => {:controller => 'pages', :action => 'create'}) do |f| %>
+  
+    <p> Municipality:<br><%= f.number_field :municipal_id%> </p>
+    <p> Barangay:<br><%= f.number_field :barangay_id%> </p>
+    <p> New PassCode:<br><%= f.password_field :pass%></p><br>
+    
+    <%= f.submit "Submit", class: "btn btn-default" %>
+  <% end %><hr>
+  
+  </div>
+<br><br><br><br><br>
+  <font size = "small" color = "red">Warning to admin:<br>
+  The generation of a new passcode for barangay and/or municipality shall <br>
+  only be done once for each barangay/municipality combination. <br>Check your database regularly.<br>
+</font>

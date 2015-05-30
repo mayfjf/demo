@@ -1,0 +1,40 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>CREATE New People Record</h1>
+</div>
+
+
+
+<div id="section">
+
+  <%= form_for(:people, :url => {:controller => 'people', :action => 'create'}) do |f| %>
+  
+<table class="tableContainer" cellspacing="80px">   
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%" span="3"><b>Person ID:</b><br><%= f.text_field :id,:value => "Auto-generated", :readonly => true %> </td>
+    <td height="100" width="15%"></td><td height="70" width="15%"></td></td></tr>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"><b>First Name:</b><br><%=f.text_field :firstname%> </td>
+    <td height="100" width="15%"><b> Middle Name:</b><br><%=f.text_field :middlename%> </td>
+    <td height="100" width="15%"> <b>Last Name:</b><br><%= f.text_field :familyname%> </td></tr>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"> <b> Birth Date:</b><br><%= f.date_select :birthdate, :start_year => Date.current.year, :end_year => 1920%> </td>
+    <td height="100" width="15%"> <b> Email Address:</b><br><%=f.text_field :email%> </td>
+    <td height="100" width="15%">  <b>Gender:</b><br><%= f.select :gender, options_for_select(%w[Please_Select Male Female])%></td></tr>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"> <b>Civil Status:</b><br><%= f.select :civilstatus, options_for_select(%w[Please_Select Single Married Separated Widow Widower Annuled Divorced]) %> </td>
+    <td height="100" width="15%"> <b> Occupation:</b><br><%=f.text_field :occupation%> </td>
+    <td height="100" width="15%"> <b> Contact Number:</b><br><%=f.telephone_field :contactnum%> </td></tr>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="100" width="15%"> <b>Disability Info:</b><br><%=f.text_area :disabilityinfo%> </td>
+    <td height="100" width="15%">  <b>Belongs to Household:</b><br><%= f.select :household_id, Household.all.map { |u|[u.name,u.id]}, {:prompt => "Please Select ",  :selected =>@p_id}%></td>
+    <td height="100" width="15%" span="2"><b> Current Condition:</b><br><%= f.select :condition, options_for_select(%w[Please_Select Good Missing Injured Dead Displaced Relocated]) %></td></tr></table><hr>
+    
+    <center><%= f.submit "Submit", class: "btn btn-default" %></center><% end %>
+  
+     
+  </div>
+</body>

@@ -1,0 +1,81 @@
+<%= stylesheet_link_tag "zone" %>
+
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+
+<body>
+
+<div id="header">
+<h1>Municipality Listings</h1>
+</div>
+
+<div id="section"><center>
+  
+
+<table class="tableContainer" cellspacing="80px">                  
+  <tr style="outline: thin solid"  bgcolor="#C0C0C0">                          
+    <th height="50" width="20%">ID</th>
+    <th height="50" width="20%" colspan="9">NAME</th>
+    
+  </tr>
+
+<% @municipality.all.each do |mun| %>
+  <tr style="outline: thin solid" bgcolor="#B0C4DE" >
+  <td height="50" width="5%"><%= mun.id %></td>
+  <td height="50" width="20%"><%= mun.name %></td>
+    
+  <td><%= button_to "Edit", {:controller => "municipal", :action => "edit", :id => mun.id}, {:method=>:post} %></td>
+  <td><%= button_to "Details", {:controller => "municipal", :action => "showdetails", :id => mun.id}, {:method=>:post} %></td>
+  <td><%= button_to "View Barangays", {:controller => "barangay", :action => "search", :id => mun.id}, {:method=>:post} %></td>
+  <td><%= button_to "Add Barangays", {:controller => "barangay", :action => "new", :id => mun.id}, {:method=>:post} %></td>
+  <td height="50" width="15%"></td>
+  <td><%= link_to "Delete", municipal_delete_path(:municipality=>mun.id), method: :delete, class:'btn btn-mini btn-danger', :onclick => "makingSure(event)"%></td>
+  </tr>
+
+
+  
+<% end %>
+
+</table><br><br><br>
+<h3>Summary: </h3><center>
+
+
+<table class="tableContainer" cellspacing="80px"> 
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+  <td height="50" width="25%"><b>TOTAL NUMBER OF MUNICIPALITIES:</b></td> 
+  <td height="50" width="25%"><%=@municipality.count%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL AREA :</b></td>
+  <td height="50" width="25%"> <%=@municipality.sum(:area)%></td></tr>
+
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL NUMBER OF POPULATIONS:</b></td>
+  <td height="50" width="25%"> <%=@municipality.sum(:population)%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL VALUE OF LIVESTOCK IN PESO:</b></td> 
+  <td height="50" width="25%"><%=@municipality.sum(:livestock)%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL VALUE OF AGRICULTURE IN PESO:</b></td> 
+  <td height="50" width="25%"><%=@municipality.sum(:agri)%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL VALUE OF COMMERCE/TRADE IN PESO:</b></td>
+  <td height="50" width="25%"><%=@municipality.sum(:commercial)%></td></tr>
+
+</table><br><br></center>
+</div>

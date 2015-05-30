@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hazard_id: 1
+  date: 2015-04-29 15:58:24
+  details: MyString
+
+two:
+  hazard_id: 1
+  date: 2015-04-29 15:58:24
+  details: MyString

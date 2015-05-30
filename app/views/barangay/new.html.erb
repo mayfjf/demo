@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Create New Barangay Record</h1>
+</div>
+
+<div id="section">
+
+  <%= form_for(:barangay, :url => {:controller => 'barangay', :action => 'create'}) do |f| %>
+
+  <table class="tableContainer" cellspacing="80px"> 
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+    <td height="100" width="15%"> Barangay ID:<br><%= f.text_field :id,:value => "Auto-generated", :readonly => true %> </td>
+    <td height="100" width="15%"> Barangay Name::<br><%=f.text_field :name%> </td>
+    <td height="100" width="15%"> Municipality:<br><%= f.select :municipality_id, Municipality.all.map { |u|[u.name,u.id]}, {:prompt => "Please Select ", :selected =>@muni}%></td> 
+    <td height="100" width="15%"> Chairman ID:<br><%= f.select :people_id, People.all.map { |u| [[u.firstname,u.familyname], u.id] }, {:prompt => "Please Select" }, { :class => "people_unit" } %></td></tr>
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+    <td height="100" width="15%"> Main Livelihood:<br><%=f.text_field :main_livelihood%> </td>
+    <td height="100" width="15%"> Rescue Resources:<br><%=f.text_area :rescue_resources%> </td>
+    <td height="100" width="15%" colspan="2"> Hazard Threat:<br><%= f.select :hazard_id, Hazard.all.map { |u| [u.description, u.id] }, {:prompt => "Please Select" }, { :class => "hazard_unit" } %></td></tr>
+  
+  </table><hr>
+      <center>
+        <%= f.submit "Submit", class: "btn btn-default" %>
+      </center>
+      <% end %>
+      </div>
+    </body>

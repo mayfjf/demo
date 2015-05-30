@@ -1,0 +1,107 @@
+<%= stylesheet_link_tag "admin" %>
+
+<div class="container">
+<%=image_tag("banner1.png", height: '30%', width: '100%')%>
+
+<body>
+	<ul class = "nav nav-tabs">
+  <li><%= link_to "Home", root_path %> </li>
+  <li><%= link_to "About", pages_about_path %> </li>
+  <li><%= link_to "View Hazard Maps", pages_hazard_path %> </li>
+  <li><%= link_to "Contact Us", pages_contact_path %> </li>
+  <li><%= link_to "Check Routes in Google Map", pages_bestroute_path %> </li>
+  <li><%= link_to "Admin", admin_controlpanel_path%> </li>
+  
+
+  <% if current_user %>
+      <li><%= link_to "Manage Barangay Data", pages_passcode_path %></li>
+      <li><%= link_to "Manage Municipal Data", pages_passcode_path %></li>
+      <li><%= link_to "Messages", pages_contact_path %></li>
+      <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+  <% else %>
+      <li><%= link_to "Sign In", new_user_session_path %> </li>
+  <%end%>
+  </ul>
+
+  <div id="header">
+	<h1>Find The Best Possible Route Through the Network </h1>
+</div>
+
+<center><br><br>
+<%=image_tag("network1.png", height: '80%', width: '70%')%>
+
+<%@a1 = Route.find_by(name:'r1')%>
+<%@a2 = Route.find_by(name:'r2')%>
+<%@a3 = Route.find_by(name:'r3')%>
+<%@a4 = Route.find_by(name:'r4')%>
+<%@a5 = Route.find_by(name:'r5')%>
+<%@a6 = Route.find_by(name:'r6')%>
+<%@a7 = Route.find_by(name:'r7')%>
+<%@a8 = Route.find_by(name:'r8')%>
+<%@a9 = Route.find_by(name:'r9')%>
+<%@a10 = Route.find_by(name:'r10')%>
+<%@a11 = Route.find_by(name:'r11')%>
+<%@a12 = Route.find_by(name:'r12')%>
+<%@a13 = Route.find_by(name:'r13')%>
+<%@a14 = Route.find_by(name:'r14')%>
+<%@a15 = Route.find_by(name:'r15')%>
+<%@a16 = Route.find_by(name:'r16')%>
+<%@a17 = Route.find_by(name:'r17')%>
+<%@a18 = Route.find_by(name:'r18')%>
+<%@a19 = Route.find_by(name:'r19')%>
+<%@a20 = Route.find_by(name:'r20')%>
+<%@a21 = Route.find_by(name:'r21')%>
+<%@a22 = Route.find_by(name:'r22')%>
+<%@a23 = Route.find_by(name:'r23')%>
+
+<%@a24 = Route.find_by(name:'r24')%>
+<%@a25 = Route.find_by(name:'r25')%>
+<%@a26 = Route.find_by(name:'r26')%>
+<%@a27 = Route.find_by(name:'r27')%>
+<%@a28 = Route.find_by(name:'r28')%>
+<%@a29 = Route.find_by(name:'r29')%>
+<%@a30 = Route.find_by(name:'r30')%>
+<%@a31 = Route.find_by(name:'r31')%>
+<%@a32 = Route.find_by(name:'r32')%>
+<%@a33 = Route.find_by(name:'r33')%>
+<%@a34 = Route.find_by(name:'r34')%>
+<%@a35 = Route.find_by(name:'r35')%>
+<%@a36 = Route.find_by(name:'r36')%>
+<%@a37 = Route.find_by(name:'r37')%>
+<%@a38 = Route.find_by(name:'r38')%>
+<%@a39 = Route.find_by(name:'r39')%>
+<%@a40 = Route.find_by(name:'r40')%>
+<%@p=Route.where('passable LIKE ?', 'f')%>
+
+
+
+<%@g.add_vertex('Alaguisoc', {'San_Miguel' =>@a1.temp,'Balcon_Maravilla'=> @a2.temp,'Balcon_Melliza' =>@a3.temp, 'Poblacion' => @a4.temp})%>
+<%@g.add_vertex('Balcon_Maravilla', {'Alaguisoc' => @a5.temp, 'Balcon_Melliza' => @a6.temp, 'Morobuan' => @a7.temp})%>
+<%@g.add_vertex('Balcon_Melliza', {'Poblacion' => @a8.temp,'Balcon_Maravilla'=> @a9.temp, 'Alaguisoc' => @a10.temp})%>
+<%@g.add_vertex('Bugnay', {'San_Miguel' => @a11.temp})%>
+<%@g.add_vertex('Buluangan', {'Sta_Teresa' => @a12.temp, 'Sinapsapan' => @a13.temp})%>
+<%@g.add_vertex('Espinosa', {'San_Miguel' => @a14.temp, 'Sta_Teresa' => @a15.temp, 'Morobuan'=>@a16.temp})%>
+<%@g.add_vertex('Hoskyn', {'Poblacion' =>@a17.temp, 'Rizal' =>@a18.temp})%>
+<%@g.add_vertex('Lawi', {'Sta_Teresa' => @a19.temp, 'Sinapsapan' =>@a20.temp})%>
+<%@g.add_vertex('Morobuan', {'Balcon_Maravilla' => @a21.temp, 'Espinosa' =>@a22.temp})%>
+<%@g.add_vertex('Poblacion', {'Rizal' =>@a23.temp, 'Balcon_Melliza' =>@a24.temp, 'Alaguisoc' => @a25.temp, 'Hoskyn' => @a26.temp})%>
+<%@g.add_vertex('Rizal', {'Poblacion' =>@a27.temp,'Hoskyn' =>@a28.temp })%>
+<%@g.add_vertex('San_Miguel', {'Sta_Teresa' => @a29.temp,'Alaguisoc' => @a30.temp, 'Bugnay'=> @a31.temp, 'Espinosa'=> @a32.temp})%>
+<%@g.add_vertex('Sinapsapan', {'Sta_Teresa' => @a33.temp,'Lawi' => @a34.temp, 'Buluangan' => @a35.temp})%>
+<%@g.add_vertex('Sta_Teresa', {'San_Miguel' => @a36.temp,'Espinosa' => @a37.temp, 'Sinapsapan' => @a38.temp, 'Lawi' => @a39.temp, 'Buluangan' =>@a40.temp})%>
+
+<div id="nav">
+<h3>From <%=@s%> to <%=@e%>:</h3><br> The best possible route is through <br><font color="red"> <%=@g.shortest_path(@s,@e)%></font> 
+<center><br>
+
+<%if @p.exists?%>
+	<font size="2">List of not passable routes:</font><br>
+
+	<%@p.all.each do |s|%>
+		<%=s.name%>--<%=s.description%><br>
+	<%end%>
+<%end%>
+
+</div>
+
+</div>

@@ -1,0 +1,44 @@
+<%= stylesheet_link_tag "zone" %>
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+<body>
+
+<div id="header">
+<h1>Sender Listings</h1>
+</div>
+
+<div id="section"><center>
+
+<%= link_to "Create New Record", sender_new_path, class: "btn btn-default" %><br><br>
+
+<table class="tableContainer" cellspacing="80px">                       
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">                          
+    <th height="50" width="10%">ID</th>
+    <th height="50" width="30%" colspan="6">NAME</th>
+    
+ </tr>
+
+  <% @s.all.each do |sh| %>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE" >
+  <td height="50" width="10%"><%= sh.id %></td>
+  <td height="50" width="30%"><%= sh.name %></td>
+  
+  
+  <td><%= button_to "Edit", {:controller => "sender", :action => "edit", :id => sh.id}, {:method=>:post} %></td>
+  <td height="50" width="25%"></td>
+  <td><%= link_to "Delete", sender_delete_path(:sender=>sh.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
+  
+
+</tr>
+<% end %></table>

@@ -1,0 +1,34 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Create New Disaster Record</h1>
+</div>
+
+<div id="section"><center>
+ 
+    
+    <%= form_for(:disaster, :url => {:controller => 'disaster', :action => 'create'}) do |f| %>
+  
+ 
+     <table class="tableContainer" cellspacing="80px">   
+  	     <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+  		    <td height="100" width="15%" align="center"><b>Disaster ID:</b><br><%= f.text_field :id,:value => "Auto-generated", :readonly => true %></td></tr>
+  		    <tr  style="outline: thin solid" bgcolor="#C0C0C0">     
+          	<td height="100" width="15%" align="center"><b>Hazard Type:</b><br><%= f.select :hazard_id, Hazard.all.map { |u|[u.description,u.id]}, {:prompt => "Please Select "}%></td> 
+          	<tr  style="outline: thin solid" bgcolor="#C0C0C0">     
+           	<td height="100" width="15%" align="center"><b>Date:</b><br><%= f.datetime_select :date, ampm: true, :start_year => Date.current.year, :end_year=>2030%> 
+            </td>
+            </tr>
+          <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+          	<td height="300" width="15%" span="2" align="center"><b>Details of the disaster:</b><br><%=f.text_area :details, :cols => 100, :rows => 10%></td> 
+          </tr>
+      </table><hr> 
+    
+    <center><br><br><%= f.submit "Submit", class: "btn btn-default" %></center>
+    <% end %>
+
+
+  
+</body>
+</div>

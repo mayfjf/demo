@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Edit Needs Record</h1>
+</div>
+
+<div id="section"><center>
+ 
+  <%= form_for(:need, :url => {:controller => 'need', :action => 'savetable', :method=>:get, :id => params[:id], :priority => params[:priority],:code => params[:code],:description => params[:description], :agency_id => params[:agency_id]}) do |f| %>
+
+  	<br>Need ID:<br><%= f.text_field :id,:value => @n.id, :readonly => true %> 
+    <br>Priority Number:<br><%=f.number_field :priority,:value => @n.priority%> 
+    <br>Code:<br><%=f.number_field :code,:value => @n.code%> 
+    <br><%= f.select :agency_id, Agency.all.collect {|p| [ p.name, p.id ] },{:prompt => "Please Select", :selected =>@n.agency_id}%>
+    <br>Description:<br><%=f.text_area :description,:value => @n.description, :cols => 100, :rows => 10%> 
+    
+            
+    <br><br><br><%= f.submit "Submit", class: "btn btn-default" %><% end %><hr>
+
+    
+</div>
+</body>

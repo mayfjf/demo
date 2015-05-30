@@ -1,0 +1,23 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Edit Hazard Record</h1>
+</div>
+
+<div id="section"><center>
+ 
+
+ 
+  <%= form_for(:hazard, :url => {:controller => 'hazard', :action => 'savetable', :method=>:get, :id => params[:id], :description => params[:description]}) do |f| %>
+
+  	<br>Hazard ID:<br><%= f.text_field :id,:value => @hz.id, :readonly => true %> 
+    <br>Description:<br><%=f.text_field :description,:value => @hz.description%> 
+      
+            
+    <br><br><br><%= f.submit "Submit", class: "btn btn-default" %><% end %><hr>
+
+    
+
+</div>
+</body>

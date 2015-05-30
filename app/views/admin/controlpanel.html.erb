@@ -1,30 +1,58 @@
-<h1>Administrator ControlPanel</h1>
+<%= stylesheet_link_tag "admin" %>
 
+<div class="container">
+<%=image_tag("banner1.png", height: '30%', width: '100%')%>
 
-<p id ="myP">       
-<div class="center jumbotron" >
-<h3>User Controls</h3>
-<%= link_to "Create User", '/users/new', class: "btn btn-lg btn-primary" %>
-<%= link_to "View Users", '/users/show', class: "btn btn-lg btn-primary" %>
-<%= link_to "Edit User", 'edit_user_path', class: "btn btn-lg btn-primary" %>
-<%= link_to "Delete User", '#', class: "btn btn-lg btn-primary" %><br><br>
-</div> 
-<div class="center jumbotron">
-<h3>Municipal / Barangay Controls</h3>
-<%= link_to "Add  Data", '#', class: "btn btn-lg btn-primary" %>
-<%= link_to "Edit Data", '#', class: "btn btn-lg btn-primary" %>
-<%= link_to "View Data", '#', class: "btn btn-lg btn-primary" %>
-<%= link_to "Search Data", '#', class: "btn btn-lg btn-primary" %><br><br>
-</div>
-<div class="center jumbotron">
-<h3>Disaster Controls</h3>
-<%= link_to "Manage Disaster", '#', class: "btn btn-lg btn-primary" %> 
-</div>
-<div class="center jumbotron">
-<h3>Reports Controls</h3>
-<%= link_to "Query for Reports", '#', class: "btn btn-lg btn-primary" %>
-<%= link_to "Search Saved Reports", '#', class: "btn btn-lg btn-primary" %>
-<%= link_to "Print Reports", '#', class: "btn btn-lg btn-primary" %>
-</div> 
-</p>
 <body>
+	<ul class = "nav nav-tabs">
+  <li><%= link_to "Home", root_path %> </li>
+  <li><%= link_to "About", pages_about_path %> </li>
+  <li><%= link_to "View Hazard Maps", pages_hazard_path %> </li>
+  <li><%= link_to "Contact Us", pages_contact_path %> </li>
+  <li><%= link_to "Check Routes in Google Map", pages_bestroute_path %> </li>
+   
+
+  <% if current_user %>
+      <li><%= link_to "Manage User Data", pages_passcode_path %></li>
+      <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+  <% else %>
+      <li><%= link_to "Sign In", new_user_session_path %> </li>
+  <%end%>
+  </ul>
+
+<div id="header">
+<h1>CONTROL PANEL</h1>
+</div>
+<br><br>
+<div id="nav">
+<hr>
+<%= link_to "Manage Disaster", @to_display=disaster_show_path, target:"display"%> <br>
+<%= link_to "Manage Routes", @to_display=route_show_path, target:"display"%><br>
+<%= link_to "Check Best Route", @to_display=bestpath_avnewbr_path, target:"display"%><br><hr>
+<%= link_to "Create User",@to_display=new_user_registration_path, target:"display" %><br>
+<%= link_to "Manage Users",@to_display='/users/show', target:"display"%><br>
+<%= link_to "Manage Senders",@to_display=sender_show_path, target:"display"%><br>
+<%= link_to "Create Passcode",@to_display= pages_new_path, target:"display" %><br>
+<%= link_to "Manage Passcode",@to_display= pages_show_path, target:"display"%><br>
+<%= link_to "Create Municipality",@to_display= municipal_new_path, target:"display"%><br>
+<%= link_to "Manage Municipality",@to_display= municipal_show_path, target:"display"%><br>
+<%= link_to "Manage Barangay", @to_display=barangay_show_path, target:"display"%><br>
+<%= link_to "Manage Zone", @to_display=zone_show_path, target:"display"%><br>
+<%= link_to "Manage People", @to_display=people_show_path,target:"display"%><br>
+<%= link_to "Manage Household", @to_display=household_show_path,target:"display" %><br>
+<%= link_to "Create Agency", @to_display=agency_new_path, target:"display"%><br>
+<%= link_to "Manage Agency", @to_display=agency_show_path, target:"display"%><br>
+<%= link_to "Create Hazard", @to_display=hazard_new_path, target:"display"%><br>
+<%= link_to "Manage Hazard", @to_display=hazard_show_path, target:"display"%><br>
+<%= link_to "Create Needs", @to_display=need_new_path, target:"display"%><br>
+<%= link_to "Manage Needs", @to_display=need_show_path, target:"display"%><br>
+<hr>
+</div>
+
+<div id="section">
+<iframe name="display" height="700" width="950" scr="<%@to_display%>" seamless>
+</div>
+</div>
+</body>
+
+

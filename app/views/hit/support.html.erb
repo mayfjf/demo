@@ -1,0 +1,246 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>ZONE <%=@hit.zone_id%> SUPPORT SYSTEM</h1>
+</div>
+
+<div id="section">
+ 
+<%@date=Disaster.joins(:hit).where('hits.disaster_id LIKE ?', @hit.disaster_id)%>
+<%@hh = Household.where('zone_id LIKE ?', @hit.zone_id)%> 
+<%@zo =Zone.joins(:hit).where(['hits.zone_id LIKE ?',@hit.zone_id])%>
+<%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',@date[0].hazard_id])%>
+
+
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+	<tr>
+	<th height="50" width="10%"><b>Date of Disaster: <%=@date[0].date%></b></th></tr>
+  <th height="50" width="10%"><b>Type of Disaster: <%=@date[0].hazard_id%> -  <%=@disaster[0].description%></b></th>
+</tr></table><br>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+<tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+ <th height="50" width="10%" colspan="2"><b>EFFECTS</b></th>
+</tr>
+<tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+  <th height="50" width="10%">Major Effect:</th>
+  <td height="50" width="10%"><%=@hit.effect1%></td>
+</tr>
+<tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+  <th height="50" width="10%">Secondary Effect:</th>
+  <td height="50" width="10%"><%=@hit.effect2%></b></td>
+</tr>
+<tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+  <th height="50" width="10%">Minor Effect:</th>
+  <td height="50" width="10%"><%=@hit.effect3%></td></tr>
+</table>
+
+<center><h3>NEEDS TO BE DONE</h3></center>
+<hr>
+<b>On lifeline</b>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4> 
+  
+    <%if (@hit.dlifeline1 || @hit.dlifeline2 || @hit.dlifeline3).present?%>
+      <%@needs=Need.where('code LIKE ?',4)%>
+      
+      <%@needs.all.each do |n|%>
+          <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+              <th width="20%">Priority Number:<%=n.priority%></th>
+              <th width="20%"><%=n.description%></th>
+              <th width="20%">Mobilize 
+                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th>
+
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+      <%end%>
+
+    <%else%>
+      <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+        <th>No damage on lifelines</th>
+    <%end%>
+
+</tr></table>
+<hr>
+<b>On Economy</b>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4> 
+  
+  
+    <%if (@hit.livestock || @hit.agri || @hit.commerce || @hit.infra) > 0 %>
+      <%@needs=Need.where('code LIKE ?',5)%>
+      
+          
+      <%@needs.all.each do |n|%>
+            
+          <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+              <th width="20%">Priority Number:<%=n.priority%></th>
+              <th width="20%"><%=n.description%></th>
+              <th width="20%">Mobilize  
+                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%=@agency[0].name%>    <%=@num=@agency[0].contactnum%></th></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post}%></th>
+              
+          
+        <%end%>
+    <%else%>
+      <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+        <th>No Effects on Economy</th>
+    <%end%>
+
+</tr></table>
+
+<hr>
+<b>On DEAD People</b>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4> 
+  
+  
+    <%if (@hit.dead) > 0 %> 
+      <%@needs=Need.where('code LIKE ?',1)%>
+      
+          
+      <%@needs.all.each do |n|%>
+            
+          <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+              <th width="20%">Priority Number:<%=n.priority%></th>
+              <th width="20%"><%=n.description%></th>
+              <th width="20%">Mobilize 
+                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              
+          
+        <%end%>
+    <%else%>
+      <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+        <th>Congratulations! No dead people.</th>
+    <%end%>
+
+</tr></table>
+<hr>
+<b>On MISSING People</b>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4> 
+  
+  
+    <%if (@hit.missing) > 0 %> 
+      <%@needs=Need.where('code LIKE ?',1)%>
+      
+          
+      <%@needs.all.each do |n|%>
+            
+          <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+              <th width="20%">Priority Number:<%=n.priority%></th>
+              <th width="20%"><%=n.description%></th>
+              <th width="20%">Mobilize  
+                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              
+          
+        <%end%>
+    <%else%>
+      <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+        <th>Congratulations! No missing people.</th>
+    <%end%>
+
+</tr></table>
+
+<hr>
+<b>On INJURED People</b>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4> 
+  
+  
+    <%if (@hit.injured) > 0 %> 
+      <%@needs=Need.where('code LIKE ?',2)%>
+      
+          
+      <%@needs.all.each do |n|%>
+            
+          <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+              <th width="20%">Priority Number:<%=n.priority%></th>
+              <th width="20%"><%=n.description%></th>
+              <th width="20%">Mobilize 
+                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+          
+        <%end%>
+    <%else%>
+      <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+        <th>Congratulations! No injured people.</th>
+    <%end%>
+
+</tr></table>
+<hr>
+<b>On DISPLACED People</b>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4> 
+  
+  
+    <%if (@hit.displaced) > 0 %> 
+      <%@needs=Need.where('code LIKE ?',3)%>
+      
+          
+      <%@needs.all.each do |n|%>
+            
+          <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+              <th width="20%">Priority Number:<%=n.priority%></th>
+              <th width="20%"><%=n.description%></th>
+              <th width="20%">Mobilize 
+                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              
+          
+        <%end%>
+    <%else%>
+      <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+        <th>Congratulations! No displaced people.</th>
+    <%end%>
+
+</tr></table>
+<hr>
+<b>On RELOCATED People</b>
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4> 
+  
+  
+    <%if (@hit.relocated) > 0 %> 
+      <%@needs=Need.where('code LIKE ?',3)%>
+      
+          
+      <%@needs.all.each do |n|%>
+            
+          <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+              <th width="20%">Priority Number:<%=n.priority%></th>
+              <th width="20%"><%=n.description%></th>
+              <th width="20%">Mobilize 
+                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              
+          
+        <%end%>
+    <%else%>
+      <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
+        <th>Congratulations! No relocated people.</th>
+    <%end%>
+
+</tr></table>
+<hr>
+
+
+
+
+
+
+
+
+</div>
+
+
