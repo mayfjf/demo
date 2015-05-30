@@ -9,7 +9,7 @@ class SmsController < ApplicationController
      @zid = params[:value2]
 
     RestClient.post('http://api.semaphore.co/api/sms',
-        { api:'Ur66A5fcXaEPczND1BnZ',
+        { api:'ApDd7oUU35arXxQguhuV',
           number:@num,
           message: %Q[Alert message: Your team is expected to respond urgently.Disaster has hit zone #{@zid}. Thank you -- PDRRMC Guimaras],
           from:'Guimaras PDRRMC'})  
@@ -17,6 +17,6 @@ class SmsController < ApplicationController
     redirect_to url_for(:controller => :hit, :action => :support, :id => @hid)
       
     end
-  
+    
 
 end
