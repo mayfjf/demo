@@ -1,8 +1,7 @@
  
  
 class BestpathController < ApplicationController
-require 'graph'
-require 'priority_queue'
+
  
   def new  	
   end
