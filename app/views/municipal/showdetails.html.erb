@@ -11,7 +11,7 @@
 <tr style="outline: thin solid" bgcolor="#C0C0C0">
   <td height="100" width="15%"> <b>Name  :</b><br> <%=@municipality.name%></td>
   <td height="100" width="15%"> <b>Mayor: </b><br> <%=@municipality.people_id%>
-  <%@m=People.joins(:municipality).where(['municipalities.people_id LIKE ?',@municipality.people_id])%>
+  <%@m=People.joins(:municipality).where(['municipalities.people_id = ?',@municipality.people_id])%>
   <%if @m.exists?%>
     <%=@m[0].firstname%>  <%=@m[0].familyname%></td></tr>
   <%else%>
