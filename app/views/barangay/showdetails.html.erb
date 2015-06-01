@@ -13,7 +13,7 @@
   <td height="100" width="15%"> <b>Barangay Name  :</b><br> <%=@bar.name%></td>
   <td height="100" width="15%"> <b>Belongs to Municipality of : </b><br> <%=@bar.municipality_id%>
   
-  <%@m=Municipality.joins(:barangay).where(['barangays.municipality_id LIKE ?',@bar.municipality_id])%>
+  <%@m=Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@bar.municipality_id])%>
   <%if @m.exists?%>
     <%=@m[0].name%></td>
   <%else%>
@@ -22,7 +22,7 @@
   
   <td height="100" width="25%"> <b>Chairman:</b><br><%= @bar.people_id%> 
   
-  <%@b=People.joins(:barangay).where(['barangays.people_id LIKE ?', @bar.people_id])%>
+  <%@b=People.joins(:barangay).where(['barangays.people_id = ?', @bar.people_id])%>
   <%if @b.exists?%>
     <%=@b[0].firstname%> <%= @b[0].middlename%> <%= @b[0].familyname%> </td></tr>
   <%else%>
@@ -34,7 +34,7 @@
   <td height="100" width="15%"> <b>Rescue Resources:</b><br><%= @bar.rescue_resources%> </td>  
   <td height="100" width="15%"> <b>Hazard Threat:</b><br><%= @bar.hazard_id%> 
   
-  <%@h=Hazard.joins(:barangay).where(['barangays.hazard_id LIKE ?',@bar.hazard_id])%>
+  <%@h=Hazard.joins(:barangay).where(['barangays.hazard_id = ?',@bar.hazard_id])%>
   <%if @h.exists?%>
     <%=@h[0].description%> </td>
   <%else%>

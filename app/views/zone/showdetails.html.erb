@@ -12,7 +12,7 @@
   <td height="100" width="15%"> <b>Zone Name  :</b><br> <%=@z.name%></td>
   <td height="100" width="15%"> <b>Belongs to Barangay : </b><br> <%=@z.barangay_id%>
   
-  <%@m=Barangay.joins(:zone).where(['zones.barangay_id LIKE ?',@z.barangay_id])%>
+  <%@m=Barangay.joins(:zone).where(['zones.barangay_id = ?',@z.barangay_id])%>
   <%if @m.exists?%>
   	<%=@m[0].name%></td>
   <%else%>

@@ -21,7 +21,7 @@ class ZoneController < ApplicationController
 
  def search
     @value = params[:id]
-    @z=Zone.where("barangay_id like ?", @value)
+    @z=Zone.where("barangay_id = ?", @value)
     render "show"
   end
 
@@ -44,7 +44,7 @@ end
       @z.destroy
       flash[:notice] = "Zone Data was deleted."
     end
-    @z=Zone.where("barangay_id like ?",@z.barangay_id)
+    @z=Zone.where("barangay_id = ?",@z.barangay_id)
       render "show"
   end
   
@@ -57,7 +57,7 @@ end
           flash[:notice] = @z.errors.full_messages
           
       end
-      @z=Zone.where("barangay_id like ?",@z.barangay_id)
+      @z=Zone.where("barangay_id = ?",@z.barangay_id)
       render "show"
   end
 
@@ -69,7 +69,7 @@ end
       else
         flash[:notice] = "ID not found"
       end
-      @z=Zone.where("barangay_id like ?",@z.barangay_id)
+      @z=Zone.where("barangay_id = ?",@z.barangay_id)
       render "show"
   end
 

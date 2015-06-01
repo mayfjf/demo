@@ -31,7 +31,7 @@
   <td height="50" width="15%"><%= zone.name %></td>
   <td height="50" width="5%"><%= zone.barangay_id %></td>
   
-  <%@zones = Barangay.joins(:zone).where(['zones.barangay_id LIKE ?',zone.barangay_id])%>
+  <%@zones = Barangay.joins(:zone).where(['zones.barangay_id = ?',zone.barangay_id])%>
   <td height="50" width="15%"><%=@zones[0].name%></td>
 
   
