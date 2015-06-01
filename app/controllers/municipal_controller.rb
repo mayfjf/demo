@@ -58,7 +58,7 @@ class MunicipalController < ApplicationController
            flash[:notice] = @municipality.errors.full_messages
         end
       end
-      @municipality = Municipality.where("id LIKE ?",@municipality.id)
+      @municipality = Municipality.where("id = ?",@municipality.id)
       render "show"
 
   end

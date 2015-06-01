@@ -17,12 +17,12 @@ class BarangayController < ApplicationController
 
   def search
     @value = params[:id]
-    @bar=Barangay.where("Municipality_id like ?", @value)
+    @bar=Barangay.where("Municipality_id = ?", @value)
     render "show"
   end
 
   def user_view
-    @bar = Barangay.where("id LIKE ?", params[:id])
+    @bar = Barangay.where("id = ?", params[:id])
     render "show"
   end
 
@@ -43,7 +43,7 @@ class BarangayController < ApplicationController
       @bar.save
       flash[:notice] = "Barangay Data was deleted"
      end
-     @bar=Barangay.where("Municipality_id like ?", @bar.municipality_id)
+     @bar=Barangay.where("Municipality_id = ?", @bar.municipality_id)
     render "show"
     
   end
@@ -58,7 +58,7 @@ class BarangayController < ApplicationController
           flash[:notice] = @bar.errors.full_messages
           
       end
-      @bar=Barangay.where("Municipality_id like ?", @bar.municipality_id)
+      @bar=Barangay.where("Municipality_id = ?", @bar.municipality_id)
       render "show"
   
    end
@@ -73,7 +73,7 @@ class BarangayController < ApplicationController
         flash[:notice] = @bar.errors.full_messages
       end
     end
-      @bar=Barangay.where("Municipality_id like ?", @bar.municipality_id)
+      @bar=Barangay.where("Municipality_id = ?", @bar.municipality_id)
       render "show"
   end
 
