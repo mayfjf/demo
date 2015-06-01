@@ -48,7 +48,7 @@
 <%@a38 = Route.find_by(name:'r38')%>
 <%@a39 = Route.find_by(name:'r39')%>
 <%@a40 = Route.find_by(name:'r40')%>
-<%@p=Route.where('cast(passable as text) LIKE ?', 'f')%>
+<%@p=Route.where('passable = ?', 'false')%>
 
 
 
