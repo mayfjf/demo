@@ -1,6 +1,6 @@
 require 'priority_queue'
  
-class Graph
+class graph
     def initialize()
         @vertices = {}
     end
