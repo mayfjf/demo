@@ -37,7 +37,7 @@
         <td height="50" width="5%"><%= barangay.id %></td>
         <td height="50" width="15%"><%= barangay.name %></td>
         <td height="50" width="5%"><%= barangay.municipality_id %></td>
-        <% @mm=Municipality.joins(:barangay).where(['barangays.municipality_id LIKE ?',barangay.municipality_id])%>
+        <% @mm=Municipality.joins(:barangay).where(['barangays.municipality_id = ?',barangay.municipality_id])%>
         <%if @mm.exists?%>
           <td height="50" width="15%"><%=@mm[0].name%> </td>      
          <%else%>
