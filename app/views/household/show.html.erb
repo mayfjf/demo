@@ -63,7 +63,7 @@
   <td height="50" width="10%"><%= hh.condition %></td>
   <td height="50" width="5%"><%= hh.zone_id %></td>
   <td height="50" width="15%">
-    <%@pr=Zone.joins(:household).where(['households.zone_id LIKE ?',hh.zone_id])%>
+    <%@pr=Zone.joins(:household).where(['households.zone_id = ?',hh.zone_id])%>
     <%if @pr.exists?%>
       <%=@pr[0].name%>  </td>
     <%else%>

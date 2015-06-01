@@ -12,7 +12,7 @@ class HouseholdController < ApplicationController
 
   def search
     @v = params[:id]
-    @h=Household.where("zone_id like ?", @v)
+    @h=Household.where("zone_id = ?", @v)
     render "show"
   end
 
@@ -37,7 +37,7 @@ end
       @h.save
       flash[:notice] = "Household Data was deleted"
     end
-   @h=Household.where("zone_id like ?", @h.zone_id)
+   @h=Household.where("zone_id = ?", @h.zone_id)
    render "show"
   end
   
@@ -49,7 +49,7 @@ end
       else
           flash[:notice] = @h.errors.full_messages
       end
-      @h=Household.where("zone_id like ?", @h.zone_id)
+      @h=Household.where("zone_id = ?", @h.zone_id)
       render "show"
   end
 
@@ -57,7 +57,7 @@ end
       if !params[:id].blank?
         @h= Household.find(params[:id])
         @h.update_attributes(household_params)
-         x=People.where('household_id LIKE ?',@h.id)
+         x=People.where('household_id = ?',@h.id)
             x.all.each do |g|
               g.update_attribute(:condition,@h.condition)
          end
@@ -65,7 +65,7 @@ end
       else
         flash[:notice] = "ID not found"
       end
-       @h=Household.where("zone_id like ?", @h.zone_id)
+       @h=Household.where("zone_id = ?", @h.zone_id)
       render "show"
   end
 
