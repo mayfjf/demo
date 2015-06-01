@@ -1,4 +1,5 @@
- 
+require 'graph'
+require 'priority_queue' 
  
 class BestpathController < ApplicationController
 
