@@ -29,7 +29,7 @@
 <center><h3><b>Estimated Loss<b></h3></center> 
 	 <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
 	    <td height="100" width="15%"> <b>Livestock(%):</b><br><%= f.number_field :livestock, :value => @hit.livestock, :class => 'text_field', :step => '0.01'%><br>
-		<%@zo =Zone.joins(:hit).where(['hits.zone_id LIKE ?',@hit.zone_id])%>
+		<%@zo =Zone.joins(:hit).where(['hits.zone_id = ?',@hit.zone_id])%>
 		<%@lvalue = @zo[0].livestock*(@hit.livestock/100)%>
 		<font color="blue"><%=@lvalue%> Pesos</font></td>
 	     

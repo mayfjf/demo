@@ -20,7 +20,7 @@ def index
     @key =params[:key]
     @value = params[:value]
     if @key=="Age"
-        @p=People.where("age like ?", @value)
+        @p=People.where("age = ?", @value)
     end
     if @key=="Civil_status"
         @p=People.where("civilstatus like ?", @value)
@@ -29,7 +29,7 @@ def index
         @p=People.where("occupation like ?", @value)
     end
     if @key=="Household_ID"
-        @p=People.where("household_id like ?", @value)
+        @p=People.where("household_id = ?", @value)
     end
     if @key=="Condition"
         @p=People.where("condition like ?", @value)
@@ -48,7 +48,7 @@ end
 
   def search
     @value = params[:id]
-    @p=People.where("household_id like ?", @value)
+    @p=People.where("household_id = ?", @value)
     render "show"
   end
 
@@ -58,7 +58,7 @@ end
       @p.destroy
       flash[:notice] = "People Data was deleted"
     end
-    @p=People.where("household_id like ?", @p.household_id)
+    @p=People.where("household_id = ?", @p.household_id)
     render "show"
   end
 
@@ -72,7 +72,7 @@ end
           flash[:notice] = @p.errors.full_messages
           
       end
-      @p=People.where("household_id like ?", @p.household_id)
+      @p=People.where("household_id = ?", @p.household_id)
       render "show"
   
    end
@@ -87,7 +87,7 @@ end
         flash[:notice] = "ID not found"
       end
       @p.save
-      @p=People.where("household_id like ?", @p.household_id)
+      @p=People.where("household_id = ?", @p.household_id)
       render "show"
   end
 

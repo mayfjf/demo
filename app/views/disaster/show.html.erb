@@ -47,7 +47,7 @@
   <td height="50" width="15%" ><%= dis.id %></td>
   <td height="50" width="15%" ><%= dis.hazard_id %></td>
     
-  <%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',dis.hazard_id])%>
+  <%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id = ?',dis.hazard_id])%>
   <td height="50" width="10%"><%=@disaster[0].description%></td>
 
   <td height="50" width="30%"><%= dis.date %></td>

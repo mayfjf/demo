@@ -7,10 +7,10 @@
 
 <div id="section">
  
-<%@date=Disaster.joins(:hit).where('hits.disaster_id LIKE ?', @hit.disaster_id)%>
-<%@hh = Household.where('zone_id LIKE ?', @hit.zone_id)%> 
-<%@zo =Zone.joins(:hit).where(['hits.zone_id LIKE ?',@hit.zone_id])%>
-<%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',@date[0].hazard_id])%>
+<%@date=Disaster.joins(:hit).where('hits.disaster_id = ?', @hit.disaster_id)%>
+<%@hh = Household.where('zone_id = ?', @hit.zone_id)%> 
+<%@zo =Zone.joins(:hit).where(['hits.zone_id = ?',@hit.zone_id])%>
+<%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id = ?',@date[0].hazard_id])%>
 
 
 
@@ -44,14 +44,14 @@
 <table BORDER=4 CELLSPACING=4 CELLPADDING=4> 
   
     <%if (@hit.dlifeline1 || @hit.dlifeline2 || @hit.dlifeline3).present?%>
-      <%@needs=Need.where('code LIKE ?',4)%>
+      <%@needs=Need.where('code = ?',4)%>
       
       <%@needs.all.each do |n|%>
           <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
               <th width="20%">Priority Number:<%=n.priority%></th>
               <th width="20%"><%=n.description%></th>
               <th width="20%">Mobilize 
-                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th>
 
               <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
@@ -70,7 +70,7 @@
   
   
     <%if (@hit.livestock || @hit.agri || @hit.commerce || @hit.infra) > 0 %>
-      <%@needs=Need.where('code LIKE ?',5)%>
+      <%@needs=Need.where('code = ?',5)%>
       
           
       <%@needs.all.each do |n|%>
@@ -79,7 +79,7 @@
               <th width="20%">Priority Number:<%=n.priority%></th>
               <th width="20%"><%=n.description%></th>
               <th width="20%">Mobilize  
-                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>    <%=@num=@agency[0].contactnum%></th></th>
               <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post}%></th>
               
@@ -99,7 +99,7 @@
   
   
     <%if (@hit.dead) > 0 %> 
-      <%@needs=Need.where('code LIKE ?',1)%>
+      <%@needs=Need.where('code = ?',1)%>
       
           
       <%@needs.all.each do |n|%>
@@ -108,7 +108,7 @@
               <th width="20%">Priority Number:<%=n.priority%></th>
               <th width="20%"><%=n.description%></th>
               <th width="20%">Mobilize 
-                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
               <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
               
@@ -127,7 +127,7 @@
   
   
     <%if (@hit.missing) > 0 %> 
-      <%@needs=Need.where('code LIKE ?',1)%>
+      <%@needs=Need.where('code = ?',1)%>
       
           
       <%@needs.all.each do |n|%>
@@ -136,7 +136,7 @@
               <th width="20%">Priority Number:<%=n.priority%></th>
               <th width="20%"><%=n.description%></th>
               <th width="20%">Mobilize  
-                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
               <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
               
@@ -156,7 +156,7 @@
   
   
     <%if (@hit.injured) > 0 %> 
-      <%@needs=Need.where('code LIKE ?',2)%>
+      <%@needs=Need.where('code = ?',2)%>
       
           
       <%@needs.all.each do |n|%>
@@ -165,7 +165,7 @@
               <th width="20%">Priority Number:<%=n.priority%></th>
               <th width="20%"><%=n.description%></th>
               <th width="20%">Mobilize 
-                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
               <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
           
@@ -183,7 +183,7 @@
   
   
     <%if (@hit.displaced) > 0 %> 
-      <%@needs=Need.where('code LIKE ?',3)%>
+      <%@needs=Need.where('code = ?',3)%>
       
           
       <%@needs.all.each do |n|%>
@@ -192,7 +192,7 @@
               <th width="20%">Priority Number:<%=n.priority%></th>
               <th width="20%"><%=n.description%></th>
               <th width="20%">Mobilize 
-                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
               <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
               
@@ -211,7 +211,7 @@
   
   
     <%if (@hit.relocated) > 0 %> 
-      <%@needs=Need.where('code LIKE ?',3)%>
+      <%@needs=Need.where('code = ?',3)%>
       
           
       <%@needs.all.each do |n|%>
@@ -220,7 +220,7 @@
               <th width="20%">Priority Number:<%=n.priority%></th>
               <th width="20%"><%=n.description%></th>
               <th width="20%">Mobilize 
-                <%@agency = Agency.joins(:need).where(['needs.agency_id LIKE ?',n.agency_id])%>
+                <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
               <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
               

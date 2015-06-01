@@ -14,13 +14,13 @@
 
 <div id="section"><center>
 <%@hit_id = @hit.zone_id%>
-<%@date=Disaster.joins(:hit).where('hits.disaster_id LIKE ?', @hit.disaster_id)%>
-<%@hh = Household.where('zone_id LIKE ?', @hit.zone_id)%> 
-<%@zo =Zone.joins(:hit).where(['hits.zone_id LIKE ?',@hit.zone_id])%>
-<%@barangay= Barangay.joins(:zone).where(['zones.barangay_id LIKE ?',@zo[0].barangay_id])%>
-<%@mun= Municipality.joins(:barangay).where(['barangays.municipality_id LIKE ?',@barangay[0].municipality_id])%>
+<%@date=Disaster.joins(:hit).where('hits.disaster_id = ?', @hit.disaster_id)%>
+<%@hh = Household.where('zone_id = ?', @hit.zone_id)%> 
+<%@zo =Zone.joins(:hit).where(['hits.zone_id = ?',@hit.zone_id])%>
+<%@barangay= Barangay.joins(:zone).where(['zones.barangay_id = ?',@zo[0].barangay_id])%>
+<%@mun= Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@barangay[0].municipality_id])%>
 
-<%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',@date[0].hazard_id])%>
+<%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id = ?',@date[0].hazard_id])%>
 
 <table>
   <tr>
@@ -77,7 +77,7 @@
 <% @hh.all.each do |y| %>
   
 
-    <%@pips = People.where('household_id LIKE ?', y.id)%>
+    <%@pips = People.where('household_id = ?', y.id)%>
     <%@age=@pips.group(:age,:condition).count%>
     <%@b1=@age[[0, "Relocated"]]||0%>
     <%@b2=@age[[1, "Relocated"]]||0%>

@@ -28,7 +28,7 @@ class HitController < ApplicationController
           flash[:notice] = @hit.errors.full_messages
           
       end
-      @hit = Hit.where('zone_id LIKE ?', @hit.zone_id)
+      @hit = Hit.where('zone_id = ?', @hit.zone_id)
       render "show_user_view"
   end
 
@@ -44,7 +44,7 @@ class HitController < ApplicationController
 
   def search
     @value = params[:id]
-    @hit=Hit.where("disaster_id like ?", @value)
+    @hit=Hit.where("disaster_id = ?", @value)
     render "show"
   end
 

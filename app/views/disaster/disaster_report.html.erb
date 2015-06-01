@@ -7,7 +7,7 @@
 
 <div id="section"><center>
  
-<%@hazard = Hazard.joins(:disaster).where(['disasters.hazard_id LIKE ?',@d.hazard_id])%>
+<%@hazard = Hazard.joins(:disaster).where(['disasters.hazard_id = ?',@d.hazard_id])%>
 
 <table>
 	<tr>
@@ -18,8 +18,8 @@
   <th height="50" width="10%"><b>Details of Disaster: <%=@d.details%> </b></th>
 </tr></table><br>
 
-<%@hit= Hit.where(['hits.disaster_id LIKE ?',@d.id])%>
-<%c= Hit.where(['hits.disaster_id LIKE ?',@d.id]).count%>
+<%@hit= Hit.where(['hits.disaster_id = ?',@d.id])%>
+<%c= Hit.where(['hits.disaster_id = ?',@d.id]).count%>
 
 <h3>ZONES AFFECTED: <%=c%></h3>
 
@@ -37,10 +37,10 @@
 <% @hit.all.each do |y| %>
   <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
       <td height="50" width="10%"><%= y.zone_id %></td>
-      <%@zone= Zone.joins(:hit).where(['hits.zone_id LIKE ?',y.zone_id])%>
-      <%@barangay= Barangay.joins(:zone).where(['zones.barangay_id LIKE ?',@zone[0].barangay_id])%>
-      <%@mun= Municipality.joins(:barangay).where(['barangays.municipality_id LIKE ?',@barangay[0].municipality_id])%>
-      <%@hh= Household.where('zone_id LIKE ?', y.zone_id)%>
+      <%@zone= Zone.joins(:hit).where(['hits.zone_id = ?',y.zone_id])%>
+      <%@barangay= Barangay.joins(:zone).where(['zones.barangay_id = ?',@zone[0].barangay_id])%>
+      <%@mun= Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@barangay[0].municipality_id])%>
+      <%@hh= Household.where('zone_id = ?', y.zone_id)%>
 
 
 
@@ -125,7 +125,7 @@
 <%@l=0%><%@a=0%><%@c=0%><%@ix=0%>
 
 <% @hit.all.each do |y| %>
-  <%@zone= Zone.joins(:hit).where(['hits.zone_id LIKE ?',y.zone_id])%>
+  <%@zone= Zone.joins(:hit).where(['hits.zone_id = ?',y.zone_id])%>
   <%@lvalue1=@zone[0].livestock*(y.livestock/100)%>
   <%@lvalue2=@zone[0].agri*(y.agri/100)%>
   <%@lvalue3=@zone[0].commercial*(y.commerce/100)%>
