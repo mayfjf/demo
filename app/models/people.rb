@@ -50,7 +50,7 @@ private
      	x=People.group([:household_id, :condition]).count
      	cc =Hit.all
      	cc.all.each do |h|
-     	    hh = Household.where('zone_id LIKE ?', h.zone_id)
+     	    hh = Household.where('zone_id = ?', h.zone_id)
 
     	    @dead=0
     	    @good=0

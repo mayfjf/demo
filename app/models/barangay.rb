@@ -24,7 +24,7 @@ after_destroy :compute_infra
 	
 
 def self.search(query)
-  where("municipality_id like ?", "%#{query}%") 
+  where("municipality_id = ?", "%#{query}%") 
 end
 
 private
