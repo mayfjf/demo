@@ -40,7 +40,7 @@ class MunicipalController < ApplicationController
    end
 
    def user_view
-  	@municipality = Municipality.where("id LIKE ?", params[:id])
+  	@municipality = Municipality.where("id = ?", params[:id])
     render "show"
   end
 
