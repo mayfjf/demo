@@ -10,22 +10,21 @@
 
     <%if @subject == "ROUTE0"%>
 
-      <%str = @a1%>
-      <%str = str.remove!("\n")%>
-
-    <%x=Route.where("lower(name) LIKE ?",str.downcase)%>
-    <b>Not passable Routes:</b> <%=@a1%><br>
-    <b>Route Description:</b><%=x[0].description%><br>
-    <b>Current Route Status:</b> <%=x[0].passable%><br>
-    <%x[0].update_attribute(:passable, "false")%>
-    <b>Road status now changed to: </b> <%=x[0].passable%><br><br>
-  <%end%>
+        <%str = @a1%>
+        <%str = str.remove!("\n")%>
+        <%x=Route.where("lower(name) LIKE ?",str.downcase)%>
+        <b>Not passable Routes:</b> <%=@a1%><br>
+        <b>Route Description:</b><%=x[0].description%><br>
+        <b>Current Route Status:</b> <%=x[0].passable%><br>
+        <%x[0].update_attribute(:passable, "false")%>
+        <b>Road status now changed to: </b> <%=x[0].passable%><br><br>
+    <%end%>
 
   <%if @subject == "ROUTE1"%>
     
-      <%str = @a1%>
-      <%str = str.remove!("\n")%>
-
+    <%str = @a1%>
+    <%str = str.remove!("\n")%>
+      
     <%x=Route.where("lower(name) LIKE ?",str.downcase)%>
     <b>Fixed / Passable Routes:</b> <%=@a1%><br>
     <b>Route Description:</b><%=x[0].description%><br>
@@ -34,13 +33,14 @@
     <b>Road status now changed to: </b> <%=x[0].passable%><br><br>
     <%end%>
 
-  	
+    
 </font>
 <font size="2" color="red">
   <%else%>
   <b>Sender of the Message:</b> <%=@sender%><br>
   <br><b>Sender not authorized!<br>
-  <%end%>
+  
+<%end%>
 
 <hr>  
  </div></font>

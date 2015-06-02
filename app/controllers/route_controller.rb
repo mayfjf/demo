@@ -21,8 +21,7 @@ def check_mail
     msg = imap.fetch(mset,'RFC822')[0].attr['RFC822']
     mail = Mail.read_from_string msg
 
-  @a1=mail.text_part.body.to_s
-  
+  @a1=mail.multipart? ? (mail.text_part ? mail.text_part.body.decoded : nil) : mail.body.decoded
   imap.copy(mset, "Attended")
   imap.store(mset, "+FLAGS", [:Deleted])
   imap.expunge
