@@ -89,7 +89,7 @@ def delete
         @r.update_attributes(route_params)
         flash[:notice] = "New Route Data was updated and saved"
       else
-        flash[:notice] = "ID not found"
+        flash[:notice] = @r.errors.full_messages
       end
       @r=Route.all
       render "show"
@@ -101,10 +101,19 @@ def delete
     end
   end
 
+  def index
+  if params[:search]
+    @r = Route.search(params[:search]).order("created_at ASC")
+  else
+    @r = Route.all.order('created_at ASC')
+  end
+  render "show"
+  end
+
   private
 
       def route_params
-       params.require(:route).permit(:name,:passable, :weight, :description)
+       params.require(:route).permit(:name,:passable, :weight, :description, :temp)
       end
 
 end

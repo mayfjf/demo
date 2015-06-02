@@ -7,7 +7,7 @@ validates :name, presence: true,uniqueness: { case_sensitive: false }
 
 
 def self.search(query)
-  where("passable like ?", "%#{query}%") 
+  where("cast(passable as text) like ?", "%#{query}%") 
 end
 
 private
