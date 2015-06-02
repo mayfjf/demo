@@ -53,9 +53,9 @@ class DisasterController < ApplicationController
 
   def index
   if params[:search]
-    @d = Disaster.search(params[:search]).order("created_at ASC")
+    @d = Disaster.search(params[:search])
   else
-    @d = Disaster.all.order('created_at ASC')
+    @d = Disaster.all
   end
   render "show"
 end
