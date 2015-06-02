@@ -13,7 +13,7 @@
       <%str = @a1%>
       <%str = str.remove!("\n")%>
 
-    <%x=Route.where("name LIKE ?",str)%>
+    <%x=Route.where("lower(name) LIKE ?",str.downcase)%>
     <b>Not passable Routes:</b> <%=@a1%><br>
     <b>Route Description:</b><%=x[0].description%><br>
     <b>Current Route Status:</b> <%=x[0].passable%><br>
@@ -26,7 +26,7 @@
       <%str = @a1%>
       <%str = str.remove!("\n")%>
 
-    <%x=Route.where("name LIKE ?",str)%>
+    <%x=Route.where("lower(name) LIKE ?",str.downcase)%>
     <b>Fixed / Passable Routes:</b> <%=@a1%><br>
     <b>Route Description:</b><%=x[0].description%><br>
     <b>Current Route Status: </b><%=x[0].passable%><br>
