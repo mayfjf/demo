@@ -95,6 +95,7 @@ Rails.application.routes.draw do
    get 'hit/support'
   post 'hit/support'
   
+  
 
 
   get 'disaster/new'

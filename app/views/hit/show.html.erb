@@ -16,23 +16,12 @@
 <body>
 
 <div id="header">
-<h1>Affected Zone Listings</h1>
+<h1>Affected Zone Listings </h1>
 </div>
 
 <div id="section"><center>
  
 
-
-<table class="tableContainer" cellspacing="80px">     
-<tr>
-
-<td height="50" width = "5%">
-  <%= form_tag(hit_index_path, :method => "get", id: "search-form") do %>
-  <%= number_field_tag :search, params[:search], placeholder: "Enter Barangay ID here" %>
-  <%= submit_tag "Search", :name => nil %>
-<% end %></td>
-
-</tr></table><br><br>
 
 <table class="tableContainer" cellspacing="80px">   
                      
@@ -41,7 +30,8 @@
     <th height="50">ID</th>
     <th height="50">ZONE ID</th>
     <th height="50">ZONE NAME</th>
-    <th height="50"></th>
+    <th height="50">BELONGS TO <br> BARANGAY:</th>
+    <th height="50">BELONGS TO <br> MUNICIPALITY:</th>
     <th height="50"></th>
     <th height="50"></th>
     <th height="50"></th>
@@ -50,10 +40,14 @@
 <% @hit.all.each do |hit| %>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">
   
-  <td height="50" width="25%"><%= hit.id %></td>
-  <td height="50" width="25%"><%= hit.zone_id %></td>
+  <td height="50" width="5%"><%= hit.id %></td>
+  <td height="50" width="5%"><%= hit.zone_id %></td>
   <%@zo = Zone.joins(:hit).where(['hits.zone_id = ?',hit.zone_id])%>
-  <td height="50" width="25%" align="center"><%=@zo[0].name%></td>
+  <%@ba = Barangay.joins(:zone).where(['zones.barangay_id = ?',@zo[0].barangay_id])%>
+  <%@mu = Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@ba[0].municipality_id])%>
+  <td height="50" width="5%" align="center"><%=@zo[0].name%></td>
+  <td height="50" width="15%" align="center"><%=@ba[0].name%></td>
+  <td height="50" width="15%" align="center"><%=@mu[0].name%></td>
   
   <td><%= button_to "Edit", {:controller => "hit", :action => "edit", :id => hit.id}, {:method=>:post} %></td>
   <td><%= button_to "Open Report",{:controller => "hit", :action => "report", :id => hit.id} , {:method=>:post}%></td>

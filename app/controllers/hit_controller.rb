@@ -48,15 +48,7 @@ class HitController < ApplicationController
     render "show"
   end
 
-  def index
-    if params[:search]
-      @hit = Hit.search(params[:search]).order("created_at ASC")
-    else
-      @hit = Hit.all.order('created_at ASC')
-    end
-      render "show"
-    
-  end
+  
 
   def savetable
       if !params[:id].blank?
