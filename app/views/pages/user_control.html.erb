@@ -34,7 +34,7 @@
 <%if @m!="0" && @b=="0"%>
 <%= link_to "Open Municipality Data",@to_display=municipal_user_view_path(:id=>@m), target:"display"%><br><br><br>
 <%= link_to "Report a HIT Zone", @to_display=disaster_user_view_path(:id=>@b), target:"display"%><br><br><br>
-
+<%= link_to "Report a Route Update", @to_display=route_show_user_path, target:"display"%><br><br><br>
 <%end%>
 
 <%if @m=="0" && @b!="0"%>
