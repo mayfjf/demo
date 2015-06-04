@@ -1,4 +1,18 @@
 <%= stylesheet_link_tag "zone" %>
+
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("Creating a final copy for this disaster record will be permanent. You cannot save another copy for this record again. Would you like to proceed?" );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
 <body>
 
 <div id="header">
@@ -180,9 +194,6 @@
     <td height="50" width="20%"><%= bid10%></td>
 </tr><%end%>
 </table>
-
-
-
 
 <%c= Hit.where(['hits.disaster_id = ?',@d.id]).count%>
 <h3>ZONES AFFECTED: <%=c%></h3>
@@ -380,11 +391,9 @@
 </table>
 
 <br>
-<p><%= link_to "Generate PDF Report (Text only)", disaster_disaster_report_path(:id=>@d.id, :format => 'pdf',:hazard=>@hazard[0].description,:zone_count => c, :household_count=>@total_hh, :dead=>@d, :missing=>@m, :injured=>@i, :displaced=>@dis, :relocated=>@r, :good=>@go, :ptotal=>@dx+@m+@i+@dis+@r, :livestock=>@l, :agri=>@a, :commerce=>@c, :infra=>@ix, :ctotal=>@l+@a+@ix+@c), class:'btn btn-mini btn-success'%>
+  <p><%=link_to "Generate PDF Report", disaster_reportview_path(:id=>@d.id), class:'btn btn-mini btn-success', :target => "_blank"%>
 
-  <p><%=link_to "Generate PDF Report(with tables)", disaster_reportview_path(:id=>@d.id), class:'btn btn-mini btn-success', :target => "_blank"%>
-
- <%= link_to "Save Impact Value", impact_new_path(:disaster_id=>@hit[0].disaster_id, :zone_count => c, :household_count=>@total_hh, :dead=>@d, :missing=>@m, :injured=>@i, :displaced=>@dis, :relocated=>@r, :good=>@go, :ptotal=>@dx+@m+@i+@dis+@r, :livestock=>@l, :agri=>@a, :commerce=>@c, :infra=>@ix, :ctotal=>@l+@a+@ix+@c, :atotal=>@total_area), class:'btn btn-mini btn-success'%></p>
+ <%= link_to "Save FINAL COPY", impact_new_path(:disaster_id=>@hit[0].disaster_id, :zone_count => c, :household_count=>@total_hh, :dead=>@d, :missing=>@m, :injured=>@i, :displaced=>@dis, :relocated=>@r, :good=>@go, :ptotal=>@dx+@m+@i+@dis+@r, :livestock=>@l, :agri=>@a, :commerce=>@c, :infra=>@ix, :ctotal=>@l+@a+@ix+@c, :atotal=>@total_area), class:'btn btn-mini btn-success', :onclick => "makingSure(event)"%></td>
 </center>
 
 
