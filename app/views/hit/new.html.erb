@@ -15,6 +15,7 @@
 	    <td height="100" width="15%"><b>Hit ID:</b><br><%= f.text_field :id,:value => "Auto-generated", :readonly => true %> </td>
 	    <td height="100" width="15%"><b>Disaster ID:</b><br><%= f.number_field :disaster_id, :value =>@h, :readonly => true %></td>
 		<td height="100" width="15%"><b>Zone ID:</b><br><%=f.number_field :zone_id%><%=link_to "Verify ID", zone_show_user_path%> </td></tr>
+		
 
     <tr  style="outline: thin solid" bgcolor="#C0C0C0">
 	    <td height="100" width="15%"><b> Major Catastrophy:</b><br><%= f.select :effect1, options_for_select(%w[Flood Landslide Storm_surge Damaged_Property Electrocution]),:include_blank => true%></td>

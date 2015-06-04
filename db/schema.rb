@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527021453) do
+ActiveRecord::Schema.define(version: 20150604000531) do
 
   create_table "agencies", force: :cascade do |t|
     t.string   "name"
@@ -73,8 +73,10 @@ ActiveRecord::Schema.define(version: 20150527021453) do
     t.integer  "displaced"
     t.integer  "relocated"
     t.integer  "good"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "municipal_id"
+    t.integer  "barangay_id"
   end
 
   create_table "households", force: :cascade do |t|

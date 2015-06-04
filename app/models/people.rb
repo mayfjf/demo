@@ -13,8 +13,7 @@ after_destroy :compute_dead_zone
 
     has_one :municipality, dependent: :nullify
     has_one :barangay, dependent: :nullify
-    
-    
+       
     
 
 validates :firstname, presence: true,uniqueness: { case_sensitive: false }, :uniqueness => {:scope => [:middlename, :familyname]}

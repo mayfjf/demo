@@ -8,6 +8,7 @@
 <div id="section"><center>
  
 <%@hazard = Hazard.joins(:disaster).where(['disasters.hazard_id = ?',@d.hazard_id])%>
+<%@hit= Hit.where(['hits.disaster_id = ?',@d.id])%>
 
 <table>
 	<tr>
@@ -18,9 +19,172 @@
   <th height="50" width="10%"><b>Details of Disaster: <%=@d.details%> </b></th>
 </tr></table><br>
 
-<%@hit= Hit.where(['hits.disaster_id = ?',@d.id])%>
-<%c= Hit.where(['hits.disaster_id = ?',@d.id]).count%>
+<%@dead_age1=0%><%@dead_age2=0%><%@dead_age3=0%><%@dead_age4=0%><%@dead_age5=0%> 
+<%@miss_age1=0%><%@miss_age2=0%><%@miss_age3=0%><%@miss_age4=0%><%@miss_age5=0%>
+<%@inj_age1=0%><%@inj_age2=0%><%@inj_age3=0%><%@inj_age4=0%><%@inj_age5=0%>
+<%@dis_age1=0%><%@dis_age2=0%><%@dis_age3=0%><%@dis_age4=0%><%@dis_age5=0%>
+<%@rel_age1=0%><%@rel_age2=0%><%@rel_age3=0%><%@rel_age4=0%><%@rel_age5=0%> 
 
+          
+<%count = 0%>
+
+<% @hit.all.each do |y| %>
+  
+    <%@hh = Household.where('zone_id = ?',y.zone_id)%>
+
+    <% @hh.all.each do |x| %>
+        <%@pips = People.where('household_id = ?', x.id)%>
+        <%@age=@pips.group(:age,:condition).count%>    
+        
+    
+        <%for @i in 0..2 %>
+            <%@dead_age1=@dead_age1+(@age[[@i,"Dead"]] || 0)%>
+            <%@miss_age1=@miss_age1+(@age[[@i,"Missing"]] || 0)%>
+            <%@inj_age1=@inj_age1+(@age[[@i,"Injured"]] || 0)%>
+            <%@dis_age1=@dis_age1+(@age[[@i,"Displaced"]] || 0)%>
+            <%@rel_age1=@rel_age1+(@age[[@i,"Relocated"]] || 0)%>
+        <%end%>
+
+        <%for @i in 3..10 %>
+            <%@dead_age2=@dead_age2+(@age[[@i, "Dead"]] || 0)%>
+            <%@miss_age2=@miss_age2+(@age[[@i,"Missing"]] || 0)%>
+            <%@inj_age2=@inj_age2+(@age[[@i,"Injured"]] || 0)%>
+            <%@dis_age2=@dis_age2+(@age[[@i,"Displaced"]] || 0)%>
+            <%@rel_age2=@rel_age2+(@age[[@i,"Relocated"]] || 0)%>
+         <%end%>
+
+        <%for @i in 11..20 %>
+          <%@dead_age3=@dead_age3+(@age[[@i, "Dead"]] || 0)%>
+          <%@miss_age3=@miss_age3+(@age[[@i,"Missing"]] || 0)%>
+          <%@inj_age3=@inj_age3+(@age[[@i,"Injured"]] || 0)%>
+          <%@dis_age3=@dis_age3+(@age[[@i,"Displaced"]] || 0)%>
+          <%@rel_age3=@rel_age3+(@age[[@i,"Relocated"]] || 0)%>
+        
+        <%end%>
+
+      
+        <%for @i in 21..59 %>
+          <%@dead_age4=@dead_age4+(@age[[@i, "Dead"]] || 0)%>
+          <%@miss_age4=@miss_age4+(@age[[@i,"Missing"]] || 0)%>
+          <%@inj_age4=@inj_age4+(@age[[@i,"Injured"]] || 0)%>
+          <%@dis_age4=@dis_age4+(@age[[@i,"Displaced"]]|| 0)%>
+          <%@rel_age4=@rel_age4+(@age[[@i,"Relocated"]] || 0)%>
+        
+        <%end%>
+
+      <%for @i in 60..109 %>
+        <%@dead_age5=@dead_age5+(@age[[@i, "Dead"]] || 0)%>
+        <%@miss_age5=@miss_age5+(@age[[@i,"Missing"]] || 0)%>
+        <%@inj_age5=@inj_age5+(@age[[@i,"Injured"]] || 0)%>
+        <%@dis_age5=@dis_age5+(@age[[@i,"Displaced"]] || 0)%>
+        <%@rel_age5=@rel_age5+(@age[[@i,"Relocated"]] || 0)%>
+       
+      <%end%>
+  <%end%>
+
+<%end%>
+    
+
+<%m= @hit.distinct.count(:municipal_id)%>
+<h3>MUNICIPALITIES AFFECTED: <%=m%></h3>
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+   <tr  style="outline: thin solid" bgcolor="#C0C0C0">    
+    <th height="50" width="10%">MUNICIPALITY<br>ID</th>
+    <th height="50" width="10%">NAME</th>
+    <th height="50" width="10%">LANDAREA</th>
+    <th height="50" width="10%">DEAD</th>
+    <th height="50" width="10%">MISSING</th>
+    <th height="50" width="10%">INJURED</th>
+    <th height="50" width="10%">DISPLACED</th>
+    <th height="50" width="10%">RELOCATED</th>
+    <th height="50" width="10%">LIVESTOCK %</th>
+    <th height="50" width="10%">AGRI %</th>
+    <th height="50" width="10%">INFRA %</th>
+    <th height="50" width="10%">COMMERCE %</th>
+  </tr>
+ 
+  <%@hit.map(&:municipal_id).uniq.each do |y|%> 
+    <%mid1=Municipality.where('id = ?', y)%>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">    
+    <td height="50"><%= y%></td>
+    <td height="50" width="20%"><%= mid1[0].name %></td>
+    <td height="50" width="20%"><%= mid1[0].area %></td>
+    <%mid2=0%><%mid3=0%><%mid4=0%><%mid5=0%><%mid6=0%>
+    <%mid7=0%><%mid8=0%><%mid9=0%><%mid10=0%>
+    <%mid2=@hit.where(:municipal_id => y).sum :dead%>
+    <%mid3=@hit.where(:municipal_id => y).sum :missing%>
+    <%mid4=@hit.where(:municipal_id => y).sum :injured%>
+    <%mid5=@hit.where(:municipal_id => y).sum :displaced%>
+    <%mid6=@hit.where(:municipal_id => y).sum :relocated%>
+    <%mid7=@hit.where(:municipal_id => y).sum :livestock%>
+    <%mid8=@hit.where(:municipal_id => y).sum :agri%>
+    <%mid9=@hit.where(:municipal_id => y).sum :infra%>
+    <%mid10=@hit.where(:municipal_id => y).sum :commerce%>
+    <td height="50" width="20%"><%= mid2%></td>
+    <td height="50" width="20%"><%= mid3%></td>
+    <td height="50" width="20%"><%= mid4%></td>
+    <td height="50" width="20%"><%= mid5%></td>
+    <td height="50" width="20%"><%= mid6%></td>
+    <td height="50" width="20%"><%= mid7%></td>
+    <td height="50" width="20%"><%= mid8%></td>
+    <td height="50" width="20%"><%= mid9%></td>
+    <td height="50" width="20%"><%= mid10%></td>
+</tr><%end%>
+</table>
+
+<%b= @hit.distinct.count(:barangay_id)%>
+<h3>BARANGAYS AFFECTED: <%=b%></h3>
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+   <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+    <th height="50" width="10%">MUNICIPALITY<br>ID</th>   
+    <th height="50" width="10%">BARANGAY<br>ID</th>
+    <th height="50" width="10%">NAME</th>
+    <th height="50" width="10%">LANDAREA</th>
+    <th height="50" width="10%">DEAD</th>
+    <th height="50" width="10%">MISSING</th>
+    <th height="50" width="10%">INJURED</th>
+    <th height="50" width="10%">DISPLACED</th>
+    <th height="50" width="10%">RELOCATED</th>
+    <th height="50" width="10%">LIVESTOCK %</th>
+    <th height="50" width="10%">AGRI %</th>
+    <th height="50" width="10%">INFRA %</th>
+    <th height="50" width="10%">COMMERCE %</th>
+  </tr>
+ 
+  <%@hit.map(&:barangay_id).uniq.each do |b|%> 
+    <%bid1=Barangay.where('id = ?', b)%>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <td height="50" width="20%"><%= bid1[0].municipality_id %></td>    
+    <td height="50"><%= b%></td>
+    <td height="50" width="20%"><%= bid1[0].name %></td>
+    <td height="50" width="20%"><%= bid1[0].area %></td>
+    <%bid2=0%><%bid3=0%><%bid4=0%><%bid5=0%><%bid6=0%>
+    <%bid7=0%><%bid8=0%><%bid9=0%><%bid10=0%>
+    <%bid2=@hit.where(:barangay_id => b).sum :dead%>
+    <%bid3=@hit.where(:barangay_id => b).sum :missing%>
+    <%bid4=@hit.where(:barangay_id => b).sum :injured%>
+    <%bid5=@hit.where(:barangay_id => b).sum :displaced%>
+    <%bid6=@hit.where(:barangay_id => b).sum :relocated%>
+    <%bid7=@hit.where(:barangay_id => b).sum :livestock%>
+    <%bid8=@hit.where(:barangay_id => b).sum :agri%>
+    <%bid9=@hit.where(:barangay_id => b).sum :infra%>
+    <%bid10=@hit.where(:barangay_id => b).sum :commerce%>
+    <td height="50" width="20%"><%= bid2%></td>
+    <td height="50" width="20%"><%= bid3%></td>
+    <td height="50" width="20%"><%= bid4%></td>
+    <td height="50" width="20%"><%= bid5%></td>
+    <td height="50" width="20%"><%= bid6%></td>
+    <td height="50" width="20%"><%= bid7%></td>
+    <td height="50" width="20%"><%= bid8%></td>
+    <td height="50" width="20%"><%= bid9%></td>
+    <td height="50" width="20%"><%= bid10%></td>
+</tr><%end%>
+</table>
+
+
+
+
+<%c= Hit.where(['hits.disaster_id = ?',@d.id]).count%>
 <h3>ZONES AFFECTED: <%=c%></h3>
 
 <table BORDER=4 CELLSPACING=4 CELLPADDING=4>
@@ -108,6 +272,62 @@
     <th height="50" width="5.5%"><%=@r%></th>
   </tr>
 </table>
+
+<table class="tableContainer" cellspacing="80px" BORDER=4> 
+ <h3>INDIVIDUAL AGE BRACKET COUNT </h3>
+ <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+  <th height="50" width="10%"> Age </th>
+  <th height="50" width="10%"> Dead </th>
+  <th height="50" width="10%"> Missing </th>
+  <th height="50" width="10%"> Injured </th>
+  <th height="50" width="10%"> Displaced </th>
+  <th height="50" width="10%"> Relocated </th>
+  
+ </tr>
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"> BABIES<br>(0-2):</th>
+  <th height="50" > <%=@dead_age1%></th>
+  <th height="50" > <%=@miss_age1%></th>
+  <th height="50" > <%=@inj_age1%></th>
+  <th height="50" > <%=@dis_age1%></th>
+  <th height="50" > <%=@rel_age1%></th>
+ </tr> 
+
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"  width="20%"> CHILDREN<br>(3-10):</th>
+  <th height="50" > <%=@dead_age2%></th>
+  <th height="50" > <%=@miss_age2%></th>
+  <th height="50" > <%=@inj_age2%></th>
+  <th height="50" > <%=@dis_age2%></th>
+  <th height="50" > <%=@rel_age2%></th>
+ </tr> 
+
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"  width="20%">TEENS<br>(11-20):</th>
+  <th height="50" > <%=@dead_age3%></th>
+  <th height="50" > <%=@miss_age3%></th>
+  <th height="50" > <%=@inj_age3%></th>
+  <th height="50" > <%=@dis_age3%></th>
+  <th height="50" > <%=@rel_age3%></th>
+ </tr> 
+
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"  width="20%">ADULT<br>(21-59):</th>
+  <th height="50" > <%=@dead_age4%></th>
+  <th height="50" > <%=@miss_age4%></th>
+  <th height="50" > <%=@inj_age4%></th>
+  <th height="50" > <%=@dis_age4%></th>
+  <th height="50" > <%=@rel_age4%></th>
+ </tr> 
+
+ <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
+  <th height="50"   width="20%">SENIOR<br>(60 - above): </th>
+  <th height="50" > <%=@dead_age5%></th>
+  <th height="50" > <%=@miss_age5%></th>
+  <th height="50" > <%=@inj_age5%></th>
+  <th height="50" > <%=@dis_age5%></th>
+  <th height="50" > <%=@rel_age5%></th>
+ </tr> 
 
 
 
