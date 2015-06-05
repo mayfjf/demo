@@ -2,8 +2,6 @@
 
 <div class="container">
 
-<%=image_tag("banner1.png", height: '30%', width: '100%')%>
-
 <ul class = "nav nav-tabs">
   <li><%= link_to "Home", root_path %> </li>
   <li><%= link_to "About", pages_about_path %> </li>
@@ -24,18 +22,14 @@
   <%end%>
   </ul>
 
-<div id="section"><br><br><br><br>
+<div id="body"><br> 
+
   
-	<center><h1><font color = "blue">Post Disaster Assessment <br>and Decision Support Response System</h1></font>
-	<br><br>
-    <i>Click the map to enlarge >></i>
-    
-	</p>
+	<center>
+    <%=image_tag("guim.JPG",height: '100%', width: '100%')%></center>
 </div>
 
-<div id = "aside">
-	<center><li><%=link_to image_tag("gmap.gif"), {:controller => 'pages', :action => 'biggmap'} %> </li></center>
-</div></div>
+
 	
 
 </body>

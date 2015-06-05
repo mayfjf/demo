@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "admin" %>
 
 <div class="container">
-<%=image_tag("banner1.png", height: '30%', width: '100%')%>
+<%=image_tag("banner2.png", height: '35%', width: '100%')%>
 
 <body>
 	<ul class = "nav nav-tabs">
@@ -72,7 +72,7 @@
 <%@g.add_vertex('Sta_Teresa', {'San_Miguel' => @a19.temp,'Espinosa' => @a12.temp, 'Sinapsapan' => @a20.temp, 'Lawi' => @a16.temp, 'Buluangan' =>@a9.temp})%>
 
 <div id="nav">
-<h3>From <%=@s%> to <%=@e%>:</h3><br> The best possible route is through <br><font color="red"> <%=@g.shortest_path(@s,@e)%></font> 
+From <%=@s%> to <%=@e%>:<br> The best possible route is through <br><font color="red"> <%=@g.shortest_path(@s,@e)%></font> 
 <center><br>
 
 <%if @p.exists?%>

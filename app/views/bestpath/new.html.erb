@@ -1,8 +1,7 @@
 <%= stylesheet_link_tag "admin" %>
 
 <div class="container">
-<%=image_tag("banner1.png", height: '30%', width: '100%')%>
-
+<%=image_tag("banner2.png", height: '35%', width: '100%')%>
 <body>
 	<ul class = "nav nav-tabs">
   <li><%= link_to "Home", root_path %> </li>
@@ -29,7 +28,7 @@
 <center><br><br>
 <%=image_tag("network1.png", height: '80%', width: '70%')%>
 <div id="nav">
-<h3>Select your start and destination places:</h3><br><br><br>
+Select your start and destination places:<br><br><br>
 
 <%= form_tag(bestpath_assess_path, :method => "get", id: "assess") do %>
   <b> Start place:</b><%=select_tag :start, options_for_select(%w[Please_Select Alaguisoc Balcon_Maravilla Balcon_Melliza Bugnay Buluangan Espinosa Hoskyn Lawi Morobuan Poblacion Rizal San_Miguel Sinapsapan Sta_Teresa]) %><br><br><br>
