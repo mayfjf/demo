@@ -11,12 +11,13 @@
 
 
  
-  <%= form_for(:people, :url => {:controller => 'people', :action => 'savetable', :method=>:get, :id => params[:id], :firstname => params[:firstname],:middlename => params[:middlename],:familyname => params[:familyname], :birthdate=> params[:birthdate], :civilstatus=> params[:civilstatus], :occupation=> params[:occupation], :contactnum=> params[:contactnum], :disabilityinfo=> params[:disabilityinfo], :household_id=> params[:household_id], :condition=> params[:condition], :email=> params[:email], :gender=> params[:gender]}) do |f| %>
+  <%= form_for(:people, :url => {:controller => 'people', :action => 'savetable', :method=>:get, :id => params[:id], :firstname => params[:firstname],:middlename => params[:middlename],:familyname => params[:familyname], :birthdate=> params[:birthdate], :civilstatus=> params[:civilstatus], :occupation=> params[:occupation], :contactnum=> params[:contactnum], :disabilityinfo=> params[:disabilityinfo], :household_id=> params[:household_id], :email=> params[:email], :gender=> params[:gender]}) do |f| %>
 <table class="tableContainer" cellspacing="80px">   
 
     <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-  	<td height="100" width="15%" span="3"><b>Person ID:</b><br><%= f.text_field :id,:value => @p.id, :readonly => true %> </td>
-    <td height="100" width="15%"></td><td height="70" width="15%"></td></td></tr>
+  	<td height="100" width="15%"><b>Person ID:</b><br><%= f.text_field :id,:value => @p.id, :readonly => true %> </td>
+    <td height="100" width="15%"><b>Disability Info:</b><br><%=f.text_area :disabilityinfo,:value => @p.disabilityinfo%> </td>
+    <td height="100" width="15%"><b>Belongs to Household:</b><br><%= f.select :household_id, Household.all.map { |u|[u.name,u.id]}, {:prompt => "Please Select ",  :selected =>@p.household_id}%></td></tr>
     <tr  style="outline: thin solid" bgcolor="#C0C0C0">
     <td height="100" width="15%"><b>First Name:</b><br><%=f.text_field :firstname,:value => @p.firstname%> </td>
     <td height="100" width="15%"><b> Middle Name:</b><br><%=f.text_field :middlename,:value => @p.middlename%> </td>
@@ -29,10 +30,9 @@
     <td height="100" width="15%"> <b>Civil Status:</b><br><%= f.select :civilstatus, options_for_select(%w[Please_Select Single Married Separated Widow Widower Annuled Divorced], @p.civilstatus) %> </td>
     <td height="100" width="15%"> <b> Occupation:</b><br><%=f.text_field :occupation,:value => @p.occupation%> </td>
     <td height="100" width="15%"> <b> Contact Number:</b><br><%=f.telephone_field :contactnum,:value => @p.contactnum%> </td></tr>
-    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-    <td height="100" width="15%"> <b>Disability Info:</b><br><%=f.text_area :disabilityinfo,:value => @p.disabilityinfo%> </td>
-    <td height="100" width="15%">  <b>Belongs to Household:</b><br><%= f.select :household_id, Household.all.map { |u|[u.name,u.id]}, {:prompt => "Please Select ",  :selected =>@p.household_id}%></td>
-    <td height="100" width="15%" span="2"><b> Current Condition:</b><br><%= f.select :condition, options_for_select(%w[Please_Select Good Missing Injured Dead Displaced Relocated NON-EXISTENT], @p.condition) %></td></tr></table><hr>
+    
+    
+    </tr></table><hr>
     
     <center><%= f.submit "Submit", class: "btn btn-default" %></center><% end %>
 

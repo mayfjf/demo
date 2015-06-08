@@ -20,12 +20,13 @@
           	<td height="100" width="15%"><b>Belongs to Barangay:</b><br><%= f.select :barangay_id, Barangay.all.map { |u|[u.name,u.id]}, {:prompt => "Please Select ",  :selected =>@bar_id}%></td> 
           </tr><tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
           	<td height="100" width="15%"><b>Area in km:</b><br><%= f.number_field :area, :class => 'text_field', :step => '0.01'%></td>
-            <td height="100" width="15%"><b>Infrastructure:</b><br><%= f.number_field :infra, :class => 'text_field', :step => '0.01'%></td> 
-           	<td height="100" width="15%"><b>Population:</b><br><%= f.number_field :population%></td></tr> 
+            <td height="100" width="15%"><b>Population:</b><br><%= f.number_field :population%></td>
+            <td height="100" width="15%"><b>Infrastructure (Peso):</b><br><%= f.number_field :infra, :class => 'text_field', :step => '0.01'%></td> 
+           	</tr> 
             <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-          	<td height="100" width="15%"><b>Amount Value in Livestock:</b><br><%=f.number_field :livestock,:class => 'text_field', :step => '0.01' %></td> 
-          	<td height="100" width="15%"><b>Amount Value in Agriculture:</b><br><%=f.number_field :agri,:class => 'text_field', :step => '0.01' %></td>
-          	<td height="100" width="15%"><b>Amount Value in Commerce/Trade:</b><br><%=f.number_field :commercial, :class => 'text_field', :step => '0.01' %></td></tr>
+          	<td height="100" width="15%"><b>Livestock (Peso):</b><br><%=f.number_field :livestock,:class => 'text_field', :step => '0.01' %></td> 
+          	<td height="100" width="15%"><b>Agriculture (Peso):</b><br><%=f.number_field :agri,:class => 'text_field', :step => '0.01' %></td>
+          	<td height="100" width="15%"><b>Commerce/Trade (Peso):</b><br><%=f.number_field :commercial, :class => 'text_field', :step => '0.01' %></td></tr>
       </table><hr> 
     
     <center><br><br><%= f.submit "Submit", class: "btn btn-default" %></center>

@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+	<%@stat = Hithousehold.where("household_id=? AND disaster_id=?",@householdid,@disasterid)%>
+    <%s=@stat[0].status%>
+<div id="header">
+<h1>Edit Affected Person's Record</h1>
+</div>
+
+<div id="section"><center>
+ 
+  <%= form_for(:hitperson, :url => {:controller => 'hitperson', :action => 'savetable', :method=>:get, :id => params[:id], :disaster_id => params[:disaster_id],:age => params[:age],:hithousehold_id => params[:hithousehold_id], :status => params[:status]}) do |f| %>
+  
+  
+<table class="tableContainer" cellspacing="80px">   
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b>HitPerson ID:</b><br><%= f.text_field :id,:value => @hp.id, :readonly => true %> </td>
+	<td height="100" width="15%"><b> Status due to Disaster:</b><br><%= f.select :status, options_for_select(%w[Dead Missing Injured Displaced Relocated],@hp.status)%></td>
+	<td height="100" width="15%"><b>Age:</b><br><%= f.number_field :age, :value =>@hp.age, :readonly => true %></tr>
+	<tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b>Disaster ID:</b><br><%= f.number_field :disaster_id, :value =>@hp.disaster_id, :readonly => true %></td>
+		<td height="100" width="15%"><b>Household ID:</b><br><%=f.number_field :hithousehold_id, :value =>@hp.hithousehold_id, :readonly => true %></td>
+		<td height="100" width="15%"><b>People ID:</b><br><%=f.number_field :people_id, :value =>@hp.people_id, :readonly => true %></td>
+    </tr>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    
+	    <%people= People.find(@hp.people_id)%>
+	    <td height="100" width="15%"><b> First Name:</b><br><%= people.firstname%></td>
+	    <td height="100" width="15%"><b> Middle Name:</b><br><%= people.middlename%></td>
+	    <td height="100" width="15%"><b> Family Name:</b><br><%= people.familyname%></td>
+	    
+  
+
+    </tr></table><br><br>
+    <center><%= f.submit "Submit", class: "btn btn-default" %></center>
+  
+   <% end %>
+  </div>
+</body>

@@ -31,7 +31,6 @@
     <th height="50">MIDDLE NAME</th>
     <th height="50">LAST NAME</th>
     <th height="50">AGE</th>
-    <th height="50">CONDITION</th>
     <th height="50"></th>
     <th height="50"></th>
     <th height="50"></th>
@@ -46,8 +45,7 @@
   <td height="50" width="15%"><%= people.middlename %></td>
   <td height="50" width="15%"><%= people.familyname%></td>
   <td height="50" width="15%"><%= people.age%></td>
-  <td height="50" width="15%"><%= people.condition%></td>
-  
+   
   
   <td><%= button_to "Edit", {:controller => "people", :action => "edit", :id => people.id}, {:method=>:post} %></td>
   <td><%= button_to "View Details",{:controller => "people", :action => "showdetails", :id => people.id} , {:method=>:post} %></td>

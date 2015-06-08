@@ -27,32 +27,40 @@
 </div>
 <br><br>
 <div id="nav">
-<hr>
-<%= link_to "Manage Disaster", @to_display=disaster_show_path, target:"display"%> <br>
-<%= link_to "Manage Routes", @to_display=route_show_path, target:"display"%><br>
+<hr><center>
 <%= link_to "Check Best Route", @to_display=bestpath_avnewbr_path, target:"display"%><br><hr>
-<%= link_to "Create User",@to_display=new_user_registration_path, target:"display" %><br>
-<%= link_to "Manage Users",@to_display='/users/show', target:"display"%><br>
-<%= link_to "Manage Senders",@to_display=sender_show_path, target:"display"%><br>
-<%= link_to "Create Passcode",@to_display= pages_new_path, target:"display" %><br>
-<%= link_to "Manage Passcode",@to_display= pages_show_path, target:"display"%><br>
-<%= link_to "Create Municipality",@to_display= municipal_new_path, target:"display"%><br>
-<%= link_to "Manage Municipality",@to_display= municipal_show_path, target:"display"%><br>
-<%= link_to "Manage Barangay", @to_display=barangay_show_path, target:"display"%><br>
-<%= link_to "Manage Zone", @to_display=zone_show_path, target:"display"%><br>
-<%= link_to "Manage People", @to_display=people_show_path,target:"display"%><br>
-<%= link_to "Manage Household", @to_display=household_show_path,target:"display" %><br>
-<%= link_to "Create Agency", @to_display=agency_new_path, target:"display"%><br>
-<%= link_to "Manage Agency", @to_display=agency_show_path, target:"display"%><br>
-<%= link_to "Create Hazard", @to_display=hazard_new_path, target:"display"%><br>
-<%= link_to "Manage Hazard", @to_display=hazard_show_path, target:"display"%><br>
-<%= link_to "Create Needs", @to_display=need_new_path, target:"display"%><br>
-<%= link_to "Manage Needs", @to_display=need_show_path, target:"display"%><br>
+<font size="2">MANAGE</font><br>
+<%= link_to "Disaster", @to_display=disaster_show_path, target:"display"%> <br>
+<%= link_to "Routes", @to_display=route_show_path, target:"display"%><br>
+<%= link_to "Users",@to_display='/users/show', target:"display"%><br>
+<%= link_to "Senders",@to_display=sender_show_path, target:"display"%><br>
+<%= link_to "Passcode",@to_display= pages_show_path, target:"display"%><br>
+<%= link_to "Municipality",@to_display= municipal_show_path, target:"display"%><br>
+<%= link_to "Barangay", @to_display=barangay_show_path, target:"display"%><br>
+<%= link_to "Zone", @to_display=zone_show_path, target:"display"%><br>
+<%= link_to "People", @to_display=people_show_path,target:"display"%><br>
+<%= link_to "Household", @to_display=household_show_path,target:"display"%><br>
+<%= link_to "Agency", @to_display=agency_show_path, target:"display"%><br>
+<%= link_to "Hazard", @to_display=hazard_show_path, target:"display"%><br><hr>
+
+
+<font size="2">CREATE</font><br>
+<%= link_to "User",@to_display=new_user_registration_path, target:"display" %><br>
+<%= link_to "Passcode",@to_display= pages_new_path, target:"display" %><br>
+<%= link_to "Municipality",@to_display= municipal_new_path, target:"display"%><br>
+<%= link_to "Agency", @to_display=agency_new_path, target:"display"%><br>
+<%= link_to "Hazard", @to_display=hazard_new_path, target:"display"%><br>
+<%= link_to "Needs", @to_display=need_new_path, target:"display"%><br><hr>
+
+<font size="2">VIEW TABLES</font><br>
+<%= link_to "Affected People", @to_display=hitperson_show_all_path, target:"display"%><br>
+<%= link_to "Affected Households", @to_display=hithousehold_show_all_path, target:"display"%><br>
+<%= link_to "Affected Zones", @to_display=hit_show_all_path, target:"display"%><br>
 <hr>
 </div>
 
 <div id="section">
-<iframe name="display" height="700" width="950" scr="<%@to_display%>" seamless>
+<iframe name="display" height="900" width="980" scr="<%@to_display%>" seamless>
 </div>
 </div>
 </body>

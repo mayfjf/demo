@@ -19,7 +19,11 @@ class HitController < ApplicationController
     @hit = Hit.all
  end
 
-  def create
+def show_all
+    @hit = Hit.all
+ end
+
+ def create
        @hit = Hit.new(hit_params)
 
       if @hit.save
@@ -48,8 +52,6 @@ class HitController < ApplicationController
     render "show"
   end
 
-  
-
   def savetable
       if !params[:id].blank?
         @hit= Hit.find(params[:id])
@@ -63,26 +65,7 @@ class HitController < ApplicationController
 
   def report
      if !params[:id].blank?
-     @hit= Hit.find(params[:id])
-     @z = params[:zone]
-     @date = params[:date]     
-     @type = params[:type]
-     @zone_name = params[:zone_name]
-     @bar = params[:bar]
-     @mun = params[:mun]
-     @ef1 = params[:ef1]
-     @ef2 = params[:ef2]
-     @ef3 = params[:ef3]
-     @dam1 = params[:dam1]
-     @dam2 = params[:dam2]
-     @dam3 = params[:dam3]
-
-
-     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @d }
-      format.pdf { render :layout => false } # Add this line
-    end
+       @hit= Hit.find(params[:id])
      end
   end
 

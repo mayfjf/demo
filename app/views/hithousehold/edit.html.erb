@@ -1,0 +1,31 @@
+<%= stylesheet_link_tag "zone" %>
+<body>
+
+<div id="header">
+<h1>Edit Affected Household's Record</h1>
+</div>
+
+<div id="section"><center>
+ 
+  <%= form_for(:hithousehold, :url => {:controller => 'hithousehold', :action => 'savetable', :method=>:get, :id => params[:id], :disaster_id => params[:disaster_id],:zone_id => params[:zone_id],:household_id => params[:household_id], :status => params[:status]}) do |f| %>
+  
+<table class="tableContainer" cellspacing="80px">   
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b>Hit ID:</b><br><%= f.text_field :id,:value => @hhh.id, :readonly => true %> </td>
+	    <td height="100" width="15%"><b>Disaster ID:</b><br><%= f.text_field :disaster_id, :value => @hhh.disaster_id, :readonly => true %> </td>
+		<td height="100" width="15%"><b>Zone ID:</b><br><%=f.number_field :zone_id, :value => @hhh.zone_id, :readonly => true %></td></tr>
+
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+	    <td height="100" width="15%"><b>Household ID:</b><br><%=f.number_field :household_id, :value =>@hhh.household_id, :readonly => true %></td>
+	    <%name = Household.find(@hhh.household_id)%>
+	    <td height="100" width="15%"><b> Household Name:</b><br><%= name.name%></td>
+	    <td height="100" width="15%"><b> Status due to Disaster:</b><br><%= f.select :status, options_for_select(%w[Dead Missing Injured Displaced Relocated],@hhh.status)%></td>
+  
+
+    </tr></table><br><br>
+    <center><%= f.submit "Submit", class: "btn btn-default" %></center>
+  
+   <% end %>
+  </div>
+</body>

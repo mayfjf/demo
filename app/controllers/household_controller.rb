@@ -16,8 +16,19 @@ class HouseholdController < ApplicationController
     render "show"
   end
 
+  def searchhh
+    @z = params[:id1]
+    @disaster_id = params[:id2]
+    @h=Household.where("zone_id = ?", @z)
+    render "show_for_hithousehold"
+  end
+
 
   def show
+    @h = Household.all
+  end
+
+  def show_for_hithousehold
     @h = Household.all
   end
 
@@ -72,7 +83,7 @@ end
   private
 
       def household_params
-       params.require(:household).permit(:name, :people_id, :zone_id, :count, :condition)
+       params.require(:household).permit(:name, :people_id, :zone_id, :count)
       end
 end
 

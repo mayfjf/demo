@@ -57,7 +57,7 @@
   <td height="50" width="25%"><%=@municipality.count%></td></tr>
 
 <tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
-  <td height="50" width="25%"><b>TOTAL AREA :</b></td>
+  <td height="50" width="25%"><b>TOTAL AREA IN SQUARE KM:</b></td>
   <td height="50" width="25%"> <%=@municipality.sum(:area)%></td></tr>
 
 
@@ -76,6 +76,10 @@
 <tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
   <td height="50" width="25%"><b>TOTAL VALUE OF COMMERCE/TRADE IN PESO:</b></td>
   <td height="50" width="25%"><%=@municipality.sum(:commercial)%></td></tr>
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
+  <td height="50" width="25%"><b>TOTAL VALUE OF INFRASTRUCTURE IN PESO:</b></td>
+  <td height="50" width="25%"><%=@municipality.sum(:infra)%></td></tr>
 
 </table><br><br></center>
 </div>

@@ -16,13 +16,13 @@
     <td height="100" width="15%"> <b>Mayor:</b><br></b><br><%= f.select :people_id, People.all.collect {|p| [[p.firstname,p.familyname],p.id] },{:prompt => "Please Select",:selected =>@municipality.people_id}%></td> </tr> 
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
     <td height="100" width="15%"> <b>Area in km: </b><br><%=f.number_field :area, :class => 'text_field', :step => '0.01',:value => @municipality.area, :readonly => true %></td>
-    <td height="100" width="15%"> <b>Infrastructure: </b><br><%=f.number_field :infra, :class => 'text_field', :step => '0.01',:value => @municipality.infra, :readonly => true %></td></tr>
+    <td height="100" width="15%"><b>Population:</b><br><%= f.number_field :population,:value => @municipality.population, :readonly => true  %></td> </tr>
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">      
+      <td height="100" width="15%"> <b>Infrastructure (Peso): </b><br><%=f.number_field :infra, :class => 'text_field', :step => '0.01',:value => @municipality.infra, :readonly => true %></td>
+      <td height="100" width="15%"><b>Livestock (Peso):</b><br><%=f.number_field :livestock,:value => @municipality.livestock, :class => 'text_field', :step => '0.01', :readonly => true  %></td></tr> 
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-      <td height="100" width="15%"><b>Population:</b><br><%= f.number_field :population,:value => @municipality.population, :readonly => true  %></td> 
-      <td height="100" width="15%"><b>Amount Value in Livestock:</b><br><%=f.number_field :livestock,:value => @municipality.livestock, :class => 'text_field', :step => '0.01', :readonly => true  %></td></tr> 
-  <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-      <td height="100" width="15%"><b>Amount Value in Agriculture:</b><br><%=f.number_field :agri,:value =>@municipality.agri, :class => 'text_field', :step => '0.01', :readonly => true  %></td>
-      <td height="100" width="15%"><b>Amount Value in Commerce/Trade:</b><br><%=f.number_field :commercial,:value => @municipality.commercial, :class => 'text_field', :step => '0.01', :readonly => true  %></td></tr></table><hr> 
+      <td height="100" width="15%"><b>Agriculture (Peso):</b><br><%=f.number_field :agri,:value =>@municipality.agri, :class => 'text_field', :step => '0.01', :readonly => true  %></td>
+      <td height="100" width="15%"><b>Commerce/Trade (Peso):</b><br><%=f.number_field :commercial,:value => @municipality.commercial, :class => 'text_field', :step => '0.01', :readonly => true  %></td></tr></table><hr> 
     
 
                        
