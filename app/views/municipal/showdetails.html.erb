@@ -25,7 +25,9 @@
   <td height="100" width="15%"> <b>Agriculture (Peso):</b><br><%= @municipality.agri%> </td></tr> 
 <tr style="outline: thin solid" bgcolor="#C0C0C0">   
   <td height="100" width="15%"> <b>Commerce/Trade (Peso):</b><br><%= @municipality.commercial%> </td>
-<td height="100" width="15%"> <b>Infrastructure (Peso):</b><br><%= @municipality.infra%> </td></tr>  
+<td height="100" width="15%"> <b>Infrastructure (Peso):</b><br><%= @municipality.infra%> </td></tr>
+<tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+    <td height="100" width="15%" colspan="6"> Memo:<br><%=@municipality.details%> </td></tr>   
 </table><hr>
 </div>
 <center>

@@ -29,6 +29,8 @@
     <td height="100" width="15%"> <b>Livestock (Peso):</b><br><%=f.number_field :livestock,:value => @bar.livestock, :class => 'text_field', :step => '0.01', :readonly => true%> </td>
     <td height="100" width="15%"> <b>Agriculture (Peso):</b><br><%=f.number_field :agri,:value => @bar.agri, :class => 'text_field', :step => '0.01', :readonly => true%> </td>
     <td height="100" width="15%"> <b>Commerce/Trade (Peso):</b><br><%=f.number_field :commercial,:value => @bar.commercial, :class => 'text_field', :step => '0.01', :readonly => true%> </td></tr>
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+    <td height="100" width="15%" colspan="4" align="center"> Memo:<br><%=f.text_area :details, :value => @bar.details, :cols => 80, :rows => 8%> </td></tr>
 
 
   </table><hr>

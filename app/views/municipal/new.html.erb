@@ -15,6 +15,8 @@
     <td height="100" width="15%"> <b>Municipality Name:</b><br><%=f.text_field :name%> </td>
     <td height="100" width="15%"> <b>Mayor:</b><br><%= f.select :people_id, People.all.map { |u| [[u.firstname,u.familyname], u.id] }, {:prompt => "Please Select" }, { :class => "people_unit" } %></td>
    </tr>
+   <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+     <td height="120" width="15%" colspan="3" align="center"> Memo:<br><%=f.text_area :details, :cols => 80, :rows => 8%> </td></tr>
 
   </table><hr> 
     
