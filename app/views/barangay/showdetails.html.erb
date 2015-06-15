@@ -28,7 +28,7 @@
   <%if @b.exists?%>
     <%=@b[0].firstname%> <%= @b[0].middlename%> <%= @b[0].familyname%> </td>
   <%else%>
-     <font size="2" color='red'>The value of this field may not have been set, or has been deleted. Please Edit.</font></td></tr>
+     <font size="2" color='red'>The value of this field may not have been set, or has been deleted. Please Edit.</font></td>
   <%end%>
 <td height="100" width="15%"> <b>Main Livelihood:</b><br><%= @bar.main_livelihood%> </td></tr>
 
