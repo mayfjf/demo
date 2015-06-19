@@ -13,26 +13,28 @@ def check_mail
   imap = Net::IMAP.new('imap.gmail.com',993,true)
   imap.login('guim.pdrrmc','disaster123')
   imap.select('INBOX')
-  if !(mset=imap.search(["OR","SUBJECT", "ROUTE1","SUBJECT", "ROUTE0", "NOT", "NEW"])).blank?
-    envelope = imap.fetch(mset, "ENVELOPE")[0].attr["ENVELOPE"]
+  @mset=imap.search(["OR","SUBJECT", "ROUTE1","SUBJECT", "ROUTE0"])
+  if !@mset.blank?
+    envelope = imap.fetch(@mset, "ENVELOPE")[0].attr["ENVELOPE"]
     @sender = envelope.from[0].name
     @subject= envelope.subject
     
-    msg = imap.fetch(mset,'RFC822')[0].attr['RFC822']
+    msg = imap.fetch(@mset,'RFC822')[0].attr['RFC822']
     mail = Mail.read_from_string msg
 
   @a1=mail.multipart? ? (mail.text_part ? mail.text_part.body.decoded : nil) : mail.body.decoded
-  imap.copy(mset, "Attended")
-  imap.store(mset, "+FLAGS", [:Deleted])
+  imap.copy(@mset[0], "Attended")
+  imap.store(@mset[0], "+FLAGS", [:Deleted])
   imap.expunge
   imap.logout
+  imap.disconnect
   render "update"
-else
+end
+if @mset.blank?
     flash[:notice] = "No reports on route updates!"
     @r=Route.all
     render "show"          
 end
-
 end
 
   

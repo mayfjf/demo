@@ -18,7 +18,7 @@
 <%hid = Hazard.find(dd.hazard_id)%>
 
 <div id="header">
-<h1>Affected Zone Listings<br>Disaster ID: <%=@value%> - <%=hid.description%></h1>
+<h1>Affected Zone Listings<br>Disaster ID: <%=@value%> - <%=hid.description%><br><%=dd.date%></h1>
 </div>
 
 
@@ -32,16 +32,11 @@
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
 
     <th height="50"><font size="2">ID</font></th>
-    <th height="50"><font size="2">ZONE ID</font></th>
-    <th height="50"><font size="2">ZONE NAME</font></th>
+    <th height="50"><font size="2">ZONE<br>ID</font></th>
+    <th height="50"><font size="2">ZONE<br>NAME</font></th>
     <th height="50"><font size="2">BARANGAY</font></th>
-    <th height="50"><font size="2">MUNICIPALITY</font></th>
-    <th height="50"></th>
-    <th height="50"></th>
-    <th height="50"></th>
-    <th height="50"></th>
-    <th height="50"></th>
-    <th height="50"></th>
+    <th height="50" colspan="7"><font size="2">MUNICIPALITY</font></th>
+    
   </tr>
 
 <% @hit.all.each do |hit| %>
