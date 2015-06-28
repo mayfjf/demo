@@ -7,6 +7,7 @@ before_save :compute_members
 
     has_one :municipality, dependent: :nullify
     has_one :barangay, dependent: :nullify
+    has_many :hitperson, dependent: :destroy
        
     
 

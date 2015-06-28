@@ -25,6 +25,7 @@
 	<th  width="10%"><b>Date of Disaster: <%=@date[0].date%></b></th></tr>
   <tr>
   <th  width="10%"><b>Type of Disaster: <%=@date[0].hazard_id%> -  <%=@disaster[0].description%></b></th>
+  <th  width="10%"><b>Details of Disaster: <%=@date[0].details%></b></th>
 </tr></table><br>
 
 <table BORDER=4 CELLSPACING=4 CELLPADDING=4>
@@ -72,7 +73,7 @@
 <% @hhh.all.each do |y| %>
   
 
-    <%@pips = Hitperson.where('hithousehold_id = ? AND disaster_id=?', y.household_id, @hit.disaster_id)%>
+    <%@pips = Hitperson.where('household_id = ? AND disaster_id=?', y.household_id, @hit.disaster_id)%>
     <%@age=@pips.group(:age,:status).count%>
     <%@b1=@age[[0, "Relocated"]]||0%>
     <%@b2=@age[[1, "Relocated"]]||0%>
@@ -189,7 +190,6 @@
     <th height="50"  width="5%">DEAD:</th>
     <th height="50"  width="5%">INJURED:</th>
     <th height="50"  width="5%">MISSING:</th>
-    <th height="50"  width="5%">UNAFFECTED:</th>
   </tr>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
     <td height="50"  width="5%"><%=@hhh.count%></td>
@@ -198,7 +198,6 @@
     <td height="50"  width="5%"><%=@hcond["Dead"] || 0 %></td>
     <td height="50"  width="5%"><%=@hcond["Injured"] || 0 %></td>
     <td height="50"  width="5%"><%=@hcond["Missing"] || 0 %></td>
-    <td height="50"  width="5%"><%=@hcond["Good"] || 0 %></td>
   </tr>
 </table>
 
@@ -264,10 +263,6 @@
 <tr  style="outline: thin solid" bgcolor="#B0C4DE">   
   <th height="35" width="10000" bgcolor="#B0C4DE"><b>Human loss /affected due to disaster caused by vulnerability to natural hazards:</b></th> 
   <th height="35" width="10000" bgcolor="#B0C4DE"><%=(@hit.dead || 0 )+(@hit.missing || 0)+(@hit.injured || 0)+(@hit.displaced || 0)+(@hit.relocated || 0)+(@hit.good || 0)%></th></tr> 
-
-<tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
-  <th height="35" width="10%" bgcolor="#B0C4DE"><b>UNAFFECTED:</b></th>
-  <th height="35" width="10%" bgcolor="#B0C4DE"> <%=(@hit.good || 0)%></th></tr>
 
 <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
   <th height="35" width="10%"><b>DEAD:</b></th>

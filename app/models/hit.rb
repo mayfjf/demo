@@ -3,6 +3,9 @@ class Hit < ActiveRecord::Base
 before_save :assign_bm
 belongs_to :disaster
 
+after_destroy :destroy_hithousehold
+
+
 	validates :disaster_id, presence:true
 	validates :zone_id, presence:true, :uniqueness => {:scope =>:disaster_id}
 	validates :livestock, presence:true
@@ -22,6 +25,18 @@ belongs_to :disaster
 		@mun = Municipality.joins(:barangay).where('barangays.municipality_id = ?', @x[0].municipality_id)
 		self.municipal_id = @mun[0].id
 	
+	end
+
+	def destroy_hithousehold
+		@xp = Hithousehold.where('zone_id = ? AND disaster_id=?', self.zone_id,self.disaster_id)
+
+		@xp.all.each do |y|
+			@pp = Hitperson.where('household_id = ? AND disaster_id=?', y.household_id, y.disaster_id)
+			@pp.all.each do |p|
+				p.destroy
+			end
+			y.destroy
+		end
 	end
 
 end

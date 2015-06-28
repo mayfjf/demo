@@ -17,7 +17,7 @@
   		    <tr  style="outline: thin solid" bgcolor="#C0C0C0">     
           	<td height="100" width="15%" align="center"><b>Hazard Type:</b><br><%= f.select :hazard_id, Hazard.all.map { |u|[u.description,u.id]}, {:prompt => "Please Select "}%></td> 
           	<tr  style="outline: thin solid" bgcolor="#C0C0C0">     
-           	<td height="100" width="15%" align="center"><b>Date:</b><br><%= f.datetime_select :date, ampm: true, :start_year => Date.current.year, :end_year=>2030%> 
+           	<td height="100" width="15%" align="center"><b>Date:</b><br><%= f.datetime_select :date, ampm: true,:start_year => Date.current.year, :end_year=>2030, :default => 0.days.from_now.in_time_zone("Asia/Singapore")%> 
             </td>
             </tr>
           <tr  style="outline: thin solid" bgcolor="#C0C0C0">

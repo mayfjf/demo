@@ -37,10 +37,14 @@ class HithouseholdController < ApplicationController
    def delete
     if !params[:hithousehold].blank?
       @hhh= Hithousehold.find(params[:hithousehold])
+      zone = @hhh.zone_id
+      dis = @hhh.disaster_id
       @hhh.destroy
       flash[:notice] = "Affected Household Record was deleted."
     end
-    @hhh = Hithousehold.all
+    @z = zone
+    @d = dis
+    @hhh = Hithousehold.where('zone_id=? AND disaster_id=?',@z,@d)
     render "show"
   end
 
@@ -66,7 +70,7 @@ class HithouseholdController < ApplicationController
   private
 
       def hithousehold_params
-       params.require(:hithousehold).permit(:zone_id, :disaster_id, :household_id, :status)
+       params.require(:hithousehold).permit(:zone_id, :disaster_id, :household_id, :status, :hit_id)
       end
 end
 

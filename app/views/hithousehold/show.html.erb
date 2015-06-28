@@ -16,7 +16,9 @@
 <body>
 
 <div id="header">
-<h1>Affected Household Listings </h1>
+<%disaster = Disaster.find(@d)%>
+<%hazard = Hazard.find(disaster.hazard_id)%>
+<h1>Affected Household Listings<br>Disaster ID: <%=@d%> - <%=hazard.description%><br><%=disaster.date%> </h1>
 </div>
 
 <div id="section"><center>
@@ -26,12 +28,13 @@
 <table class="tableContainer" cellspacing="80px">   
                      
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <th height="50" colspan="11">Disaster Details: <%=disaster.details%> </th></tr>          
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">
 
-    <th height="50">ID</th>
-    <th height="50">DISASTER ID</th>
-    <th height="50">ZONE:</th>
-    <th height="50">BARANGAY:</th>
-    <th height="50">MUNICIPALITY:</th>
+    <th height="50">ZONE</th>
+    <th height="50">BARANGAY</th>
+    <th height="50">MUNICIPALITY</th>
     <th height="50">HOUSEHOLD ID</th>
     <th height="50">NAME</th>
     <th height="50">STATUS</th>
@@ -51,13 +54,11 @@
   <%@ba = Barangay.joins(:zone).where(['zones.barangay_id = ?',@zo[0].barangay_id])%>
   <%@mu = Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@ba[0].municipality_id])%>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">
-  <td height="50" width="5%"><font size="2"><%= h.id %></font></td>
-  <td height="50" width="5%"><font size="2"><%= h.disaster_id %></font></td>
-  <td height="50" width="5%" align="center"><font size="2"><%=@zo[0].name%></font></td>
-  <td height="50" width="15%" align="center"><font size="2"><%=@ba[0].name%></font></td>
-  <td height="50" width="15%" align="center"><font size="2"><%=@mu[0].name%></font></td>
+  <td height="50" width="5%"><font size="2"><%=@zo[0].name%></font></td>
+  <td height="50" width="15%"><font size="2"><%=@ba[0].name%></font></td>
+  <td height="50" width="15%"><font size="2"><%=@mu[0].name%></font></td>
   <td height="50" width="5%"><font size="2"><%= h.household_id %></font></td>
-  <td height="50" width="5%"><font size="2"><%= hname.name %></font></td>
+  <td height="50" width="15%"><font size="2"><%= hname.name %></font></td>
   <td height="50" width="5%"><font size="2"><%= h.status %></font></td>
   
   

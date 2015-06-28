@@ -58,43 +58,13 @@
 <% end %>
 </table><br><br><br>
 
- <%x=@p.group("condition").count%>
+ 
 
   <h3>SUMMARY:</h3><center>
   <table class="tableContainer" cellspacing="80px"> 
-<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
-  <td height="50" width="25%"><b>TOTAL NUMBER :</b></td> 
-  <td height="50" width="25%"><%=@p.count%></td></tr>
-
-<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
-  <td height="50" width="25%"><b>TOTAL NUMBER OF WELL PEOPLE :</b></td>
-  <td height="50" width="25%"> <%=x["Good"]%></td></tr>
-
-<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
-  <td height="50" width="25%"><b>TOTAL NUMBER OF DEAD :</b></td>
-  <td height="50" width="25%"> <%=x["Dead"]%></td></tr>
-
-<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
-  <td height="50" width="25%"><b>TOTAL NUMBER OF INJURED  :</b></td>
-  <td height="50" width="25%"> <%=x["Injured"]%></td></tr>
-
-<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
-  <td height="50" width="25%"><b>TOTAL NUMBER OF MISSING  :</b></td> 
-  <td height="50" width="25%"><%=x["Missing"]%></td></tr>
-
-<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
-  <td height="50" width="25%"><b>TOTAL NUMBER OF DISPLACED  :</b></td> 
-  <td height="50" width="25%"><%=x["Displaced"]%></td></tr>
-
-<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
-  <td height="50" width="25%"><b>TOTAL NUMBER OF RELOCATED  :</b></td>
-  <td height="50" width="25%"><%=x["Relocated"]%></td></tr>
-
-<tr  style="outline: thin solid" bgcolor="#C0C0C0" > 
-  <td height="50" width="25%"><b>TOTAL NUMBER OF NON-EXISTENT :</b></td>
-  <td height="50" width="25%"><%=x["NON-EXISTENT"]%></td></tr>
-
-</table><br><br></center>
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+    <td height="50" width="25%"><b>TOTAL NUMBER OF RECORDS :<%=@p.count%></b></td> 
+  </tr></table><br><br></center>
 
   
 </div>

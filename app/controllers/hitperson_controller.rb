@@ -10,6 +10,8 @@ class HitpersonController < ApplicationController
 
   def edit
     if !params[:id].blank?
+      @householdid=params[:household_id]
+      @disasterid=params[:disaster_id]
       @hp= Hitperson.find(params[:id])
     end
   end
@@ -17,7 +19,7 @@ class HitpersonController < ApplicationController
  def show
  	@h = params[:id1]
  	@d = params[:id2]
- 	@hp = Hitperson.where('hithousehold_id=? AND disaster_id=?',@h,@d)
+ 	@hp = Hitperson.where('household_id=? AND disaster_id=?',@h,@d)
  end
 
  def show_all
@@ -33,7 +35,7 @@ class HitpersonController < ApplicationController
           flash[:notice] = @hp.errors.full_messages
           
       end
-     redirect_to url_for(:controller => :people, :action => :searchp, :id1 => @hp.hithousehold_id, :id3=>@hp.disaster_id)
+     redirect_to url_for(:controller => :people, :action => :searchp, :id1 => @hp.household_id, :id3=>@hp.disaster_id)
   end
 
    def delete
@@ -42,9 +44,9 @@ class HitpersonController < ApplicationController
       @hp.destroy
       flash[:notice] = "Affected Person's Record was deleted."
     end
-    @h = @hp.hithousehold_id
+    @h = @hp.household_id
     @d = @hp.disaster_id
-    @hp = Hitperson.where('hithousehold_id=? AND disaster_id=?',@h,@d)
+    @hp = Hitperson.where('household_id=? AND disaster_id=?',@h,@d)
     render "show"
   end
 
@@ -70,7 +72,7 @@ class HitpersonController < ApplicationController
   private
 
       def hitperson_params
-       params.require(:hitperson).permit(:hithousehold_id, :disaster_id, :people_id,:age, :status)
+       params.require(:hitperson).permit(:household_id, :disaster_id, :people_id,:age, :status)
       end
 end
 

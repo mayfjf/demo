@@ -33,39 +33,13 @@
     <th height="50">FAMILY NAME</th>
     <th height="50">MEMBERS</th>
     <th height="50" colspan="5">STATUS</th>
-
-      
-    
  </tr>
 
-  <%x=People.group([:household_id, :condition]).count%>
-  <%@good=0%>
-  <%@dead=0%>
-  <%@missing=0%>
-  <%@injured=0%>
-  <%@displaced=0%>
-  <%@relocated=0%>
-
-<% @h.all.each do |hh| %>
   
+<% @h.all.each do |hh| %>
+
 <tr  style="outline: thin solid" bgcolor="#B0C4DE" >
   <td height="50" width="5%"><%= hh.id %></td>
-
-      <%g=x[[hh.id,"Good"]] || 0%>
-      <%d=x[[hh.id,"Dead"]] || 0%>
-      <%m=x[[hh.id,"Missing"]] || 0%>
-      <%i=x[[hh.id,"Injured"]] || 0%>
-      <%dis=x[[hh.id,"displaced"]] || 0%>
-      <%r=x[[hh.id,"Relocated"]] || 0%>
-
-   <%@good = @good + g%>
-   <%@dead = @dead + d%>
-   <%@missing = @missing + m%>
-   <%@injured = @injured + i%>
-   <%@displaced = @displaced + dis%>
-   <%@relocated = @relocated + r%>
-   
-
   <td height="50" width="15%"><%= hh.name %></td>
   <td height="50" width="10%"><%= hh.count %></td>
   <%status = Hithousehold.where('household_id=? AND disaster_id=? ',hh.id,@disaster_id)%>
@@ -77,11 +51,11 @@
 
 
   <td><%= button_to "SET Status", {:controller => "hithousehold", :action => "new", :id1 => hh.id, :id2 => @z, :id3 => @disaster_id}, {:method=>:post} %></td>
-  
+
   <td><%= button_to "Add Affected Members", {:controller => "people", :action => "searchp", :id1 => hh.id, :id2 => @z, :id3 => @disaster_id}, {:method=>:post} %></td>
     
   <td height="50" width="25%"></td>
-  <td><%= link_to "Delete", household_delete_path(:household=>hh.id), method: :delete, class:'btn btn-mini btn-danger', :onclick => "makingSure(event)"%></td>
+  <td><%= link_to "Delete", hithousehold_delete_path(:hithousehold=>hh.id), method: :delete, class:'btn btn-mini btn-danger', :onclick => "makingSure(event)"%></td>
 </tr><% end %>
 </table><br><br>
 
@@ -96,56 +70,5 @@
   <td height="50" width="25%"><b>TOTAL MEMBERS :</b></td>
   <td height="50" width="25%"> <%=@h.sum(:count)%></td></tr>
 </table></center><br><br>
-
-
-
-<center>
-  <table class="tableContainer" cellspacing="80px"> 
-    <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
-        <td height="50" width="30%"><b>WELL / UNAFFECTED:</b></td> 
-        <td height="50" width="25%"><%=@good%></td></tr>
-    <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
-        <td height="50" width="25%"><b>NUMBER OF DEAD:</b></td> 
-        <td height="50" width="25%"><%=@dead%></td></tr>
-    <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
-        <td height="50" width="25%"><b>NUMBER OF MISSING:</b></td> 
-        <td height="50" width="25%"><%=@missing%></td></tr>
-    <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
-        <td height="50" width="25%"><b>NUMBER OF INJURED:</b></td> 
-        <td height="50" width="25%"><%=@injured%></td></tr>
-    <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
-        <td height="50" width="25%"><b>NUMBER OF DISPLACED:</b></td> 
-        <td height="50" width="25%"><%=@displaced%></td></tr>
-    <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
-        <td height="50" width="25%"><b>NUMBER OF RELOCATED:</b></td> 
-        <td height="50" width="25%"><%=@relocated%></td></tr>
-
-
-
-
-
-
-
-  </table></center><br><br>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-  
-
-
 
 </div>

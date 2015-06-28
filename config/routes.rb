@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   post 'hitperson/delete'
   get 'hitperson/show_all'
   post 'hitperson/show_all'
+  get 'hitperson/savetable'
+  post 'hitperson/savetable'
 
 
 

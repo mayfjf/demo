@@ -14,8 +14,10 @@ after_destroy :compute_commerce
 after_destroy :compute_area
 after_destroy :compute_infra
 
-    has_one :household, dependent: :nullify
-    has_many :hit, dependent: :nullify
+    has_one :household, dependent: :destroy
+    has_many :hit, dependent: :destroy
+    has_many :hithousehold, dependent: :destroy
+    
 
 
 	validates :name, presence:true, :uniqueness => {:scope => :barangay_id}, uniqueness:{case_sensitive: false }

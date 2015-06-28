@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615012558) do
+ActiveRecord::Schema.define(version: 20150628080629) do
+
+  create_table "Hitpeople", force: :cascade do |t|
+    t.integer  "household_id"
+    t.integer  "disaster_id"
+    t.integer  "age"
+    t.string   "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "people_id"
+  end
 
   create_table "agencies", force: :cascade do |t|
     t.string   "name"
@@ -62,16 +72,6 @@ ActiveRecord::Schema.define(version: 20150615012558) do
     t.string   "status"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-  end
-
-  create_table "hitpeople", force: :cascade do |t|
-    t.integer  "hithousehold_id"
-    t.integer  "disaster_id"
-    t.integer  "age"
-    t.string   "status"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "people_id"
   end
 
   create_table "hits", force: :cascade do |t|

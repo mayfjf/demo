@@ -11,23 +11,25 @@
                      
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
 
-    <th height="50">ID</th>
-    <th height="50">ZONE ID</th>
-    <th height="50">ZONE NAME</th>
-    <th height="50"></th>
-    <th height="50"></th>
-    <th height="50"></th>
-    <th height="50"></th>
+    
+    <th >ZONE ID</th>
+    <th >ZONE NAME</th>
+    <th >Disaster<br>Details</th>
+    <th >Date Affected</th>
+    <th ></th>
+    <th ></th>
   </tr>
 
 <% @hit.all.each do |hit| %>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">
   
-  <td height="50" width="25%"><%= hit.id %></td>
-  <td height="50" width="25%"><%= hit.zone_id %></td>
-  <%@zo = Zone.joins(:hit).where(['hits.zone_id = ?',hit.zone_id])%>
-  <td height="50" width="25%" align="center"><%=@zo[0].name%></td>
   
+  <td height="50" width="5%"><%= hit.zone_id %></td>
+  <%@zo = Zone.joins(:hit).where(['hits.zone_id = ?',hit.zone_id])%>
+  <td height="50" width="20%"><%=@zo[0].name%></td>
+  <%@d = Disaster.find(hit.disaster_id)%>
+  <th height="50" width="35%"><%=@d.details%></th>
+  <th height="50" width="25%"><%=@d.date%></th>
   
   <td><%= button_to "Edit", {:controller => "hit", :action => "edit", :id => hit.id}, {:method=>:post} %></td>
   <td height="50" width="25%"></td>
@@ -43,7 +45,7 @@
   <h3>SUMMARY:</h3>
   <table class="tableContainer" cellspacing="80px"> 
 <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
-  <td height="50" width="25%"><b>TOTAL NUMBER OF AFFECTED ZONES:</b></td> 
+  <td height="50" width="25%"><b>TOTAL NUMBER RECORDS: </b></td> 
   <td height="50" width="25%"><%=@hit.count%></td></tr>
 
 

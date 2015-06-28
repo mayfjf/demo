@@ -12,10 +12,12 @@ class HitController < ApplicationController
   end
 
  def show
+    @value = params[:id]
     @hit = Hit.all
  end
 
  def show_only
+    @value = params[:id]
     @hit = Hit.all
  end
 
@@ -32,17 +34,19 @@ def show_all
           flash[:notice] = @hit.errors.full_messages
           
       end
-      @hit = Hit.where('zone_id = ?', @hit.zone_id)
+      @hit = Hit.where('zone_id=? AND disaster_id=?', @hit.zone_id, @hit.disaster_id)
       render "show_user_view"
   end
 
    def delete
     if !params[:hit].blank?
       @hit= Hit.find(params[:hit])
+      disvalue = @hit.disaster_id
       @hit.destroy
       flash[:notice] = "Affected Zone Record was deleted."
     end
-    @hit = Hit.all
+    @value = disvalue
+    @hit=Hit.where("disaster_id = ?", @value)
     render "show"
   end
 

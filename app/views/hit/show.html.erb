@@ -28,21 +28,19 @@
 
 <table class="tableContainer" cellspacing="80px">  
 <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-    <th height="50" colspan="11">Disaster: <%=dd.details%> </th></tr>          
+    <th height="50" colspan="11">Disaster Details: <%=dd.details%> </th></tr>          
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
 
-    <th height="50"><font size="2">ID</font></th>
     <th height="50"><font size="2">ZONE<br>ID</font></th>
     <th height="50"><font size="2">ZONE<br>NAME</font></th>
     <th height="50"><font size="2">BARANGAY</font></th>
-    <th height="50" colspan="7"><font size="2">MUNICIPALITY</font></th>
+    <th height="50" colspan="9"><font size="2">MUNICIPALITY</font></th>
     
   </tr>
 
 <% @hit.all.each do |hit| %>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">
   
-  <td height="50" width="5%"><font size="2"><%= hit.id %></font></td>
   <td height="50" width="5%"><font size="2"><%= hit.zone_id %></font></td>
   <%@zo = Zone.joins(:hit).where(['hits.zone_id = ?',hit.zone_id])%>
   <%@ba = Barangay.joins(:zone).where(['zones.barangay_id = ?',@zo[0].barangay_id])%>
@@ -53,7 +51,9 @@
   
   <td><%= button_to "Edit", {:controller => "hit", :action => "edit", :id => hit.id}, {:method=>:post} %></td>
   <td><%= button_to "Add Affected Households", {:controller => "household", :action => "searchhh", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
-  <td><%= button_to "View Affected Households", {:controller => "hithousehold", :action => "show", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
+  <td><%= button_to "View Affected Households", {:controller => "hithousehold", :action => "show", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td><br>
+  <td><%= button_to "Add Affected Non Residents", {:controller => "hithousehold", :action => "show", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
+  <td><%= button_to "View Affected Non Residents", {:controller => "hithousehold", :action => "show", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
   <td><%= button_to "Open Report",{:controller => "hit", :action => "report", :id => hit.id} , {:method=>:post}%></td>
   <td height="50" width="25%"></td>
   <td><%= link_to "Delete", hit_delete_path(:hit=>hit.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
