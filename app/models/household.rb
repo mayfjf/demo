@@ -5,7 +5,6 @@ class Household < ActiveRecord::Base
 	has_many :people, dependent: :destroy
 	
 	
-	
 	 validates :name, presence: true, :case_sensitive => false, :uniqueness => true
 	 validates :zone_id, presence: true
 

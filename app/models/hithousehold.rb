@@ -7,6 +7,7 @@ validates :status, presence: true
 
 
 def destroy_hitperson
+
 		@pp = Hitperson.where('hithousehold_id = ? AND disaster_id=?', self.household_id, self.disaster_id)
 
 			@pp.all.each do |p|

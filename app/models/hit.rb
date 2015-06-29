@@ -31,7 +31,9 @@ after_destroy :destroy_hithousehold
 		@xp = Hithousehold.where('zone_id = ? AND disaster_id=?', self.zone_id,self.disaster_id)
 
 		@xp.all.each do |y|
+
 			@pp = Hitperson.where('hithousehold_id = ? AND disaster_id=?', y.household_id, y.disaster_id)
+
 			@pp.all.each do |p|
 				p.destroy
 			end

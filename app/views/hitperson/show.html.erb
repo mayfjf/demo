@@ -56,8 +56,9 @@
   <td height="50" width="10%" align="center"><font size="2"><%=p.status%></font></td>
    
   
+
   <td><%= button_to "Edit", {:controller => "hitperson", :action => "edit", :id => p.id, :hithousehold_id=> p.hithousehold_id, :disaster_id => @d}, {:method=>:post} %></td>
-     
+
   <td><%= link_to "Delete", hitperson_delete_path(:hitperson=>p.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
   </tr>
 

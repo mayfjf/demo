@@ -63,8 +63,9 @@
   <td height="50" width="10%"><font size="2"><%=p.dlifeline3%></font></td>
    
   
+
   <td><%= button_to "Edit", {:controller => "hit", :action => "edit", :id => p.id}, {:method=>:post} %></td>
-     
+
   <td><%= link_to "Delete", hithousehold_delete_path(:hithousehold=>p.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
   </tr>
 

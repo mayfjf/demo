@@ -27,12 +27,12 @@ class HitpersonController < ApplicationController
  end
 
   def create
-       @hp = Hitperson.new(hitperson_params)
+      @hp = Hitperson.new(hitperson_params)
       if @hp.save
           flash[:notice] = "New Affected Person Record was created"
       else
           flash[:notice] = @hp.errors.full_messages
-          
+         
       end
      redirect_to url_for(:controller => :people, :action => :searchp, :id1 => @hp.hithousehold_id, :id3=>@hp.disaster_id)
   end

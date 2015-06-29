@@ -73,7 +73,9 @@
 <% @hhh.all.each do |y| %>
   
 
+
     <%@pips = Hitperson.where('hithousehold_id = ? AND disaster_id=?', y.household_id, @hit.disaster_id)%>
+
     <%@age=@pips.group(:age,:status).count%>
     <%@b1=@age[[0, "Relocated"]]||0%>
     <%@b2=@age[[1, "Relocated"]]||0%>

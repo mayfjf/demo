@@ -4,6 +4,7 @@ after_save :compute_dead_zone
 before_save :compute_dead_zone
 after_destroy :compute_dead_zone
 
+
 validates :hithousehold_id, presence: true
 validates :disaster_id, presence: true, :uniqueness => {:scope => :people_id}
 validates :people_id, presence: true, :uniqueness => {:scope => :disaster_id}
@@ -13,6 +14,7 @@ private
 
 def compute_dead_zone
      	
+
      	x=Hitperson.group([:hithousehold_id, :status, :disaster_id]).count
      	cc =Hit.all
      	cc.all.each do |h|

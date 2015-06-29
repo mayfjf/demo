@@ -39,6 +39,7 @@
   </tr>
 
 <% @hp.all.each do |p| %>
+
   <%hname = Household.find(p.hithousehold_id)%>
   <%disaster = Disaster.find(p.disaster_id)%>
   <%hazard = Hazard.find(disaster.hazard_id)%>
@@ -55,7 +56,7 @@
    
   
   <td><%= button_to "Edit", {:controller => "hitperson", :action => "edit", :id=> p.id}, {:method=>:post} %></td>
-     
+ 
   <td><%= link_to "Delete", hitperson_delete_path(:hitperson=>p.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
   </tr>
 

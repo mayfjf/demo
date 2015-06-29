@@ -7,8 +7,9 @@
 
 <div id="section"><center>
  
+
   <%= form_for(:hitperson, :url => {:controller => 'hitperson', :action => 'savetable', :method=>:get, :id => params[:id], :disaster_id => params[:disaster_id],:age => params[:age],:hithousehold_id => params[:hithousehold_id], :status => params[:status]}) do |f| %>
-  
+ 
   
 <table class="tableContainer" cellspacing="80px">   
 
