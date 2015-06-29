@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628095133) do
+ActiveRecord::Schema.define(version: 20150629103058) do
 
   create_table "agencies", force: :cascade do |t|
     t.string   "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150628095133) do
     t.decimal  "agri"
     t.decimal  "commercial"
     t.decimal  "infra"
+    t.string   "details"
   end
 
   create_table "disasters", force: :cascade do |t|
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(version: 20150628095133) do
     t.decimal  "agri"
     t.decimal  "commercial"
     t.decimal  "infra"
+    t.string   "details"
   end
 
   create_table "needs", force: :cascade do |t|
