@@ -73,7 +73,7 @@ class MunicipalController < ApplicationController
    private
 
       def municipality_params
-        params.require(:municipality).permit(:name, :people_id, :area, :population, :livestock, :agri, :commercial, :infra )
+        params.require(:municipality).permit(:name,:details, :people_id, :area, :population, :livestock, :agri, :commercial, :infra )
       end
 
 end

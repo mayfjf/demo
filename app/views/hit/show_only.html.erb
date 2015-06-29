@@ -1,46 +1,59 @@
 <%= stylesheet_link_tag "zone" %>
+
 <body>
+<%dd = Disaster.find(@value)%>
+<%hid = Hazard.find(dd.hazard_id)%>
 
 <div id="header">
-<h1>Affected Zone Listings</h1>
+<h1>Affected Zone Listings<br>Disaster ID: <%=@value%> - <%=hid.description%><br><%=dd.date%></h1>
 </div>
+
 
 <div id="section"><center>
  
 
 
-<table class="tableContainer" cellspacing="80px" BORDER="4">   
-                     
+<table class="tableContainer" cellspacing="80px">  
+<tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <th height="50" colspan="11">Disaster: <%=dd.details%> </th></tr>          
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
 
-    <th height="50">HIT ID</th>
-    <th height="50">ZONE ID</th>
-    <th height="50">ZONE NAME</th>
-    <th height="50">DISASTER ID</th>
+    <th height="50"><font size="2">ZONE<br>ID</font></th>
+    <th height="50"><font size="2">ZONE<br>NAME</font></th>
+    <th height="50"><font size="2">BARANGAY</font></th>
+    <th height="50" colspan="7"><font size="2">MUNICIPALITY</font></th>
     
   </tr>
-
-<% @hit.all.each do |hit| %>
+<%@hitzone = Hit.where('disaster_id = ?', @value)%>
+<% @hitzone.all.each do |hit| %>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">
   
-  <td height="50" width="25%"><%= hit.id %></td>
-  <td height="50" width="25%"><%= hit.zone_id %></td>
+  <td height="50" width="5%"><font size="2"><%= hit.zone_id %></font></td>
   <%@zo = Zone.joins(:hit).where(['hits.zone_id = ?',hit.zone_id])%>
-  <td height="50" width="25%" align="center"><%=@zo[0].name%></td>
-  <td height="50" width="25%"><%= hit.disaster_id %></td>
-</tr>
+  <%@ba = Barangay.joins(:zone).where(['zones.barangay_id = ?',@zo[0].barangay_id])%>
+  <%@mu = Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@ba[0].municipality_id])%>
+  <td height="50" width="5%" align="center"><font size="2"><%=@zo[0].name%></font></td>
+  <td height="50" width="15%" align="center"><font size="2"><%=@ba[0].name%></font></td>
+  <td height="50" width="15%" align="center"><font size="2"><%=@mu[0].name%></font></td>
+  
+  <td><%= button_to "Edit", {:controller => "hit", :action => "edit", :id => hit.id}, {:method=>:post} %></td>
+  <td><%= button_to "Add Affected Households", {:controller => "household", :action => "searchhh", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
+  <td><%= button_to "View Affected Households", {:controller => "hithousehold", :action => "show", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
+  
+  
+  </tr>
 
   
 <% end %>
 </table><br><br><br>
 
- <%x=@hit.count%>
+ <%x=@hitzone.count%>
 
   <h3>SUMMARY:</h3>
   <table class="tableContainer" cellspacing="80px"> 
 <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
   <td height="50" width="25%"><b>TOTAL NUMBER OF AFFECTED ZONES:</b></td> 
-  <td height="50" width="25%"><%=@hit.count%></td></tr>
+  <td height="50" width="25%"><%=@hitzone.count%></td></tr>
 
 
 

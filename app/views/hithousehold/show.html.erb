@@ -1,0 +1,89 @@
+<%= stylesheet_link_tag "zone" %>
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+
+<body>
+
+<div id="header">
+<%disaster = Disaster.find(@d)%>
+<%hazard = Hazard.find(disaster.hazard_id)%>
+<h1>Affected Household Listings<br>Disaster ID: <%=@d%> - <%=hazard.description%><br><%=disaster.date%> </h1>
+</div>
+
+<div id="section"><center>
+ 
+
+
+<table class="tableContainer" cellspacing="80px">   
+                     
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <th height="50" colspan="11">Disaster Details: <%=disaster.details%> </th></tr>          
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+
+    <th height="50">ZONE</th>
+    <th height="50">BARANGAY</th>
+    <th height="50">MUNICIPALITY</th>
+    <th height="50">HOUSEHOLD ID</th>
+    <th height="50">NAME</th>
+    <th height="50">STATUS</th>
+    
+    
+    
+    <th height="50"></th>
+    <th height="50"></th>
+    <th height="50"></th>
+    
+  </tr>
+
+<% @hhh.all.each do |h| %>
+
+  <%hname = Household.find(h.household_id)%>
+  <%@zo = Zone.joins(:household).where(['households.zone_id = ?',hname.zone_id])%>
+  <%@ba = Barangay.joins(:zone).where(['zones.barangay_id = ?',@zo[0].barangay_id])%>
+  <%@mu = Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@ba[0].municipality_id])%>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">
+  <td height="50" width="5%"><font size="2"><%=@zo[0].name%></font></td>
+  <td height="50" width="15%"><font size="2"><%=@ba[0].name%></font></td>
+  <td height="50" width="15%"><font size="2"><%=@mu[0].name%></font></td>
+  <td height="50" width="5%"><font size="2"><%= h.household_id %></font></td>
+  <td height="50" width="15%"><font size="2"><%= hname.name %></font></td>
+  <td height="50" width="5%"><font size="2"><%= h.status %></font></td>
+  
+  
+  <td><%= button_to "Edit", {:controller => "hithousehold", :action => "edit", :id => h.id}, {:method=>:post} %></td>
+  <td><%= button_to "View Affected Members", {:controller => "hitperson", :action => "show", :id1 => h.household_id, :id2 => h.disaster_id}, {:method=>:post} %></td>
+    
+  <td><%= link_to "Delete", hithousehold_delete_path(:hithousehold=>h.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
+  </tr>
+
+  
+<% end %>
+</table><br><br><br>
+
+ <%x=@hhh.count%>
+
+  <h3>SUMMARY:</h3>
+  <table class="tableContainer" cellspacing="80px"> 
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+  <td height="50" width="25%"><b>TOTAL NUMBER OF AFFECTED HOUSEHOLDS:</b></td> 
+  <td height="50" width="25%"><%=@hhh.count%></td></tr>
+
+
+
+</table><br><br><center>
+
+  
+</div>
+

@@ -19,13 +19,16 @@
      <font size="2" color='red'>The value of this field may not have been set, or has been deleted. Please Edit.</font></td>
   <%end%>	
 </tr>
-
 <tr style="outline: thin solid" bgcolor="#C0C0C0">  
   <td height="100" width="15%"> <b>Population:</b><br><%= @z.population%> </td>
-  <td height="100" width="15%"> <b>Amount Value in Livestock:</b><br><%= @z.livestock%> </td></tr> 
+  <td height="100" width="15%"> <b>Area in square km:</b><br><%= @z.area%> </td>
+
+<tr style="outline: thin solid" bgcolor="#C0C0C0">  
+  <td height="100" width="15%"> <b>Infrastructure (Peso):</b><br><%= @z.population%> </td>
+  <td height="100" width="15%"> <b>Livestock (Peso):</b><br><%= @z.livestock%> </td></tr> 
 <tr style="outline: thin solid" bgcolor="#C0C0C0">   
-  <td height="100" width="15%"> <b>Amount Value in Agriculture:</b><br><%= @z.agri%> </td>
-  <td height="100" width="15%"> <b>Amount Value in Commerce/Trade:</b><br><%= @z.commercial%> </td></tr>  
+  <td height="100" width="15%"> <b>Agriculture (Peso):</b><br><%= @z.agri%> </td>
+  <td height="100" width="15%"> <b>Commerce/Trade (Peso):</b><br><%= @z.commercial%> </td></tr>  
 </table><hr>
 </div>
 <center>

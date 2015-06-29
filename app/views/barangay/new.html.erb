@@ -19,7 +19,8 @@
     <td height="100" width="15%"> Main Livelihood:<br><%=f.text_field :main_livelihood%> </td>
     <td height="100" width="15%"> Rescue Resources:<br><%=f.text_area :rescue_resources%> </td>
     <td height="100" width="15%" colspan="2"> Hazard Threat:<br><%= f.select :hazard_id, Hazard.all.map { |u| [u.description, u.id] }, {:prompt => "Please Select" }, { :class => "hazard_unit" } %></td></tr>
-  
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0"> 
+    <td height="120" width="15%" colspan="4" align="center"> Memo:<br><%=f.text_area :details, :cols => 80, :rows => 8%> </td></tr>
   </table><hr>
       <center>
         <%= f.submit "Submit", class: "btn btn-default" %>

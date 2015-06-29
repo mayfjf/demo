@@ -1,6 +1,38 @@
 Rails.application.routes.draw do
   
 
+  get 'hitperson/new'
+  post 'hitperson/new'
+  get 'hitperson/edit'
+  post 'hitperson/edit'
+  get 'hitperson/create'
+  post 'hitperson/create'
+  get 'hitperson/show'
+  post 'hitperson/show'
+   get 'hitperson/delete'
+  post 'hitperson/delete'
+  get 'hitperson/show_all'
+  post 'hitperson/show_all'
+  get 'hitperson/savetable'
+  post 'hitperson/savetable'
+
+
+
+  get 'hithousehold/new'
+  post 'hithousehold/new'
+  get 'hithousehold/edit'
+  post 'hithousehold/edit'
+  get 'hithousehold/savetable'
+  post 'hithousehold/savetable'
+  get 'hithousehold/create'
+  post 'hithousehold/create'
+  get 'hithousehold/show'
+  post 'hithousehold/show'
+  get 'hithousehold/delete'
+  post 'hithousehold/delete'
+  get 'hithousehold/show_all'
+  post 'hithousehold/show_all'
+
   get 'sender/new'
   get 'sender/edit'
   post 'sender/edit'
@@ -94,6 +126,8 @@ Rails.application.routes.draw do
   post 'hit/show_user_view'
    get 'hit/support'
   post 'hit/support'
+   get 'hit/show_all'
+  post 'hit/show_all'
   
   
 
@@ -160,6 +194,8 @@ Rails.application.routes.draw do
   post 'household/index'
   get 'household/search'
   post 'household/search'
+  get 'household/searchhh'
+  post 'household/searchhh'
 
   get 'agency/new'
   get 'agency/create'
@@ -226,6 +262,10 @@ Rails.application.routes.draw do
   post 'people/index'
   get 'people/search'
   post 'people/search'
+  get 'people/searchp'
+  post 'people/searchp'
+  get 'people/show_affected_people'
+  post 'people/show_affected_people'
   
 
   get 'barangay/edit'

@@ -1,0 +1,83 @@
+<%= stylesheet_link_tag "zone" %>
+
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+<body>
+
+<div id="header">
+<%x=Disaster.find(@disaster_id)%>
+<%h=Hazard.find(x.hazard_id)%>
+<%hh = Household.find(@h)%>
+<h1>Affected People by Disaster ID: <%=@disaster_id%> - <%=h.description%></h1>
+</div>
+
+
+
+<div id="section">
+
+<table class="tableContainer" cellspacing="80px">   
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">                          
+    <th height="50" colspan="5">HOUSEHOLD ID: <%=@h%></th>
+    <th height="50" colspan="6">HOUSEHOLD NAME: <%=hh.name%></th>                  
+   </tr>            
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">                          
+    <th height="50">ID</th>
+    <th height="50">FIRST NAME</th>
+    <th height="50">MIDDLE NAME</th>
+    <th height="50">LAST NAME</th>
+    <th height="50">AGE</th>
+    <th height="50">CONDITION</th>
+    <th height="50"></th>
+    <th height="50"></th>
+    <th height="50"></th>
+    <th height="50"></th>
+    <th height="50"></th>
+   </tr>
+
+<% @p.all.each do |people| %>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">
+  <td height="50" width="15%"><%= people.id %></td>
+  <td height="50" width="15%"><%= people.firstname %></td>
+  <td height="50" width="15%"><%= people.middlename %></td>
+  <td height="50" width="15%"><%= people.familyname%></td>
+  <td height="50" width="15%"><%= people.age%></td>
+  <%status = Hitperson.where('people_id=? AND disaster_id=? ',people.id,@disaster_id)%>
+  <%if status.exists?%>
+    <td height="50" width="15%"><%= status[0].status %></td>
+  <%else%>
+    <td height="50" width="15%"><font color = "red" size = "2">not yet set!</font></td>
+  <%end%>
+  
+  
+  <td><%= button_to "SET condition", {:controller => "hitperson", :action => "new", :id => people.id, :household_id =>people.household_id, :disaster_id => @disaster_id, :age=>people.age}, {:method=>:post} %></td>
+  
+  </tr>
+
+  
+<% end %>
+</table><br><br><br>
+<center>
+<%= button_to "DONE", {:controller => "household", :action => "searchhh", :id1 => hh.zone_id, :id2 => @disaster_id}, {:method=>:post} %>
+</center>
+
+<h3> SUMMARY: </h3><center>
+
+<table class="tableContainer" cellspacing="80px"> 
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+  <td height="50" width="25%"><b>TOTAL NUMBER OF PEOPLE:</b></td> 
+  <td height="50" width="25%"><%=@p.count%></td></tr>
+
+
+</div>
+

@@ -29,9 +29,9 @@
     <td height="100" width="15%"> <b> Occupation:</b><br><%=f.text_field :occupation%> </td>
     <td height="100" width="15%"> <b> Contact Number:</b><br><%=f.telephone_field :contactnum%> </td></tr>
     <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-    <td height="100" width="15%"> <b>Disability Info:</b><br><%=f.text_area :disabilityinfo%> </td>
+    <td height="100" width="15%" colspan="2"> <b>Disability Info:</b><br><%=f.text_area :disabilityinfo%> </td>
     <td height="100" width="15%">  <b>Belongs to Household:</b><br><%= f.select :household_id, Household.all.map { |u|[u.name,u.id]}, {:prompt => "Please Select ",  :selected =>@p_id}%></td>
-    <td height="100" width="15%" span="2"><b> Current Condition:</b><br><%= f.select :condition, options_for_select(%w[Please_Select Good Missing Injured Dead Displaced Relocated]) %></td></tr></table><hr>
+    </tr></table><hr>
     
     <center><%= f.submit "Submit", class: "btn btn-default" %></center><% end %>
   

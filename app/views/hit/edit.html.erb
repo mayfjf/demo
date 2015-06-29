@@ -44,31 +44,10 @@
 		<font color="blue"><%=@lvalue%> Pesos</font></td></tr></table><br>
 
 
-<table class="tableContainer" cellspacing="80px">  
 
-    
-    <center><h3><b>Affected People<b></h3></center>
-    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-    	<td height="100" width="15%"> <b>Number of Dead:</b><br><%= f.number_field :dead, :value => @hit.dead%></td>
-	    <td height="100" width="15%"> <b>Number of Missing:</b><br><%= f.number_field :missing, :value => @hit.missing%> </td>
-	    <td height="100" width="15%"> <b>Number of Injured:</b><br><%= f.number_field :injured, :value => @hit.injured%> </td></tr>
-	<tr  style="outline: thin solid" bgcolor="#C0C0C0">
-	    <td height="100" width="15%"> <b>Number of Displaced:</b><br><%= f.number_field :displaced, :value => @hit.displaced%> </td>
-		<td height="100" width="15%"> <b>Number of Relocated:</b><br><%= f.number_field :relocated, :value => @hit.relocated%> </td>
-		<td height="100" width="15%"> <b>Number of Well/Unaffected:</b><br><%= f.number_field :good, :value => @hit.good%> </td></tr>
-		    <%@hit.dead=@hit.dead || 0%>
-    	    <%@hit.missing=@hit.missing || 0%>
-  			<%@hit.injured=@hit.injured || 0%>
-  			<%@hit.displaced=@hit.displaced || 0%>
-  			<%@hit.relocated=@hit.relocated || 0%>
-  			<%@hit.good=@hit.good || 0%>
-		<%sum=@hit.dead+@hit.missing+@hit.injured+@hit.displaced+@hit.relocated+@hit.good%>
-	    
-    </table><hr>
-    <b>TOTAL PEOPLE:</b>  <%= sum%>
 
     <center><%= f.submit "Submit", class: "btn btn-default" %></center><% end %><br>
-    <%= button_to "View Affected People", {:controller => "household", :action => "search", :id => @hit.zone_id}, {:method=>:post} %>
+    
      
   </div>
 </body>

@@ -4,8 +4,9 @@
 <font size="2" color="maroon">
 <hr>
   <%if @sen.exists?%>
+    <b>MESSAGE ID'S TO BE FETCHED:</b> <%=@mset%><br><br>
   	<b>Sender of the Message:</b> <%=@sen[0].name%><br>
-  	<b>Status:</b> Authorized<br><br>
+  	<b>Status:</b> Authorized -----<%=@mset%><br><br>
   	<b>Subject of the Message:</b> <%=@subject%><br>
 
     <%if @subject == "ROUTE0"%>
@@ -41,11 +42,10 @@
   <br><b>Sender not authorized!<br>
   
 <%end%>
+<%= link_to "Fetch Message", route_check_mail_path, class: "btn btn-default" %>
 
 <hr>  
  </div></font>
-
-
 
 
 

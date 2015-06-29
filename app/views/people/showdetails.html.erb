@@ -12,8 +12,8 @@
 <table class="tableContainer" cellspacing="80px">   
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">    
     <td height="70" width="15%"><b>People ID:</b>  <%=@p.id%></td>
-    <td height="70" width="15%"></td>
-    <td height="70" width="15%"></td>
+    <td height="70" width="15%"><b>Disability Info:</b>  <%= @p.disabilityinfo%> </td>
+    <td height="70" width="15%"><b>Belongs to Household:</b>  <%= @p.household_id%></td>
     </tr>
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">     
     <td height="70" width="15%"><b>First Name:</b>  <%=@p.firstname%></td>
@@ -27,11 +27,7 @@
     <td height="70" width="15%"><b>Civil Status:</b>  <%=@p.civilstatus%> </td>
     <td height="70" width="15%"><b>Occupation:</b>  <%=@p.occupation%> </td>
     <td height="70" width="15%"><b>Contact Number:</b>  <%= @p.contactnum%> </td> </tr>
-  <tr  style="outline: thin solid" bgcolor="#C0C0C0">    
-    <td height="70" width="15%"><b>Disability Info:</b>  <%= @p.disabilityinfo%> </td>
-    <td height="70" width="15%"><b>Belongs to Household:</b>  <%= @p.household_id%>
-    <td height="70" width="15%" span = "2"><b>Current Condition:</b>  <%= @p.condition%>
-    </td></tr><tr> 
+  
  </table><hr>
   
   

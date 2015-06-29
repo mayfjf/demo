@@ -25,6 +25,9 @@
 <%@hit= Hit.where(['hits.disaster_id = ?',@d.id])%>
 
 <table>
+  <tr>
+  <th height="50" width="10%"><b>Disaster ID: <%=@d.id%></b></th></tr>
+  <tr>
 	<tr>
 	<th height="50" width="10%"><b>Date of Disaster: <%=@d.date%></b></th></tr>
   <tr>
@@ -39,16 +42,9 @@
 <%@dis_age1=0%><%@dis_age2=0%><%@dis_age3=0%><%@dis_age4=0%><%@dis_age5=0%>
 <%@rel_age1=0%><%@rel_age2=0%><%@rel_age3=0%><%@rel_age4=0%><%@rel_age5=0%> 
 
-          
-<%count = 0%>
-
-<% @hit.all.each do |y| %>
-  
-    <%@hh = Household.where('zone_id = ?',y.zone_id)%>
-
-    <% @hh.all.each do |x| %>
-        <%@pips = People.where('household_id = ?', x.id)%>
-        <%@age=@pips.group(:age,:condition).count%>    
+    <%@pips = Hitperson.where('disaster_id = ?', @d.id)%>      
+         
+        <%@age=@pips.group(:age,:status).count%>    
         
     
         <%for @i in 0..2 %>
@@ -94,10 +90,7 @@
         <%@rel_age5=@rel_age5+(@age[[@i,"Relocated"]] || 0)%>
        
       <%end%>
-  <%end%>
-
-<%end%>
-    
+     
 
 <%m= @hit.distinct.count(:municipal_id)%>
 <h3>MUNICIPALITIES AFFECTED: <%=m%></h3>
@@ -233,8 +226,11 @@
 </table>
 <table BORDER=4 CELLSPACING=4 CELLPADDING=4>
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-  <th height="50" width="20%" colspan="3">TOTAL NUMBER OF HOUSEHOLD:</th>  
+  <th height="50" width="20%" colspan="2">TOTAL NUMBER OF HOUSEHOLD:</th>  
   <th height="50" width="20%"><%=@total_hh%></th>
+  <th height="50" width="20%" colspan="2">TOTAL NUMBER OF HOUSEHOLD AFFECTED:</th>
+  <%hhcount = Hithousehold.where('disaster_id=?',@d.id)%>  
+  <th height="50" width="20%"><%=hhcount.count%></th>
   <th height="50" width="20%" colspan="3">TOTAL AREA AFFECTED:</th>  
   <th height="50" width="20%"><%=@total_area%></th>
 </tr>
@@ -393,7 +389,7 @@
 <br>
   <p><%=link_to "Generate PDF Report", disaster_reportview_path(:id=>@d.id), class:'btn btn-mini btn-success', :target => "_blank"%>
 
- <%= link_to "Save FINAL COPY", impact_new_path(:disaster_id=>@hit[0].disaster_id, :zone_count => c, :household_count=>@total_hh, :dead=>@d, :missing=>@m, :injured=>@i, :displaced=>@dis, :relocated=>@r, :good=>@go, :ptotal=>@dx+@m+@i+@dis+@r, :livestock=>@l, :agri=>@a, :commerce=>@c, :infra=>@ix, :ctotal=>@l+@a+@ix+@c, :atotal=>@total_area), class:'btn btn-mini btn-success', :onclick => "makingSure(event)"%></td>
+ <%= link_to "Save FINAL COPY", impact_new_path(:disaster_id=>@d.id, :zone_count => c, :household_count=>@total_hh, :dead=>@d, :missing=>@m, :injured=>@i, :displaced=>@dis, :relocated=>@r, :good=>@go, :ptotal=>@dx+@m+@i+@dis+@r, :livestock=>@l, :agri=>@a, :commerce=>@c, :infra=>@ix, :ctotal=>@l+@a+@ix+@c, :atotal=>@total_area), class:'btn btn-mini btn-success', :onclick => "makingSure(event)"%></td>
 </center>
 
 

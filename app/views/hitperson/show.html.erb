@@ -1,0 +1,82 @@
+<%= stylesheet_link_tag "zone" %>
+<script>
+
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+
+<body>
+
+<div id="header">
+	<%hname = Household.find(@h)%>
+	<%disaster = Disaster.find(@d)%>
+	<%hazard = Hazard.find(disaster.hazard_id)%>
+<h1>Affected People of Household #<%=@h%> - <%=hname.name%> Family </h1>
+</div>
+
+<div id="section"><center>
+ 
+
+
+<table class="tableContainer" cellspacing="80px"> 
+
+<tr  style="outline: thin solid" bgcolor="#C0C0C0">
+
+    <th height="50" colspan="4">Disaster ID: <%=@d%> - <%=hazard.description%></th> 
+    <th height="50" colspan="4">Details:<%=disaster.details%></th>  
+  </tr>                   
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+
+    <th height="50">hit<br>ID</th>
+    <th height="50">person<br>ID</th>
+    <th height="50">FIRST NAME</th>
+    <th height="50">MIDDLE NAME</th>
+    <th height="50">FAMILY NAME</th>
+    <th height="50" colspan="4">CONDITION</th>
+    
+  </tr>
+
+<% @hp.all.each do |p| %>
+
+  <%pname = People.find(p.people_id)%>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">
+  <td height="50" width="5%"><font size="2"><%= p.id %></font></td>
+  <td height="50" width="5%"><font size="2"><%= p.people_id %></font></td>
+  <td height="50" width="10%"><font size="2"><%= pname.firstname %></font></td>
+  <td height="50" width="10%" align="center"><font size="2"><%=pname.middlename%></font></td>
+  <td height="50" width="10%" align="center"><font size="2"><%=pname.familyname%></font></td>
+  <td height="50" width="10%" align="center"><font size="2"><%=p.status%></font></td>
+   
+  
+  <td><%= button_to "Edit", {:controller => "hitperson", :action => "edit", :id => p.id, :hithousehold_id=> p.hithousehold_id, :disaster_id => @d}, {:method=>:post} %></td>
+     
+  <td><%= link_to "Delete", hitperson_delete_path(:hitperson=>p.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
+  </tr>
+
+  
+<% end %>
+</table><br><br><br>
+
+ <%x=@hp.count%>
+
+  <h3>SUMMARY:</h3>
+  <table class="tableContainer" cellspacing="80px"> 
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+  <td height="50" width="25%"><b>TOTAL NUMBER OF AFFECTED PEOPLE:</b></td> 
+  <td height="50" width="25%"><%=@hp.count%></td></tr>
+
+
+
+</table><br><br><center>
+
+  
+</div>
+

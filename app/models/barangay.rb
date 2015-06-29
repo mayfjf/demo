@@ -16,7 +16,7 @@ after_destroy :compute_area
 after_destroy :compute_infra
 	
 	belongs_to :people
-	has_many :zone
+	has_many :zone, dependent: :destroy
 	
 
 	validates :name, presence: true, :uniqueness => {:scope => :municipality_id}

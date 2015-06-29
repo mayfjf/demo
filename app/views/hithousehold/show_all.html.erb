@@ -1,0 +1,71 @@
+
+
+<%= stylesheet_link_tag "zone" %>
+<script>
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+
+<body>
+
+<div id="header">
+	
+<h1>Affected Household Listings </h1>
+</div>
+
+<div id="section"><center>
+ 
+
+
+<table class="tableContainer" cellspacing="80px"> 
+
+                
+  <tr  style="outline: thin solid" bgcolor="#C0C0C0">
+    <th height="50">DISASTER<br>ID</th>
+    <th height="50">ZONE<br>ID</th>
+    <th height="50">HOUSEHOLD<br>id</th>
+    <th height="50">NAME</th>
+    <th height="50" colspan="4">CONDITION</th>
+    
+  </tr>
+
+<% @hhh.all.each do |p| %>
+  <%hname = Household.find(p.household_id)%>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">
+  <td height="50" width="5%"><font size="2"><%= p.disaster_id%></font></td>
+  <td height="50" width="5%"><font size="2"><%= p.zone_id %></font></td>
+  <td height="50" width="5%"><font size="2"><%= p.household_id %></font></td>
+  <td height="50" width="10%"><font size="2"><%= hname.name %></font></td>
+  <td height="50" width="10%" align="center"><font size="2"><%=p.status%></font></td>
+   
+  
+  <td><%= button_to "Edit", {:controller => "hithousehold", :action => "edit", :id => p.id}, {:method=>:post} %></td>
+     
+  <td><%= link_to "Delete", hithousehold_delete_path(:hithousehold=>p.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
+  </tr>
+
+  
+<% end %>
+</table><br><br><br>
+
+ <h3>SUMMARY:</h3>
+  <table class="tableContainer" cellspacing="80px"> 
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+  <td height="50" width="25%"><b>TOTAL NUMBER OF AFFECTED HOUSEHOLDS:</b></td> 
+  <td height="50" width="25%"><%=@hhh.count%></td></tr>
+
+
+
+</table><br><br><center>
+
+  
+</div>
+

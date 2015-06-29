@@ -87,7 +87,7 @@ class BarangayController < ApplicationController
   private
 
       def barangay_params
-       params.require(:barangay).permit(:name, :people_id, :main_livelihood, :area, :municipality_id, :rescue_resources, :hazard_id, :population, :livestock, :agri, :commercial, :infra)
+       params.require(:barangay).permit(:name, :details, :people_id, :main_livelihood, :area, :municipality_id, :rescue_resources, :hazard_id, :population, :livestock, :agri, :commercial, :infra)
       end
 
 end

@@ -1,0 +1,87 @@
+<%= stylesheet_link_tag "zone" %>
+<script>
+
+  function makingSure(e) {
+   var r = window.confirm("The item that your are trying to delete may be connected to another item in the database. Are you sure you want to delete this item? Deleted items cannot be recovered." );
+   if (r==true){
+    return true;
+   }
+   else
+   e.preventDefault();
+}
+
+</script>
+
+<body>
+
+<div id="header">
+	
+<h1>Affected Zone Listings </h1>
+</div>
+
+<div id="section"><center>
+ 
+
+
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
+
+                
+  <tr>
+    <th height="50"><font size="2">DISASTER<br>ID</font></th>
+    <th height="50"><font size="2">DISASTER<br>DETAILS</font></th>
+    <th height="50"><font size="2">ZONE<br>ID</font></th>
+    <th height="50"><font size="2">NAME</font></th>
+    <th height="50"><font size="2">BARANGAY</font></th>
+    <th height="50"><font size="2">MUNICIPAL</font></th>
+    <th height="50"><font size="2">MAJOR<br> EFFECT</font></th>
+    <th height="50"><font size="2">SECONDARY<br> EFFECT</font></th>
+    <th height="50"><font size="2">MINOR<br> EFFECT</font></th>
+    <th height="50"><font size="2">DAMAGED<br>LIFELINE1</font></th>
+    <th height="50"><font size="2">DAMAGED<br>LIFELINE2</font></th>
+    <th height="50"><font size="2">DAMAGED<br>LIFELINE3</font></th>
+
+    
+  </tr>
+
+<% @hit.all.each do |p| %>
+  <%hname = Zone.find(p.zone_id)%>
+  <%b=Barangay.find(p.barangay_id)%>
+  <%m=Municipality.find(p.municipal_id)%>
+  <tr  style="outline: thin solid" bgcolor="#B0C4DE">
+  <td height="50" width="5%"><font size="2"><%= p.disaster_id%></font></td>
+  <%d=Disaster.find(p.disaster_id)%>
+  <td height="50" width="5%"><font size="2"><%= d.details %></font></td>
+  <td height="50" width="5%"><font size="2"><%= p.zone_id %></font></td>
+  <td height="50" width="10%"><font size="2"><%= hname.name %></font></td>
+  <td height="50" width="10%"><font size="2"><%= b.name %></font></td>
+  <td height="50" width="10%"><font size="2"><%= hname.name %></font></td>
+  <td height="50" width="10%"><font size="2"><%=p.effect1%></font></td>
+  <td height="50" width="10%"><font size="2"><%=p.effect2%></font></td>
+  <td height="50" width="10%"><font size="2"><%=p.effect3%></font></td>
+  <td height="50" width="10%"><font size="2"><%=p.dlifeline1%></font></td>
+  <td height="50" width="10%"><font size="2"><%=p.dlifeline2%></font></td>
+  <td height="50" width="10%"><font size="2"><%=p.dlifeline3%></font></td>
+   
+  
+  <td><%= button_to "Edit", {:controller => "hit", :action => "edit", :id => p.id}, {:method=>:post} %></td>
+     
+  <td><%= link_to "Delete", hithousehold_delete_path(:hithousehold=>p.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
+  </tr>
+
+  
+<% end %>
+</table><br><br><br>
+
+ <h3>SUMMARY:</h3>
+  <table class="tableContainer" cellspacing="80px"> 
+<tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
+  <td height="50" width="25%"><b>TOTAL NUMBER OF AFFECTED ZONES:</b></td> 
+  <td height="50" width="25%"><%=@hit.count%></td></tr>
+
+
+
+</table><br><br><center>
+
+  
+</div>
+

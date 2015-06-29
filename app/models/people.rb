@@ -5,14 +5,9 @@ after_save :compute_members
 after_destroy :compute_members
 before_save :compute_members
 
-
-after_save :compute_dead_zone
-before_save :compute_dead_zone
-after_destroy :compute_dead_zone
-
-
     has_one :municipality, dependent: :nullify
     has_one :barangay, dependent: :nullify
+    has_many :hitperson, dependent: :destroy
        
     
 
@@ -44,50 +39,7 @@ private
          end
     end
 
-     def compute_dead_zone
-     	
-     	x=People.group([:household_id, :condition]).count
-     	cc =Hit.all
-     	cc.all.each do |h|
-     	    hh = Household.where('zone_id = ?', h.zone_id)
-
-    	    @dead=0
-    	    @good=0
-  			@missing=0
-  			@injured=0
-  			@displaced=0
-  			@relocated=0
-
-    		hh.all.each do |y|
-     			d=x[[y.id,"Dead"]] || 0
-     			@dead = d+@dead 
-
-     			g=x[[y.id,"Good"]] || 0
-     			@good = g+@good
-
-     			m=x[[y.id,"Missing"]] || 0
-     			@missing = m+@missing 
-
-     			i=x[[y.id,"Injured"]] || 0
-     			@injured = i+@injured
-
-     			dis=x[[y.id,"Displaced"]] || 0
-     			@displaced = dis+@displaced
-
-     			r=x[[y.id,"Relocated"]] || 0
-     			@relocated = r+@relocated    
- 		    end
-    		
-    		h.dead = @dead
-    		h.good = @good
-    		h.missing = @missing
-    		h.injured = @injured
-    		h.displaced=@displaced
-    		h.relocated=@relocated
-
- 		    h.save
- 		end
-    end
+     
 
 
      

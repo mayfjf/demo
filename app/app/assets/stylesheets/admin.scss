@@ -1,0 +1,45 @@
+
+#header {
+    background-color:lightblue;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+#nav {
+    line-height:30px;
+    background-color:lightblue;
+    height:150%;
+    width:14%;
+    float:left;
+    padding:5px; 
+}
+
+#section {
+    width:85%;
+    float:left;
+    padding:10px; 
+    height:110%;
+    background-color:#FFF8DC;
+}
+#footer {
+    background-color:maroon;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px; 
+}
+
+hr {
+display: block;
+margin-before: 0.5em;
+margin-after: 0.5em;
+margin-start: auto;
+margin-end: auto;
+border-style: inset;
+border-width: 1px; 
+}
+
+h3 {
+    color: #00ff00;
+    font-family: "Arial", Times, Sans-serif;
+}

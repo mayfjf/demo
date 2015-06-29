@@ -4,30 +4,28 @@
 <div id="header">
 <h1>Zone <%=@hit.zone_id%> Status Report</h1>
 </div>
+<%@date=Disaster.joins(:hit).where('hits.disaster_id = ?', @hit.disaster_id)%>
+<%@zo = Zone.find(@hit.zone_id)%>
+<%@barangay= Barangay.joins(:zone).where(['zones.barangay_id = ?',@zo.barangay_id])%>
+<%@mun= Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@barangay[0].municipality_id])%>
+<%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id = ?',@date[0].hazard_id])%>
 
 <div id="section"><center>
-<%@hit_id = @hit.zone_id%>
-<%@date=Disaster.joins(:hit).where('hits.disaster_id = ?', @hit.disaster_id)%>
-<%@hh = Household.where('zone_id = ?', @hit.zone_id)%> 
-<%@zo =Zone.joins(:hit).where(['hits.zone_id = ?',@hit.zone_id])%>
-<%@barangay= Barangay.joins(:zone).where(['zones.barangay_id = ?',@zo[0].barangay_id])%>
-<%@mun= Municipality.joins(:barangay).where(['barangays.municipality_id = ?',@barangay[0].municipality_id])%>
-
-<%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id = ?',@date[0].hazard_id])%>
 
 <table>
   <tr>
-  <th width="10%"><b>Zone Name: <%=@zo[0].name%></b></th></tr>
+  <th width="10%"><b>Zone Name: <%=@zo.name%></b></th></tr>
   <tr>
   <th  width="10%"><b>Barangay: <%=@barangay[0].name%></b></th></tr>
   <tr>
   <th  width="10%"><b>Municipality: <%=@mun[0].name%></b></th></tr>
   <tr>
-  <th  width="10%"><b>Land Area: <%=@zo[0].area%> square km</b></th></tr>
+  <th  width="10%"><b>Land Area: <%=@zo.area%> square km</b></th></tr>
 	<tr>
 	<th  width="10%"><b>Date of Disaster: <%=@date[0].date%></b></th></tr>
   <tr>
   <th  width="10%"><b>Type of Disaster: <%=@date[0].hazard_id%> -  <%=@disaster[0].description%></b></th>
+  <th  width="10%"><b>Details of Disaster: <%=@date[0].details%></b></th>
 </tr></table><br>
 
 <table BORDER=4 CELLSPACING=4 CELLPADDING=4>
@@ -50,14 +48,14 @@
     <th height="50" width="10%" rowspan="2">HOUSEHOLD<br>ID</th>
     <th height="50" width="10%" rowspan="2">HOUSEHOLD<br>NAME</th>
     <th height="50" width="10%" rowspan="2">HOUSEHOLD<br>CONDITION</th>
-    <th height="50" width="10%" colspan="6" align="center">MEMBERS</th></tr>
+    <th height="50" width="10%" colspan="6" align="center">MEMBERS AFFECTED</th></tr>
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">  
     <th height="50" width="5%">FIRST<br>NAME</th>
     <th height="50" width="10%">LAST<br>NAME</th>
     <th height="50" width="10%">AGE</th>
     <th height="50" width="10%">GENDER</th>
     <th height="50" width="10%">DISABILITY</th>
-    <th height="50" width="10%">CONDITION</th>
+    <th height="50" width="10%">STATUS</th>
   </tr> 
        	    
 <%@dead_age1=0%><%@dead_age2=0%><%@dead_age3=0%><%@dead_age4=0%><%@dead_age5=0%> 
@@ -69,35 +67,39 @@
 <%@total_packs = 0%><%@total_bpacks = 0%>          	
 <%count = 0%>
 
-<% @hh.all.each do |y| %>
+
+<%@hhh = Hithousehold.where('zone_id = ? AND disaster_id=?', @hit.zone_id, @hit.disaster_id)%>
+
+<% @hhh.all.each do |y| %>
   
 
-    <%@pips = People.where('household_id = ?', y.id)%>
-    <%@age=@pips.group(:age,:condition).count%>
+    <%@pips = Hitperson.where('hithousehold_id = ? AND disaster_id=?', y.household_id, @hit.disaster_id)%>
+    <%@age=@pips.group(:age,:status).count%>
     <%@b1=@age[[0, "Relocated"]]||0%>
     <%@b2=@age[[1, "Relocated"]]||0%>
     <%@b3=@age[[2, "Relocated"]]||0%>
 	
-		<% @pips.all.each do |people| %>
+		<% @pips.all.each do |p| %>
     <tr  style="outline: thin solid" bgcolor="#B0C4DE">
-		  <td height="50" width="10%"><%= y.id %></td>
-      <td height="50" width="10%"><%= y.name %></td>
-      <td height="50" width="10%"><%= y.condition %></td>
-
+		  <td height="50" width="10%"><%= y.household_id %></td>
+      <%x=Household.find(y.household_id)%>
+      <td height="50" width="10%"><%= x.name %></td>
+      <td height="50" width="10%"><%= y.status%></td>
+      <%people=People.find(p.people_id)%>
 		  <td height="50" width="10%"><%= people.firstname %></td>
 		  <td height="50" width="10%"><%= people.familyname%></td>
 		  <td height="50" width="10%"><%= people.age%></td>
 		  <td height="50" width="10%"><%= people.gender%></td>
       <td height="50" width="10%"><%= people.disabilityinfo%></td>
-		  <td height="50" width="10%"><%= people.condition%></td>
+		  <td height="50" width="10%"><%= p.status%></td>
      
   </tr>
   
 	  <%end%>
   <tr  style="outline: thin solid" bgcolor="#FFF8DC">
 
-    <%if y.condition ==("Relocated")%>
-          <%@relief_packs=(y.count/5)%>
+    <%if y.status ==("Relocated")%>
+          <%@relief_packs=(@pips.count/5)%>
           <%if @relief_packs < 1%>
             <%@relief_packs = 1%>
           <%end%>
@@ -107,7 +109,7 @@
 
      <%@baby_packs=@b1+@b2+@b3%>
 
-      <td height="50" width="10%" colspan="2">Members Count: <%=y.count%></td>
+      <td height="50" width="10%" colspan="2">Members affected Count: <%=@pips.count%></td>
       <td height="50" width="10%" colspan="4">Standard Relief Packs: <%=@relief_packs%></td>
       <td height="50" width="10%" colspan="3">Baby Relief Packs: <%=@baby_packs%></td>
 
@@ -162,7 +164,7 @@
 
 </tr>
 <%end%>
-    <%@hcond=@hh.group(:condition).count%>
+    <%@hcond=@hhh.group(:status).count%>
 </table>
 
 <table class="tableContainer" cellspacing="80px" BORDER=4 text-align="center">
@@ -188,16 +190,14 @@
     <th height="50"  width="5%">DEAD:</th>
     <th height="50"  width="5%">INJURED:</th>
     <th height="50"  width="5%">MISSING:</th>
-    <th height="50"  width="5%">UNAFFECTED:</th>
   </tr>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
-    <td height="50"  width="5%"><%=@hh.count%></td>
+    <td height="50"  width="5%"><%=@hhh.count%></td>
     <td height="50"  width="5%"><%=@hcond["Relocated"] || 0 %></td>
     <td height="50"  width="5%"><%=@hcond["Displaced"] || 0 %></td>
     <td height="50"  width="5%"><%=@hcond["Dead"] || 0 %></td>
     <td height="50"  width="5%"><%=@hcond["Injured"] || 0 %></td>
     <td height="50"  width="5%"><%=@hcond["Missing"] || 0 %></td>
-    <td height="50"  width="5%"><%=@hcond["Good"] || 0 %></td>
   </tr>
 </table>
 
@@ -265,10 +265,6 @@
   <th height="35" width="10000" bgcolor="#B0C4DE"><%=(@hit.dead || 0 )+(@hit.missing || 0)+(@hit.injured || 0)+(@hit.displaced || 0)+(@hit.relocated || 0)+(@hit.good || 0)%></th></tr> 
 
 <tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
-  <th height="35" width="10%" bgcolor="#B0C4DE"><b>UNAFFECTED:</b></th>
-  <th height="35" width="10%" bgcolor="#B0C4DE"> <%=(@hit.good || 0)%></th></tr>
-
-<tr  style="outline: thin solid" bgcolor="#B0C4DE"> 
   <th height="35" width="10%"><b>DEAD:</b></th>
   <th height="35" width="10%" bgcolor="#B0C4DE"> <%=(@hit.dead || 0)%></th></tr>
 
@@ -295,19 +291,19 @@
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">     
     <th height="50" width="10%"><b>LIVESTOCK :</b></th>
     <td height="50" width="10%" bgcolor="#B0C4DE"><%=@hit.livestock %> Percent</td>
-    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue1=@zo[0].livestock*(@hit.livestock/100)%> Pesos</td></tr>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue1=@zo.livestock*(@hit.livestock/100)%> Pesos</td></tr>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">  
     <th height="50" width="10%" ><b>AGRICULTURE:</b></th>
     <td height="50" width="10%" bgcolor="#B0C4DE"><%=@hit.agri %> Percent</td>
-    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue2=@zo[0].agri*(@hit.agri/100)%> Pesos</td></tr>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue2=@zo.agri*(@hit.agri/100)%> Pesos</td></tr>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">  
     <th height="50" width="10%" ><b>COMMERCE/TRADE:</b></th>
     <td height="50" width="10%" bgcolor="#B0C4DE"><%=@hit.commerce %> Percent</td>
-    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue3=@zo[0].commercial*(@hit.commerce/100)%> Pesos</td></tr>
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue3=@zo.commercial*(@hit.commerce/100)%> Pesos</td></tr>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">  
     <th height="50" width="10%" ><b>INFRASTRUCTURE:</b></th>
     <td height="50" width="10%" bgcolor="#B0C4DE"><%=@hit.infra %> Percent</td>
-    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue4=@zo[0].infra*(@hit.infra/100)%> Pesos</td></tr> 
+    <td height="50" width="10%" bgcolor="#B0C4DE"><%=@lvalue4=@zo.infra*(@hit.infra/100)%> Pesos</td></tr> 
   <tr  style="outline: thin solid" bgcolor="#B0C4DE">  
     <th height="50" width="10%" colspan="2"><b>TOTAL:</b></th>
     <td height="50" width="10%" bgcolor="#B0C4DE"><%=@tot = @lvalue1+@lvalue2+@lvalue3+@lvalue4 %> Pesos</td>

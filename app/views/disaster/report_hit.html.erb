@@ -8,22 +8,23 @@
 <div id="section"><center>
  
 <%= link_to "Create New Record", disaster_new_path, class: "btn btn-default" %><br><br>
- <table class="tableContainer" cellspacing="80px">                     
+ <table BORDER=4 CELLSPACING=4 CELLPADDING=4>                     
   <tr  style="outline: thin solid" bgcolor="#C0C0C0" >
 
-    <th height="50" align="center" width="20%">DISASTER<br>ID</th>
-    <th height="50" align="center" width="20%">HAZARD<br>ID</th>
-    <th height="50" align="center" width="20%">HAZARD<br>TYPE</th>
+    <th height="50" align="center" width="5%">DISASTER<br>ID</th>
+    <th height="50" align="center" width="5%">HAZARD<br>ID</th>
+    <th height="50" align="center" width="10%">HAZARD<br>TYPE</th>
+    <th height="50" align="center" width="20%">DETAILS</th>
     <th height="50" align="center" width="20%" colspan="3">DATE/TIME </th>
   </tr>
 <% @d.all.each do |dis| %>
   <tr  style="outline: thin solid" bgcolor="#B0C4DE" >
-  <td height="50" width="20%" ><%= dis.id %></td>
-  <td height="50" width="20%" ><%= dis.hazard_id %></td>
+  <td height="50" width="5%" ><%= dis.id %></td>
+  <td height="50" width="5%" ><%= dis.hazard_id %></td>
     
   <%@disaster = Hazard.joins(:disaster).where(['disasters.hazard_id = ?',dis.hazard_id])%>
-  <td height="50" width="20%"><%=@disaster[0].description%></td>
-
+  <td height="50" width="10%"><%=@disaster[0].description%></td>
+  <td height="50" width="20%"><%=dis.details%></td>
   <td height="50" width="20%"><%= dis.date %></td>
   
   

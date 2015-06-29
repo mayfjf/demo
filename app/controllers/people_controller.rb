@@ -31,9 +31,7 @@ def index
     if @key=="Household_ID"
         @p=People.where("household_id = ?", @value)
     end
-    if @key=="Condition"
-        @p=People.where("condition like ?", @value)
-    end
+    
     if @key=="Family_name"
         @p=People.where("familyname like ?", @value)
     end 
@@ -51,6 +49,18 @@ end
     @p=People.where("household_id = ?", @value)
     render "show"
   end
+
+  def searchp
+    @h = params[:id1]
+    @disaster_id = params[:id3]
+    @p=People.where("household_id = ?", @h)
+    render "show_affected_people"
+  end
+
+  def show_affected_people
+    @p = People.all
+  end
+
 
   def delete
     if !params[:people].blank?
@@ -101,6 +111,6 @@ end
   private
 
       def people_params
-       params.require(:people).permit(:firstname, :middlename, :familyname, :birthdate, :civilstatus, :occupation, :contactnum, :disabilityinfo, :household_id, :condition, :email, :gender, :age)
+       params.require(:people).permit(:firstname, :middlename, :familyname, :birthdate, :civilstatus, :occupation, :contactnum, :disabilityinfo, :household_id, :email, :gender, :age)
       end
 end

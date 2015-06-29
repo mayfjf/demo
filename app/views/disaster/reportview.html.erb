@@ -1,13 +1,20 @@
 <%= stylesheet_link_tag "zone" %>
+<div class="container">
 <script>
-  function myFunction() {
-   window.alert("Instruction to print: Click Google Chrome Control Button (upper right corner). Click Print. At the Destination Setting, Change to either Save as PDF or select a printer setting." );
+
+
+  function makingSure(e) {
+   var r = window.confirm("Creating a final copy for this disaster record will be permanent. You cannot save another copy for this record again. Would you like to proceed?" );
+   if (r==true){
+    return true;
    }
+   else
+   e.preventDefault();
+}
 
 </script>
-<body onload="myFunction()">
+<body>
 
-<div class="container">
 <div id="header">
 <h1>Disaster Report</h1>
 </div>
@@ -32,16 +39,9 @@
 <%@dis_age1=0%><%@dis_age2=0%><%@dis_age3=0%><%@dis_age4=0%><%@dis_age5=0%>
 <%@rel_age1=0%><%@rel_age2=0%><%@rel_age3=0%><%@rel_age4=0%><%@rel_age5=0%> 
 
-          
-<%count = 0%>
-
-<% @hit.all.each do |y| %>
-  
-    <%@hh = Household.where('zone_id = ?',y.zone_id)%>
-
-    <% @hh.all.each do |x| %>
-        <%@pips = People.where('household_id = ?', x.id)%>
-        <%@age=@pips.group(:age,:condition).count%>    
+    <%@pips = Hitperson.where('disaster_id = ?', @d.id)%>      
+         
+        <%@age=@pips.group(:age,:status).count%>    
         
     
         <%for @i in 0..2 %>
@@ -87,10 +87,7 @@
         <%@rel_age5=@rel_age5+(@age[[@i,"Relocated"]] || 0)%>
        
       <%end%>
-  <%end%>
-
-<%end%>
-    
+     
 
 <%m= @hit.distinct.count(:municipal_id)%>
 <h3>MUNICIPALITIES AFFECTED: <%=m%></h3>
@@ -226,8 +223,11 @@
 </table>
 <table BORDER=4 CELLSPACING=4 CELLPADDING=4>
   <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-  <th height="50" width="20%" colspan="3">TOTAL NUMBER OF HOUSEHOLD:</th>  
+  <th height="50" width="20%" colspan="2">TOTAL NUMBER OF HOUSEHOLD:</th>  
   <th height="50" width="20%"><%=@total_hh%></th>
+  <th height="50" width="20%" colspan="2">TOTAL NUMBER OF HOUSEHOLD AFFECTED:</th>
+  <%hhcount = Hithousehold.where('disaster_id=?',@d.id)%>  
+  <th height="50" width="20%"><%=hhcount.count%></th>
   <th height="50" width="20%" colspan="3">TOTAL AREA AFFECTED:</th>  
   <th height="50" width="20%"><%=@total_area%></th>
 </tr>
@@ -264,13 +264,16 @@
       <%@r=@r+(y.relocated||0)%>
       <%@go=@go+(y.good||0)%>
   </tr><%end%> 
+</table>
+      
+<table BORDER=4 CELLSPACING=4 CELLPADDING=4>
    <tr  style="outline: thin solid" bgcolor="#C0C0C0">
-    <th height="50" width="10%">Human loss /affected due<br> to disaster caused by vulnerability<br> to natural hazards</th>
-    <th height="50" width="10%"><%=@dx%></th>
-    <th height="50" width="10%"><%=@m%></th>
-    <th height="50" width="10%"><%=@i%></th>
-    <th height="50" width="10%"><%=@dis%></th>
-    <th height="50" width="10%"><%=@r%></th>
+    <th height="50" width="5.5%">Human loss /affected due to disaster caused by vulnerability to natural hazards</th>
+    <th height="50" width="5.5%"><%=@dx%></th>
+    <th height="50" width="5.5%"><%=@m%></th>
+    <th height="50" width="5.5%"><%=@i%></th>
+    <th height="50" width="5.5%"><%=@dis%></th>
+    <th height="50" width="5.5%"><%=@r%></th>
   </tr>
 </table>
 
@@ -378,7 +381,8 @@
     <th height="50" width="5%"><%=@c%> Pesos</th>
     <th height="50" width="5%"><%=@ix%> Pesos</th>
   </tr>
-</table></center><br><br><br><br><br><br><br><br><br>
+</table><br><br><br>
+</center>
 <font size="2">Ready for Dissemination:<br><br><br><br><br>
 
 <b>MRS. TERESITA SIASON</b><br>

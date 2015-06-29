@@ -12,14 +12,20 @@ class HitController < ApplicationController
   end
 
  def show
+    @value = params[:id]
     @hit = Hit.all
  end
 
  def show_only
+    @value = params[:id]
     @hit = Hit.all
  end
 
-  def create
+def show_all
+    @hit = Hit.all
+ end
+
+ def create
        @hit = Hit.new(hit_params)
 
       if @hit.save
@@ -28,17 +34,19 @@ class HitController < ApplicationController
           flash[:notice] = @hit.errors.full_messages
           
       end
-      @hit = Hit.where('zone_id = ?', @hit.zone_id)
+      @hit = Hit.where('zone_id=? AND disaster_id=?', @hit.zone_id, @hit.disaster_id)
       render "show_user_view"
   end
 
    def delete
     if !params[:hit].blank?
       @hit= Hit.find(params[:hit])
+      disvalue = @hit.disaster_id
       @hit.destroy
       flash[:notice] = "Affected Zone Record was deleted."
     end
-    @hit = Hit.all
+    @value = disvalue
+    @hit=Hit.where("disaster_id = ?", @value)
     render "show"
   end
 
@@ -47,8 +55,6 @@ class HitController < ApplicationController
     @hit=Hit.where("disaster_id = ?", @value)
     render "show"
   end
-
-  
 
   def savetable
       if !params[:id].blank?
@@ -63,26 +69,7 @@ class HitController < ApplicationController
 
   def report
      if !params[:id].blank?
-     @hit= Hit.find(params[:id])
-     @z = params[:zone]
-     @date = params[:date]     
-     @type = params[:type]
-     @zone_name = params[:zone_name]
-     @bar = params[:bar]
-     @mun = params[:mun]
-     @ef1 = params[:ef1]
-     @ef2 = params[:ef2]
-     @ef3 = params[:ef3]
-     @dam1 = params[:dam1]
-     @dam2 = params[:dam2]
-     @dam3 = params[:dam3]
-
-
-     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @d }
-      format.pdf { render :layout => false } # Add this line
-    end
+       @hit= Hit.find(params[:id])
      end
   end
 
