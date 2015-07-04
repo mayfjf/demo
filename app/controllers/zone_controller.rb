@@ -65,7 +65,7 @@ end
       if !params[:id].blank?
         @z= Zone.find(params[:id])
         @z.update_attributes(zone_params)
-        flash[:notice] = "New Zone Data was saved"
+        flash[:notice] = "New Zone Data was updated and saved"
       else
         flash[:notice] = "ID not found"
       end

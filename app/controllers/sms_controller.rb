@@ -7,11 +7,13 @@ class SmsController < ApplicationController
      @hid=params[:id]
      @num=params[:value3]
      @zid = params[:value2]
+     @msg = params[:msg]
+     @pn = params[:pn]
 
     RestClient.post('http://api.semaphore.co/api/sms',
         { api:'ApDd7oUU35arXxQguhuV',
           number:@num,
-          message: %Q[Alert message: Your team is expected to respond urgently.Disaster has hit zone #{@zid}. Thank you -- PDRRMC Guimaras],
+          message: %Q[Alert message: Your team is expected to respond urgently.Disaster has hit zone #{@zid}.PRIORITY: #{@pn}. #{@msg}.Thank you -- PDRRMC Guimaras],
           from:'Guimaras PDRRMC'})  
     flash[:notice] = %Q[SMS has been successfully sent to #{@dept}!] 
     redirect_to url_for(:controller => :hit, :action => :support, :id => @hid)

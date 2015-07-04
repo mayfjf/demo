@@ -56,7 +56,7 @@
                 <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th>
 
-              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id, :msg => n.description, :pn => n.priority},{:method=>:post} %></th>
       <%end%>
 
     <%else%>
@@ -83,7 +83,7 @@
               <th width="20%">Mobilize  
                 <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>    <%=@num=@agency[0].contactnum%></th></th>
-              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post}%></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id, :msg => n.description, :pn => n.priority},{:method=>:post}%></th>
               
           
         <%end%>
@@ -112,7 +112,7 @@
               <th width="20%">Mobilize 
                 <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
-              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id, :msg => n.description, :pn => n.priority},{:method=>:post} %></th>
               
           
         <%end%>
@@ -140,7 +140,7 @@
               <th width="20%">Mobilize  
                 <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
-              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id, :msg => n.description, :pn => n.priority},{:method=>:post} %></th>
               
           
         <%end%>
@@ -169,7 +169,7 @@
               <th width="20%">Mobilize 
                 <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
-              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id, :msg => n.description, :pn => n.priority},{:method=>:post} %></th>
           
         <%end%>
     <%else%>
@@ -196,7 +196,7 @@
               <th width="20%">Mobilize 
                 <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
-              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id, :msg => n.description, :pn => n.priority},{:method=>:post} %></th>
               
           
         <%end%>
@@ -224,7 +224,7 @@
               <th width="20%">Mobilize 
                 <%@agency = Agency.joins(:need).where(['needs.agency_id = ?',n.agency_id])%>
                 <%=@agency[0].name%>     <%=@num=@agency[0].contactnum%></th></th>
-              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id},{:method=>:post} %></th>
+              <th width="20%"><%= button_to "SEND SMS", {:controller => "sms", :action => "alert",:value1 => @agency[0].name, :id => @hit.id, :value3 => @num, :value2 => @hit.zone_id, :msg => n.description, :pn => n.priority},{:method=>:post} %></th>
               
           
         <%end%>
