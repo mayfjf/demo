@@ -44,7 +44,7 @@ def edit
     end
   end  
 
-def edituser
+def edit_user
     if !params[:id].blank?
       @r= Route.find(params[:id])
     end
