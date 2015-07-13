@@ -66,6 +66,8 @@
   <table class="tableContainer" cellspacing="80px"> 
     <tr  style="outline: thin solid" bgcolor="#C0C0C0" >   
     <td height="50" width="25%"><b>TOTAL NUMBER OF RECORDS :<%=@p.count%></b></td> 
+    <td height="50" width="25%"><b>TOTAL NUMBER OF LIVING :<%=@p.where("condition LIKE ?", "Alive").count%></b></td>
+    <td height="50" width="25%"><b>TOTAL NUMBER OF DEAD :<%=@p.where("condition LIKE ?", "Dead").count%></b></td>  
   </tr></table><br><br></center>
 
   
