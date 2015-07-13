@@ -4,6 +4,8 @@ after_save :compute_dead_zone
 before_save :compute_dead_zone
 after_destroy :compute_dead_zone
 
+before_save :update_people_condition
+
 
 validates :hithousehold_id, presence: true
 validates :disaster_id, presence: true, :uniqueness => {:scope => :people_id}
@@ -56,5 +58,18 @@ def compute_dead_zone
 
  		    h.save
  		end
+    end
+
+
+    def update_people_condition
+        if self.status == 'Dead'
+                p = People.find(self.people_id)
+                p.condition = 'Dead'
+                p.save
+        else
+                p = People.find(self.people_id)
+                p.condition = 'Alive'
+                p.save
+        end
     end
 end

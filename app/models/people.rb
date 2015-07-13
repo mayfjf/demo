@@ -30,17 +30,13 @@ private
 
     def compute_members
 		
-		x = People.group("household_id").count
+		x = People.group("household_id", "condition").count
         @y = Household.all
 		@y.all.each do |p|
         	ag =Household.find(p.id)
-            ag.count = (x[p.id] || 0)
+            ag.count = (x[[p.id,"Alive"]] || 0)
             ag.save
          end
     end
 
-     
-
-
-     
 end

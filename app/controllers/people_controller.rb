@@ -53,7 +53,7 @@ end
   def searchp
     @h = params[:id1]
     @disaster_id = params[:id3]
-    @p=People.where("household_id = ?", @h)
+    @p=People.where("household_id = ? AND condition LIKE ?", @h, "Alive")
     render "show_affected_people"
   end
 
@@ -111,6 +111,6 @@ end
   private
 
       def people_params
-       params.require(:people).permit(:firstname, :middlename, :familyname, :birthdate, :civilstatus, :occupation, :contactnum, :disabilityinfo, :household_id, :email, :gender, :age)
+       params.require(:people).permit(:firstname, :middlename, :familyname, :birthdate,:condition,:civilstatus, :occupation, :contactnum, :disabilityinfo, :household_id, :email, :gender, :age)
       end
 end
