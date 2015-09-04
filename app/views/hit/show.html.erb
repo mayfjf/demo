@@ -52,8 +52,6 @@
   <td><%= button_to "Edit", {:controller => "hit", :action => "edit", :id => hit.id}, {:method=>:post} %></td>
   <td><%= button_to "Add Affected Households", {:controller => "household", :action => "searchhh", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
   <td><%= button_to "View Affected Households", {:controller => "hithousehold", :action => "show", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td><br>
-  <td><%= button_to "Add Affected Non Residents", {:controller => "hithousehold", :action => "show", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
-  <td><%= button_to "View Affected Non Residents", {:controller => "hithousehold", :action => "show", :id1 => hit.zone_id,:id2 => @value}, {:method=>:post} %></td>
   <td><%= button_to "Open Report",{:controller => "hit", :action => "report", :id => hit.id} , {:method=>:post}%></td>
   <td height="50" width="25%"></td>
   <td><%= link_to "Delete", hit_delete_path(:hit=>hit.id), method: :delete, class:'btn btn-mini btn-danger',:onclick => "makingSure(event)"%></td>
